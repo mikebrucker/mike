@@ -1,0 +1,34 @@
+// z-indexes
+$z-header: 100;
+$z-subheader: 90;
+$z-header-menu: 5;
+$z-header-menu-button: 10;
+
+$z-stars: 10;
+$z-star: 1;
+$z-earth: 30;
+$z-moon-front: 35;
+$z-moon-back: 25;
+
+// breakpoints
+$bp-desktop: 1024.49px;
+$bp-tablet: 1024.48px;
+$bp-mobile: 512.49px;
+
+@mixin desktop { @media screen and (min-width: $bp-desktop) { @content; }}
+@mixin tablet { @media screen and (max-width: $bp-tablet) { @content; }}
+@mixin mobile { @media screen and (max-width: $bp-mobile) { @content; }}
+
+// main
+$color: cornsilk;
+$bg-color1: lightseagreen;
+$bg-color2: darkslategray;
+$bg-block1: mediumseagreen;
+$bg-block2: seagreen;
+$border-color: lightseagreen;
+$active-border: lime;
+
+// nav
+$nav-height: 64px;
+$nav-link: $color;
+$nav-mobile-width: 420px;

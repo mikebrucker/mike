@@ -1,0 +1,13 @@
+{
+  "short_name": "Mike Brucker",
+  "name": "Mike Brucker",
+  "icons": [
+    {
+      "src": "favicon.ico"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3CB371",
+  "background_color": "#3CB371"
+}

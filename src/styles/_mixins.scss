@@ -1,0 +1,111 @@
+@import "./values";
+
+@mixin scrollbar {
+	&::-webkit-scrollbar {
+    width: 6px;
+		height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: palegreen;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: seagreen;
+  }
+}
+
+@mixin navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: $nav-height;
+  padding: 0 16px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+@mixin no-select {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin click {
+  @include no-select;
+  cursor: pointer;
+}
+
+@mixin pokebutton($bg-color, $border-color: black, $font-color: white) {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  top: 1px;
+  padding: 0 16px;
+  font-weight: bold;
+  border: 1px solid $border-color;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  color: $font-color;
+  background-color: $bg-color;
+  background: linear-gradient(to right,
+                darken($bg-color, 20%) 10%,
+                $bg-color 16%,
+                $bg-color 32%,
+                lighten($bg-color, 8%) 50%,
+                $bg-color 68%,
+                $bg-color 84%,
+                darken($bg-color, 20%) 90%
+              );
+  box-shadow: 0px -1px 0 -1px desaturate(lighten($bg-color, 16%), 40%),
+              0px -4px 0 -3px desaturate(lighten($bg-color, 16%), 40%),
+              0px -7px 0 -5px desaturate(lighten($bg-color, 16%), 40%),
+              0px -10px 0 -7px desaturate(lighten($bg-color, 16%), 40%),
+              0px -13px 0 -9px desaturate(lighten($bg-color, 16%), 40%),
+              0px -1px 0 0 black,
+              0px -4px 0 -2px black,
+              0px -7px 0 -4px black,
+              0px -10px 0 -6px black,
+              0px -13px 0 -8px black,
+              0 3px 1px -1px rgba(0, 0, 0, 0.25);
+  transition: all 0.1s ease-in-out;
+
+  &:active {
+    top: -2px;
+    box-shadow: 0px -7px 0 -7px desaturate(lighten($bg-color, 16%), 40%),
+                0px -10px 0 -9px desaturate(lighten($bg-color, 16%), 40%),
+                0px -7px 0 -6px black,
+                0px -10px 0 -8px black,
+                0 1px 1px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@mixin gel-button($gb-bg-color: $bg-block1, $gb-border: $border-color, $active-border: outset) {
+  border-radius: 9px;
+  border: 6px outset $gb-border;
+  background-color: $gb-bg-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: border-color 0.618s;
+  transition: border-style 0.618s;
+
+  @if $active-border != outset{
+    &:active {
+      border-style: inset;
+    }
+  }
+}

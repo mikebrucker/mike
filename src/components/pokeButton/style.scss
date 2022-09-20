@@ -1,0 +1,119 @@
+@import "../../styles/mixins";
+
+@mixin pokebutton($bg-color, $border-color: black, $font-color: white) {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  top: 1px;
+  padding: 0 16px;
+  font-weight: bold;
+  border: 1px solid $border-color;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  color: $font-color;
+  background-color: $bg-color;
+  background: linear-gradient(to right,
+                darken($bg-color, 20%) 10%,
+                $bg-color 16%,
+                $bg-color 32%,
+                lighten($bg-color, 8%) 50%,
+                $bg-color 68%,
+                $bg-color 84%,
+                darken($bg-color, 20%) 90%
+              );
+  // box-shadow: 0px -1px 0 -1px desaturate(lighten($bg-color, 16%), 40%),
+  //             0px -4px 0 -3px desaturate(lighten($bg-color, 16%), 40%),
+  //             0px -7px 0 -5px desaturate(lighten($bg-color, 16%), 40%),
+  //             0px -10px 0 -7px desaturate(lighten($bg-color, 16%), 40%),
+  //             0px -13px 0 -9px desaturate(lighten($bg-color, 16%), 40%),
+  //             0px -1px 0 0 black,
+  //             0px -4px 0 -2px black,
+  //             0px -7px 0 -4px black,
+  //             0px -10px 0 -6px black,
+  //             0px -13px 0 -8px black,
+  //             0 3px 1px -1px rgba(0, 0, 0, 0.25);
+  transition: all 0.1s ease-in-out;
+
+  &:active {
+    top: -2px;
+    // box-shadow: 0px -7px 0 -7px desaturate(lighten($bg-color, 16%), 40%),
+    //             0px -10px 0 -9px desaturate(lighten($bg-color, 16%), 40%),
+    //             0px -7px 0 -6px black,
+    //             0px -10px 0 -8px black,
+    //             0 1px 1px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.c-poke-button {
+	position: relative;
+  display: flex;
+	flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+	padding: 0;
+	background-color: transparent;
+	border: none;
+	color: white;
+	@include click;
+	top: 0;
+	transition: all 0.1s;
+
+	> div {
+		transition: all 0.1s;
+	}
+
+	> div:nth-of-type(1) {
+		background-color: beige;
+		height: 1px;
+		width: 60%;
+		box-shadow: 0 0 0 2px black;
+	}
+
+	> div:nth-of-type(2) {
+		width: 100%;
+		border-bottom: 3px solid lighten(desaturate(red, 30%), 10%);
+		border-bottom-width: 3px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+		box-shadow: 0 0 0 2px black;
+	}
+
+	> div:nth-of-type(3) {
+		text-align: center;
+		padding: 8px 16px;
+		border-top: 1px solid darken(red, 20%);
+		border-bottom-left-radius: 2px;
+		border-bottom-right-radius: 3px;
+		background-color: red;
+		background: linear-gradient(to right,
+									darken(red, 20%) 10%,
+									red 16%,
+									red 32%,
+									lighten(red, 8%) 50%,
+									red 68%,
+									red 84%,
+									darken(red, 20%) 90%
+								);
+		box-shadow: 0 0 0 2px black;
+
+		@include tablet {
+			width: 100%;
+		}
+	}
+
+
+	&:active {
+		top: -2px;
+
+		> div:nth-of-type(1) {
+			height: 0;
+		}
+
+		> div:nth-of-type(2) {
+			border-bottom-width: 1px;
+		}
+	}
+}

@@ -1,0 +1,79 @@
+@import "../../styles/colors";
+
+$line-width: 4px;
+$num-line-length: 16px;
+$let-v-line-length: 16px;
+$let-h-line-length: 10px;
+
+.c-digital {
+	padding: 0 $line-width;
+	background-color: $scoreboard-bg;
+
+	> div {
+		font-size: 0;
+		display: inline-block;
+		padding: $line-width;
+		text-align: center;
+
+		.line {
+			background-color: $scoreboard-line;
+			display: inline-block;
+			border-radius: $line-width;
+			z-index: 1;
+			position: relative;
+
+			&.active {
+				z-index: 2;
+				background-color: orangered;
+			}
+		}
+	}
+
+	&-number{
+		.line {
+			&-h { // horizontal
+				width: $num-line-length;
+				height: $line-width;
+			}
+
+			&-v { // vertical
+				width: $line-width;
+				height: $num-line-length;
+
+				&:first-of-type {
+					margin-right: $num-line-length;
+				}
+			}
+		}
+	}
+
+	&-letter{
+		.line {
+			&-h { // horizontal
+				width: $let-h-line-length;
+				height: $line-width;
+				margin: 0 calc($line-width / 4);
+			}
+
+			&-v { // vertical
+				width: $line-width;
+				height: $let-v-line-length;
+
+				&:not(:last-of-type) {
+					margin-right: calc($line-width / 2);
+				}
+
+
+				&.angle {
+					&-a {
+						transform: rotate(-28deg);
+					}
+
+					&-b {
+						transform: rotate(28deg);
+					}
+				}
+			}
+		}
+	}
+}

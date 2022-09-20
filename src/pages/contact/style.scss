@@ -1,0 +1,9 @@
+.p-contact {
+  > div {
+    padding-bottom: 16px;
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+}
