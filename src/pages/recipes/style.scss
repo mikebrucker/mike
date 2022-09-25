@@ -6,6 +6,10 @@
 		@include gel-button;
 		align-items: flex-start;
 
+		@include mobile {
+			align-items: center;
+		}
+
 		a {
 			@include gel-button($active-border: inset);
 			padding: 8px 16px;

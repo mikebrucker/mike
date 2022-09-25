@@ -28,7 +28,11 @@
 	&-nav {
 		@include navbar;
 		@include gel-button;
-		align-items: center;
+		align-items: flex-start;
+
+		@include mobile {
+			align-items: center;
+		}
 
 		a {
 			@include gel-button($active-border: inset);
