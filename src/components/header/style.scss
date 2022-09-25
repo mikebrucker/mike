@@ -81,7 +81,7 @@
     top: 0;
     left: 0;
     z-index: $z-header;
-    background-color: seagreen;
+    background-color: $bg-block2;
     background: linear-gradient(to right, $bg-block1, $bg-block2);
     overflow: hidden;
 
@@ -131,7 +131,7 @@
         z-index: $z-header-menu - 1;
         background-color: rgba(60, 179, 114, 0.382);
         backdrop-filter: blur(3px);
-        transition: opacity 1.618s;
+        transition: opacity 0.618s;
 
         &.is-open {
           opacity: 1;
@@ -141,7 +141,7 @@
           opacity: 0;
 
           @keyframes close { 0% { visibility: visible; } 100% { visibility: hidden; } }
-          animation: close 1.618s ease-in-out;
+          animation: close 0.618s ease-in-out;
 
           @include mobile {
             animation-duration: 0.382s;
@@ -254,8 +254,8 @@
   &-subheader {
     @include navbar;
     z-index: $z-subheader;
-    background-color: darkseagreen;
-    background: linear-gradient(to right, lightgreen, darkseagreen);
+    background-color: $sub-bg-color2;
+    background: linear-gradient(to right, $sub-bg-color1, $sub-bg-color2);
     margin-top: -$nav-height;
     transition: margin-top 0.618s ease-in-out;
 

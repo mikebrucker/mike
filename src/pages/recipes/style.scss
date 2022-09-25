@@ -1,6 +1,27 @@
+@import "../../styles/mixins";
+
 .p-recipes {
-	&-instructions {
+	&-nav {
+		@include navbar;
+		@include gel-button;
+		align-items: flex-start;
+
+		a {
+			@include gel-button($active-border: inset);
+			padding: 8px 16px;
+		}
+	}
+
+	&-list {
 		display: inline-block;
 		text-align: left;
+
+	}
+
+	&-detail {
+		&-steps {
+			display: inline-block;
+			text-align: left;
+		}
 	}
 }

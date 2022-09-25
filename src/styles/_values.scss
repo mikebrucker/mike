@@ -1,3 +1,5 @@
+@import "./colors";
+
 // z-indexes
 $z-header: 100;
 $z-subheader: 90;
@@ -18,15 +20,6 @@ $bp-mobile: 512.49px;
 @mixin desktop { @media screen and (min-width: $bp-desktop) { @content; }}
 @mixin tablet { @media screen and (max-width: $bp-tablet) { @content; }}
 @mixin mobile { @media screen and (max-width: $bp-mobile) { @content; }}
-
-// main
-$color: cornsilk;
-$bg-color1: lightseagreen;
-$bg-color2: darkslategray;
-$bg-block1: mediumseagreen;
-$bg-block2: seagreen;
-$border-color: lightseagreen;
-$active-border: lime;
 
 // nav
 $nav-height: 64px;

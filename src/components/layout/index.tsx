@@ -18,9 +18,9 @@ export const Layout = observer(() => {
 
   useEffect(() => {
     if (pl && ll && pl !== ll) {
-      navigate(LANGUAGE_CODES.includes(pl as Language) ? pathname.replace(pl, ll) : ll + pathname);
+      navigate(LANGUAGE_CODES.includes(pl as Language) ? pathname.replace(pl, ll) : "/" + ll + pathname);
     }
-  }, [ll]);
+  }, [ll, pl]);
 
   return (
     <>

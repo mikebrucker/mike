@@ -10,10 +10,8 @@
 		gap: 16px;
 
 		.game-card {
-			@include gel-button($gb-border: yellowgreen, $active-border: inset);
+			@include gel-button($active-border: inset);
 			max-width: 288px;
-			background-color: darkolivegreen;
-			background: linear-gradient(to right, olivedrab, darkolivegreen);
 
 			h6 {
 				padding: 12px 8px 8px;
@@ -21,7 +19,7 @@
 
 			> div {
 				font-size: 14px;
-				border-top: 2px solid yellowgreen;
+				border-top: 2px solid $bg-color1;
 				padding: 8px 8px 12px;
 			}
 		}
@@ -29,17 +27,12 @@
 
 	&-nav {
 		@include navbar;
-		@include gel-button(darkolivegreen, yellowgreen);
-
-		min-height: 48px;
-		justify-content: center;
-		background: linear-gradient(to right, olivedrab, darkolivegreen);
+		@include gel-button;
+		align-items: center;
 
 		a {
-			@include gel-button(darkgreen, greenyellow, $active-border: inset);
+			@include gel-button($active-border: inset);
 			padding: 8px 16px;
-			background: linear-gradient(to right, forestgreen, darkgreen);
-			color: greenyellow;
 		}
 	}
 
