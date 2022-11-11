@@ -9,9 +9,17 @@ import { RecipeDetail } from "./pages/recipes/recipeDetail";
 import { Games } from "./pages/games";
 import { RPS } from "./pages/games/rps";
 import { Layout } from "./components/layout";
-import { DEFAULT_LANGUAGE, l10n } from "./core/l10n";
+import { l10n } from "./core/l10n";
+import { DEFAULT_LANGUAGE } from "./interfaces/Language";
 
 const App = () => {
+	const redirectRoute = (pathname = ""): RouteObject => {
+		return {
+			path: "*",
+			element: <Navigate to={{ pathname, search: location.search }} replace />
+		};
+	};
+
   /**
    * Parent route requires an outlet for unknown child to route redirect up
    */
@@ -19,11 +27,11 @@ const App = () => {
 		return routes.map(r => {
 			if (r.children) {
 				addRedirectUpRouteToChildren(r.children);
-				r.children.push({ path: "*", element: <Navigate to="" replace /> });
+				r.children.push(redirectRoute());
 			}
 			return r;
-		})
-	}
+		});
+	};
 
   const routes = useRoutes(addRedirectUpRouteToChildren([
 		{ path: ":language", element: <Layout />, children:
@@ -43,7 +51,7 @@ const App = () => {
 				},
 			]
 		},
-		{ path: "*", element: <Navigate to={`/${l10n.language ?? DEFAULT_LANGUAGE}`} replace /> }
+		redirectRoute(`/${l10n.language ?? DEFAULT_LANGUAGE}`)
   ]));
 
   return (
@@ -51,6 +59,6 @@ const App = () => {
       {routes}
     </div>
   );
-}
+};
 
 export default App;

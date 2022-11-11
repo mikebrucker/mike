@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { l10n } from "../../core/l10n";
-import { LanguageDictionary } from "../../interfaces/Dictionary";
 
 interface Props {
   children?: string | Array<string>;
@@ -17,18 +16,18 @@ export const Phrase = observer(({ children }: Props) => {
       if (!fragment.includes("##")) return fragment;
 
       if (fragment.startsWith("i##")) {
-        return <span key={i} className="italic">{fragment.slice(3)}</span>
+        return <span key={i} className="italic">{fragment.slice(3)}</span>;
       } else if (fragment.startsWith("b##")) {
-        return <span key={i} className="bold">{fragment.slice(3)}</span>
+        return <span key={i} className="bold">{fragment.slice(3)}</span>;
       } else if (fragment.startsWith("ib##") || fragment.startsWith("bi##")) {
-        return <span key={i} className="italic bold">{fragment.slice(4)}</span>
+        return <span key={i} className="italic bold">{fragment.slice(4)}</span>;
       } else if (fragment.startsWith("c##")) {
-        return <code key={i}>{fragment.slice(3)}</code>
+        return <code key={i}>{fragment.slice(3)}</code>;
       }
 
       return fragment;
     });
-  }
+  };
 
   useEffect(() => {
     let keys: Array<string> = [];

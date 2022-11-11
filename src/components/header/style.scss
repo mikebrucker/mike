@@ -93,14 +93,14 @@
       color: $nav-link;
       font-size: 48px;
 
-      &:after {
+      &::after {
         content: "_";
         @keyframes flash {
           0%, 50% {
-            color: $nav-link
+            color: $nav-link;
           }
           50.1%, 100% {
-            color: transparent
+            color: transparent;
           }
         }
         animation: flash 1.618s linear infinite;

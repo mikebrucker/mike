@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./style.scss";
 import { NavLink } from "react-router-dom";
 import { observer } from "mobx-react";
-import { l10n, Language } from "../../core/l10n";
+import { l10n } from "../../core/l10n";
 import { Phrase } from "../l10n";
 import { globals } from "../../core/globals";
 import { Languages } from "./languages";
+import { Language } from "../../interfaces/Language";
 
 type Subheader = "language" | undefined;
 
@@ -16,21 +17,21 @@ export const Header = observer(() => {
   const toggleMenu = (toggle: boolean) => {
     globals.setPauseAnimation(toggle, !toggle ? 1000 : 0);
     setIsOpen(toggle);
-  }
+  };
 
   const toggleSubheader = (subheader?: Subheader) => {
     setOpenSubheader(subheader !== openSubheader ? subheader : undefined);
-  }
+  };
 
   const toggleLanguage = (lang: Language) => {
     if (lang !== l10n.language) l10n.setLanguage(lang);
     if (openSubheader) toggleSubheader();
-  }
+  };
 
   const pages = ["about", "contact", "recipes", "games"];
 
-  const menuClass = isOpen ? " is-open" : " is-closed"
-  const languageSubheaderClass = openSubheader === "language" ? " is-open" : " is-closed"
+  const menuClass = isOpen ? " is-open" : " is-closed";
+  const languageSubheaderClass = openSubheader === "language" ? " is-open" : " is-closed";
 
   const headline = "Mike Brucker";
 

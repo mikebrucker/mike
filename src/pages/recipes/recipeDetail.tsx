@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useOutlet, useParams } from "react-router-dom";
+import { useLocation, useOutlet, useParams } from "react-router-dom";
 import { Phrase } from "../../components/l10n";
 import { firebaseStore } from "../../core/firebase";
 import { Recipe } from "../../interfaces/Recipe";
-import "./style.scss"
+import "./style.scss";
 
 interface RouteParams {
   language?: string;
@@ -13,7 +13,6 @@ interface RouteParams {
 export const RecipeDetail = () => {
   const params: RouteParams = useParams();
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const [recipe, setRecipe] = useState<Recipe>();
 
   useEffect(() => {
@@ -22,12 +21,12 @@ export const RecipeDetail = () => {
       .reduce((acc: string, cur: string | undefined) => cur ? acc.replace(cur, "") : acc, pathname.replace(/[^a-z0-9]/gi, ""));
 
     loadRecipe(route, params.recipeId);
-  }, [params.recipeId])
+  }, [params.recipeId]);
 
   const loadRecipe = async (route?: string, id?: string) => {
     const loadedRecipe = await firebaseStore.getItem<Recipe>(route, id);
     setRecipe(loadedRecipe);
-  }
+  };
 
   const outlet = useOutlet();
 

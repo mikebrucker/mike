@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useOutlet } from "react-router-dom";
 import { Phrase } from "../../components/l10n";
-import "./style.scss"
+import "./style.scss";
 
 export const Games = () => {
   const outlet = useOutlet();
 
-  const games = ["rps"]
+  const games = ["rps"];
 
   return (
     <>

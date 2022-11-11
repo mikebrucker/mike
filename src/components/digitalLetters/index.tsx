@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./style.scss"
+import "./style.scss";
 
 interface Props {
   word?: string;
@@ -13,7 +13,7 @@ type Letter = LowerLetter | Uppercase<LowerLetter>;
 
 type Num = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 
-type Space = " " | "_"
+type Space = " " | "_";
 
 /**
  * `Record` to format the digital number for a standard alarm clock
@@ -38,7 +38,7 @@ const DIGITAL_NUMBER: Record<Num | " ", Array<1 | 0>> = {
   "8": [1, 1, 1, 1, 1, 1, 1],
   "9": [1, 1, 1, 1, 0, 1, 1],
   " ": [0, 0, 0, 0, 0, 0, 0]
-}
+};
 
 /**
  * `Record` to format the digital letter. This has more bars than the standard digital number
@@ -90,20 +90,20 @@ const DIGITAL_LETTER: Record<Uppercase<LowerLetter> | Num | Space, Array<1 | 0>>
   "Z": [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1],
   "_": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
   " ": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-}
+};
 
 export const DigitalLetters = ({ word, num }: Props) => {
-  const [letters, setLetters] = useState<Array<Letter & Num>>([]);
+  const [letters, setLetters] = useState<Array<Letter | Num>>([]);
   const [nums, setNums] = useState<Array<Num>>();
 
   useEffect(() => {
     if (word) return;
-    setNums(num?.toString().padStart(2, "0").split("") as Array<Num>)
-  }, [num])
+    setNums(num?.toString().padStart(2, "0").split("") as Array<Num>);
+  }, [num]);
 
   useEffect(() => {
-    setLetters(word?.split("") as Array<Letter & Num>)
-  }, [word])
+    setLetters(word?.split("") as Array<Letter & Num>);
+  }, [word]);
 
   const digitizeNum = (n: Num, blank?: boolean) => {
     const numMap = DIGITAL_NUMBER[!blank ? n : " "].map(n => n ? " active" : "");
@@ -129,15 +129,15 @@ export const DigitalLetters = ({ word, num }: Props) => {
         </div>
       </div>
     );
-  }
+  };
 
-  const digitizeLetter = (letter: Letter) => {
+  const digitizeLetter = (letter: Letter | Num, i: number) => {
     const l = letter.toUpperCase() as Uppercase<LowerLetter> | Num;
     if (!(l in DIGITAL_LETTER)) return;
     const letterMap = DIGITAL_LETTER[l].map(n => n ? " active" : "");
 
     return (
-      <div key={Math.random()} className="c-digital-letter">
+      <div key={i + Math.random()} className="c-digital-letter">
         <div>
           <div className={`line line-h${letterMap[0]}`} />
           <div className={`line line-h${letterMap[1]}`} />
@@ -166,11 +166,11 @@ export const DigitalLetters = ({ word, num }: Props) => {
         </div>
       </div>
     );
-  }
+  };
 
   return (
     <div className="c-digital">
-      {nums?.map((n, i) => digitizeNum(n, i === 0 && nums[0] === "0")) ?? letters.map((n, i) => digitizeLetter(n))}
+      {nums?.map((n, i) => digitizeNum(n, i === 0 && nums[0] === "0")) ?? letters.map((n, i) => digitizeLetter(n, i))}
     </div>
-  )
+  );
 };

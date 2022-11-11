@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./style.scss"
+import "./style.scss";
 import { useOutlet } from "react-router-dom";
 import { observer } from "mobx-react";
 import { DigitalLetters } from "../../components/digitalLetters";
@@ -8,8 +8,8 @@ import { l10n } from "../../core/l10n";
 import rock from "../../assets/rock.svg";
 import paper from "../../assets/paper.svg";
 import scissors from "../../assets/scissors.svg";
-import { Dictionary } from "../../interfaces/Dictionary";
 
+/* eslint-disable @typescript-eslint/naming-convention */
 enum ArrowKeysEn {
   ArrowLeft = 0,
   ArrowDown = 1,
@@ -38,10 +38,7 @@ enum Weapon {
   scissors,
   select,
 }
-
-interface Props {
-  props?: string;
-}
+/* eslint-enable @typescript-eslint/naming-convention */
 
 interface ButtonsProps {
   choseWeapon: boolean;
@@ -69,8 +66,8 @@ const Buttons = observer(({ choseWeapon, playerWeapon, chooseWeapon}: ButtonsPro
   );
 });
 
-export const RPS = (props: Props) => {
-  const icons: Dictionary<string> = { rock, paper, scissors }
+export const RPS = () => {
+  const icons: Dictionary<string> = { rock, paper, scissors };
 
   const [playerWins, setPlayerWins] = useState(0);
   const [computerWins, setComputerWins] = useState(0);
@@ -107,7 +104,7 @@ export const RPS = (props: Props) => {
 
     return () => {
       window.removeEventListener("keyup", onKeyPress);
-    }
+    };
   }, [playerWins, computerWins, ties]);
 
   const onKeyPress = (e: KeyboardEvent) => {
@@ -128,7 +125,7 @@ export const RPS = (props: Props) => {
         chooseWeapon(n);
       }
     }
-  }
+  };
 
   const reset = () => {
     if (!loading) {
@@ -142,13 +139,13 @@ export const RPS = (props: Props) => {
       setComputerHistory([]);
       setLoading(false);
     }
-  }
+  };
 
   const getRandomWeapon = (): number => {
     const x = parseInt(window.crypto.getRandomValues(new Uint32Array(1))[0].toString().charAt(4));
     if (x < 3) return x;
     return getRandomWeapon();
-  }
+  };
 
   const chooseWeapon = (player: Weapon) => {
     if (loading) return;
@@ -178,18 +175,18 @@ export const RPS = (props: Props) => {
     }
 
     setLoading(false);
-  }
+  };
 
   const longestWord = (a?: Array<string>) => (a ?? []).reduce((l, w) => w.length > l.length ? w : l, "").length;
-  const padWord = (w: string, l: number, e = 0, c = " ") =>{
+  const padWord = (w: string, l: number, e = 0) =>{
     const d = l - w.length;
     const m = d % 2;
     const t = Math.floor(d / 2) + e;
     return Array(t).fill(" ").join("") + w + Array(t + m).fill(" ");
-  }
+  };
   const titleArr = l10n.getString("games.rps.title")?.split(" ");
   const titleWidth = longestWord(titleArr);
-  const title = titleArr?.map(w => padWord(w, titleWidth, titleWidth % 2)).map(w => <DigitalLetters word={w} />);
+  const title = titleArr?.map(w => padWord(w, titleWidth, titleWidth % 2)).map((w, i) => <DigitalLetters key={`${i}_${w}`} word={w} />);
 
   const outlet = useOutlet();
 
@@ -210,12 +207,12 @@ export const RPS = (props: Props) => {
             <div className="player">
               <div><Phrase>games.rps.player</Phrase></div>
               <div className="weapon"><Phrase>games.rps.{Weapon[playerWeapon]}</Phrase></div>
-              {playerWeapon < 3 ? <img src={icons[Weapon[playerWeapon]]} />: undefined}
+              {playerWeapon < 3 ? <img src={icons[Weapon[playerWeapon]]} />: <div className="weapon-placeholder" />}
             </div>
             <div className="computer">
               <div><Phrase>games.rps.computer</Phrase></div>
               <div className="weapon"><Phrase>games.rps.{Weapon[computerWeapon]}</Phrase></div>
-              {computerWeapon < 3 ? <img src={icons[Weapon[computerWeapon]]} />: undefined}
+              {computerWeapon < 3 ? <img src={icons[Weapon[computerWeapon]]} />: <div className="weapon-placeholder" />}
             </div>
           </div>
         </div>
@@ -230,10 +227,10 @@ export const RPS = (props: Props) => {
       </div>
       <div className="history">
         {playerHistory.length > 1 ? <div className="history-player">
-          {playerHistory.slice(1).map(h => <div><img src={icons[Weapon[h]]} /></div>)}
+          {playerHistory.slice(1).map((h, i) => <div key={`${i}_${h}_player`}><img src={icons[Weapon[h]]} /></div>)}
         </div> : undefined}
         {computerHistory.length > 1 ? <div className="history-computer">
-          {computerHistory.slice(1).map(h => <div><img src={icons[Weapon[h]]} /></div>)}
+          {computerHistory.slice(1).map((h, i) => <div key={`${i}_${h}_computer`}><img src={icons[Weapon[h]]} /></div>)}
         </div> : undefined}
       </div>
     </div>

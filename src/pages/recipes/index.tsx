@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import "./style.scss";
 import { Link, useLocation, useOutlet, useParams } from "react-router-dom";
 import { Phrase } from "../../components/l10n";
 import { firebaseStore } from "../../core/firebase";
 import { Recipe } from "../../interfaces/Recipe";
-import "./style.scss"
 
 interface RouteParams {
   language?: string;
@@ -26,17 +26,17 @@ export const Recipes = () => {
     else
       setRecipe(undefined);
       loadRecipes(route);
-  }, [params.recipeId])
+  }, [params.recipeId]);
 
   const loadRecipe = async (route?: string, id?: string) => {
     const x = await firebaseStore.getItem<Recipe>(route, id);
     setRecipe(x);
-  }
+  };
 
   const loadRecipes = async (route?: string) => {
     const x = await firebaseStore.getItems(route);
     setRecipes(x);
-  }
+  };
 
   const outlet = useOutlet();
 
@@ -55,13 +55,11 @@ export const Recipes = () => {
             <h4><Phrase>recipes.header1</Phrase></h4>
             <div className="p-recipes-list">
               <ul>
-                {recipes?.map(r => {
-                  return (
-                    <li key={r.id}>
-                      <Link to={r.id}>{r.title ?? r.id}</Link>
-                    </li>
-                  )
-                })}
+                {recipes?.map(r => (
+                  <li key={r.id}>
+                    <Link to={r.id}>{r.title ?? r.id}</Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </>

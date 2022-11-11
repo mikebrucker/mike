@@ -6,7 +6,7 @@ import { action, makeAutoObservable, runInAction } from "mobx";
 class Globals {
 	public pauseAnimation = false;
 
-	constructor() {
+	public constructor() {
 		makeAutoObservable(this);
 	}
 
@@ -17,7 +17,7 @@ class Globals {
 				this.pauseAnimation = pause;
 			});
 		}, ms);
-	}
+	};
 }
 
 export const globals = new Globals();

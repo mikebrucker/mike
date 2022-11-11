@@ -1,19 +1,20 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { l10n, Language, LANGUAGES } from "../../core/l10n";
+import { l10n } from "../../core/l10n";
 import en from "../../assets/en.svg";
 import de from "../../assets/de.svg";
+import { AVAILABLE_LANGUAGES, Language } from "../../interfaces/Language";
 
 interface Props {
   toggleLanguage: (l: Language) => void;
 }
 
 export const Languages = observer(({ toggleLanguage }: Props) => {
-  const FLAGS = { en, de }
+  const FLAGS = { en, de };
 
   return (
     <div className="languages">
-      {LANGUAGES.map(lang => (
+      {AVAILABLE_LANGUAGES.map(lang => (
         <div
           key={lang}
           onClick={() => toggleLanguage(lang)}

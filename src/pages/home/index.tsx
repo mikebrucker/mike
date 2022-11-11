@@ -3,7 +3,6 @@ import "./style.scss";
 import { observer } from "mobx-react";
 import { Phrase } from "../../components/l10n";
 import { Planets } from "./planets";
-import { DigitalLetters } from "../../components/digitalLetters";
 
 export const Home = observer(() => {
   const [starCount, setStarCount] = useState(Math.max(
@@ -16,8 +15,8 @@ export const Home = observer(() => {
 
     return () => {
       window.removeEventListener("resize", updateStarCount);
-    }
-  }, [])
+    };
+  }, []);
 
   const updateStarCount = () => {
     const count = Math.max(
@@ -26,7 +25,7 @@ export const Home = observer(() => {
     );
 
     if (starCount !== count) setStarCount(count);
-  }
+  };
 
   const stars = Array.from({ length: starCount }).map((_, i) => (
       <div

@@ -12,16 +12,16 @@ export const Footer = observer(() => {
       new Uint32Array(2)).join("").slice(0, Math.floor((Math.random() * 5) + 8)
     )));
     setDate(new Date(d - ms));
-  }
+  };
 
   return (
-    <div className="c-footer" onClick={onClick}>
+    <footer className="c-footer" onClick={onClick}>
       <div>
         <div>
           &copy; {new Intl.DateTimeFormat(l10n.language, { dateStyle: "full", timeStyle: "full"}).format(date)}
         </div>
         <div>&reg; Mike Brucker &trade;</div>
       </div>
-    </div>
+    </footer>
   );
 });

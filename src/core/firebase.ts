@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { collection, doc, getFirestore, getDoc, getDocs, query } from "firebase/firestore";
+import { collection, doc, getFirestore, getDoc, getDocs } from "firebase/firestore";
 import { makeAutoObservable } from "mobx";
 import { Recipe } from "../interfaces/Recipe";
 
@@ -10,13 +10,13 @@ class FirebaseStore {
 	private firebaseApp = initializeApp({ projectId: "maik-33" });
 	private firestoreDb = getFirestore(this.firebaseApp);
 
-	constructor() {
+	public constructor() {
 		makeAutoObservable(this);
 	}
 
 	private getCollection = async (route: string) => {
 		return await collection(this.firestoreDb, route);
-	}
+	};
 
 	public getItems = async (route?: string) => {
 		if (!route) return;
@@ -28,7 +28,7 @@ class FirebaseStore {
 			console.error(error);
 			return;
 		}
-	}
+	};
 
 	public getItem = async <Item>(route?: string, id?: string) => {
 		if (!route || !id) return;
@@ -41,7 +41,7 @@ class FirebaseStore {
 			console.error(error);
 			return;
 		}
-	}
+	};
 }
 
 export const firebaseStore = new FirebaseStore();
