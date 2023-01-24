@@ -5,6 +5,7 @@ interface Props {
   prop?: string;
 }
 
+/** Copy this component to get started */
 export const CopyMe = ({ prop }: Props) => {
   const [thing, setThing] = useState("Hello World");
 

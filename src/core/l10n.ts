@@ -3,6 +3,9 @@ import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE, Language, LanguageDictionary } f
 import * as en from "../languages/en.json";
 
 /**
+ * Mobx l10n language and translation store.
+ * Merges Language Dictionaries in `src/languages` with `DEFAULT_LANGUAGE` `LanguageDictionary` to fill missing gaps.
+ * Any component/page needs to be wrapped with an `observer` to read these values dynamically
  * For text styling wrap in start with `%%<identifier>##` and end with `%%`:
  * bold: `%%b##text%%`
  * italic: `%%i##text%%`
@@ -11,13 +14,14 @@ import * as en from "../languages/en.json";
  */
 class L10N {
 	public language: Language | undefined;
-	public languageDictionary: LanguageDictionary = en;
+	public dictionary: LanguageDictionary = en;
 
 	public constructor(browserLanguage: string) {
 		makeAutoObservable(this);
 		this.setLanguage(browserLanguage.slice(0, 2) as Language);
 	}
 
+	/** Merge the dictionaries in case of missing translations */
 	private mergeLanguages = (target: LanguageDictionary | string, source: LanguageDictionary) => {
     return Object.entries(source).reduce((o, [k, v]) => {
 			if (typeof o === "object" && !Array.isArray(o)) {
@@ -28,6 +32,7 @@ class L10N {
     }, target);
 	};
 
+	/** Check if the language is available to use and return a valid language */
 	private checkLanguageAvailability = (lang: string) => {
 		const language = lang.slice(0, 2) as Language;
 		if (AVAILABLE_LANGUAGES.includes(language)) return language;
@@ -41,23 +46,25 @@ class L10N {
 		const languageDictionary = language !== DEFAULT_LANGUAGE ? await import(`../languages/${language}.json`) : undefined;
 
 		runInAction(() => {
-			this.languageDictionary = [{}, en, languageDictionary].filter(Boolean).reduce(this.mergeLanguages);
+			this.dictionary = [{}, en, languageDictionary].filter(Boolean).reduce(this.mergeLanguages);
 			this.language = language;
 		});
 	};
 
+	/** Get phrase with bold/italic/code formatting for `Phrase` component */
 	public getPhrase = (keys: Array<string>) => {
     const phrase = keys?.reduce((acc: LanguageDictionary | string, cur: string) => {
       return typeof acc !== "string" ? acc?.[cur] : acc;
-    }, this.languageDictionary);
+    }, this.dictionary);
 
 		if (typeof phrase === "string" || Array.isArray(phrase)) return phrase;
 	};
 
+	/** Get phrase with bold/italic/code formatting removed */
 	public getString = (keys: Array<string> | string) => {
     const phrase = (typeof keys === "string" ? keys.split(".") : keys)?.reduce((acc: LanguageDictionary | string, cur: string) => {
       return typeof acc !== "string" ? acc?.[cur] : acc;
-    }, this.languageDictionary);
+    }, this.dictionary);
 
 		if (typeof phrase !== "string") return;
 

@@ -12,7 +12,9 @@ import { Layout } from "./components/layout";
 import { l10n } from "./core/l10n";
 import { DEFAULT_LANGUAGE } from "./interfaces/Language";
 
+/** Nested routes here. Language logic is handled within the `Layout` */
 const App = () => {
+	/** Routes that do not exist redirect up to the last existing */
 	const redirectRoute = (pathname = ""): RouteObject => {
 		return {
 			path: "*",
@@ -20,11 +22,11 @@ const App = () => {
 		};
 	};
 
-  /**
-   * Parent route requires an outlet for unknown child to route redirect up
-   */
+  /** Parent route requires an outlet for unknown child to route redirect up */
   const addRedirectUpRouteToChildren = (routes: Array<RouteObject>) => {
 		return routes.map(r => {
+			// eslint-disable-next-line no-param-reassign
+			if (!r.children && !r.index) r.children = [];
 			if (r.children) {
 				addRedirectUpRouteToChildren(r.children);
 				r.children.push(redirectRoute());
@@ -37,16 +39,16 @@ const App = () => {
 		{ path: ":language", element: <Layout />, children:
 			[
 				{ index: true, element: <Home /> },
-				{ path: "about", element: <About />, children: [] },
-				{ path: "contact", element: <Contact />, children: [] },
+				{ path: "about", element: <About /> },
+				{ path: "contact", element: <Contact /> },
 				{ path: "recipes", element: <Recipes />, children:
 					[
-						{ path: ":recipeId", element: <RecipeDetail />, children: []}
+						{ path: ":recipeId", element: <RecipeDetail /> }
 					]
 				},
 				{ path: "games", element: <Games />, children:
 					[
-						{ path: "rps", element: <RPS />, children: [] },
+						{ path: "rps", element: <RPS /> },
 					]
 				},
 			]
