@@ -13,7 +13,9 @@ module.exports = {
     sourceType: "module"
   },
   plugins: [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "unicorn",
+    "jsdoc"
   ],
   rules: {
     "@typescript-eslint/array-type": ["error", { default: "generic" }],
@@ -109,6 +111,19 @@ module.exports = {
         allowNullableNumber: true
       }
     ],
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "unicorn/prefer-ternary": "warn",
+    "jsdoc/require-jsdoc": [
+      "warn",
+      {
+        require: {
+          ArrowFunctionExpression: true,
+          ClassDeclaration: true,
+          FunctionDeclaration: true,
+          FunctionExpression: true,
+          MethodDefinition: false
+        }
+      }
+    ]
   }
 };

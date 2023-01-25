@@ -161,12 +161,7 @@ export const RPS = () => {
     if (player === computer) {
       setTies(ties + 1);
     } else {
-      let didPlayerWin = false;
-      if (player === Weapon.rock) {
-        didPlayerWin = computer === Weapon.scissors;
-      } else {
-        didPlayerWin = player - computer === 1;
-      }
+      const didPlayerWin = player === Weapon.rock ? computer === Weapon.scissors : player - computer === 1;
       if (didPlayerWin) {
         setPlayerWins(playerWins + 1);
       } else {

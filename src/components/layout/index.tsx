@@ -15,7 +15,7 @@ export const Layout = observer(() => {
   const { language: ll } = l10n;
   const { language: pl} = useParams();
   const navigate = useNavigate();
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (pl && ll && pl !== ll) {
