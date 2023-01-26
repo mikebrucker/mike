@@ -3,7 +3,13 @@
     padding-bottom: 16px;
 
     &:last-of-type {
-      padding-bottom: 0;
+      padding: 24px;
     }
+  }
+
+  img {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 300px;
   }
 }

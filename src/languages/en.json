@@ -15,7 +15,8 @@
 	},
 	"about": {
 		"header1": "Hi, I'm Troy McClure",
-		"text1": "You may remember me from such websites as %%i##The Boatjacking of Supership 79%% and %%i##Hydro: the Man With the Hydraulic Arms%%."
+		"text1": "You may remember me from such websites as %%i##The Boatjacking of Supership 79%% and %%i##Hydro: the Man With the Hydraulic Arms%%.",
+		"text2": "This website was built with %%c##react%%/%%c##typescript%% and uses %%c##mobx%% for state management. Other than that there are no more installed packages. The language %%c##l10n%% system, the lame %%c##css%%/%%c##scss%% animations, the stupid rock paper scissors game, and other %%c##react hooks%% were created by me."
 	},
 	"contact": {
 		"header1": "Contact me to develop wares that are soft",

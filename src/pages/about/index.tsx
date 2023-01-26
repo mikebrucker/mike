@@ -2,6 +2,7 @@ import React from "react";
 import "./style.scss";
 import { useOutlet } from "react-router-dom";
 import { Phrase } from "../../components/l10n";
+import troyMclure from "../../assets/troy_mclure.png";
 
 export const About = () => {
   const outlet = useOutlet();
@@ -11,9 +12,8 @@ export const About = () => {
       <div>
         <h4><Phrase>about.header1</Phrase></h4>
       </div>
-      <div>
-        <Phrase>about.text1</Phrase>
-      </div>
+      {["text1", "text2"].map(str => <p><Phrase>about.{str}</Phrase></p>)}
+      <div><img src={troyMclure} alt="Troy McClure" /></div>
     </div>
   );
 };
