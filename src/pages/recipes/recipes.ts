@@ -22,13 +22,13 @@ export const recipes: Dictionary<Recipe> = {
 			},
 			{
 				step: [
-					"Remove the ribs from oven and now blast the broiler",
+					"Remove the ribs from oven and now blast the broiler.",
 					"Uncover the ribs and drain the excess fat.",
 					"Slather the top of the ribs with BBQ sauce and put back under the broiler for 10-15 minutes or until the sauce is cooked on."
 				]
 			},
 			{
-				step: "Pull them out of the oven, put on to a cutting board, cut and serve with some more BBQ sauce for dipping."
+				step: "Pull them out of the oven, put them on a cutting board, cut and serve with some more BBQ sauce for dipping."
 			},
 		],
 		ingredients: []

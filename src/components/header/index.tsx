@@ -28,7 +28,7 @@ export const Header = observer(() => {
     if (openSubheader) toggleSubheader();
   };
 
-  const pages = ["about", "contact", "recipes", "games"];
+  const pages = ["recipes", "games", "about", "contact"];
 
   const menuClass = isOpen ? " is-open" : " is-closed";
   const languageSubheaderClass = openSubheader === "language" ? " is-open" : " is-closed";
