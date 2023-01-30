@@ -1,48 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./style.scss";
-import { Link, useLocation, useOutlet, useParams } from "react-router-dom";
+import { Link, useNavigate, useOutlet, useParams } from "react-router-dom";
 import { Phrase } from "../../components/l10n";
-import { firebaseStore } from "../../core/firebase";
-import { Recipe } from "../../interfaces/Recipe";
+import { recipes } from "./recipes";
 
 interface RouteParams {
   language?: string;
   recipeId?: string;
 }
 
+/** Recipe list page` */
 export const Recipes = () => {
   const params: RouteParams = useParams();
-  const { pathname } = useLocation();
-  const [recipes, setRecipes] = useState<Array<Recipe>>();
-  const [recipe, setRecipe] = useState<Recipe>();
+  const { recipeId } = params;
+  const navigate = useNavigate();
 
+  // navigate back to lists if no recipe
   useEffect(() => {
-    const route: string = Object
-      .values(params)
-      .reduce((acc: string, cur: string | undefined) => cur ? acc.replace(cur, "") : acc, pathname.replace(/[^a-z0-9]/gi, ""));
-
-    if (params.recipeId)
-      loadRecipe(route, params.recipeId);
-    else
-      setRecipe(undefined);
-      loadRecipes(route);
-  }, [params.recipeId]);
-
-  const loadRecipe = async (route?: string, id?: string) => {
-    const x = await firebaseStore.getItem<Recipe>(route, id);
-    setRecipe(x);
-  };
-
-  const loadRecipes = async (route?: string) => {
-    const x = await firebaseStore.getItems(route);
-    setRecipes(x);
-  };
+    if (recipeId && !recipes[recipeId]) {
+      navigate("");
+    }
+  }, [recipeId]);
 
   const outlet = useOutlet();
 
+  const hasRecipe = Boolean(recipeId && recipes[recipeId]);
+
   return (
     <>
-      {outlet ? (
+      {hasRecipe && outlet ? (
         <div className="p-recipes-nav">
           <div>
             <Link to="">Back to Recipes</Link>
@@ -55,16 +41,16 @@ export const Recipes = () => {
             <h4><Phrase>recipes.header1</Phrase></h4>
             <div className="p-recipes-list">
               <ul>
-                {recipes?.map(r => (
-                  <li key={r.id}>
-                    <Link to={r.id}>{r.title ?? r.id}</Link>
+                {Object.entries(recipes)?.map(([k, v]) => (
+                  <li key={k}>
+                    <Link to={k}>{v.title ?? k}</Link>
                   </li>
                 ))}
               </ul>
             </div>
           </>
         ) : undefined}
-        {outlet}
+        {hasRecipe ? outlet : undefined}
       </div>
     </>
   );

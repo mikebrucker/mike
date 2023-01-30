@@ -1,12 +1,14 @@
-export interface RecipeIngredient {
-	amount?: string;
-	ingredient?: string;
-}
-
 export interface Recipe {
-	id: string;
 	title?: string;
 	subtitle?: string;
-	steps?: Array<string>;
-	ingredients?: Array<RecipeIngredient>;
+	img?: string;
+	steps?: Array<{
+		step: string | Array<string>;
+		img?: string;
+	}>;
+	ingredients?: Array<{
+		amount?: string;
+		ingredient?: string;
+		img?: string;
+	}>;
 }

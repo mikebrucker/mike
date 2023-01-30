@@ -26,6 +26,14 @@
 		&-steps {
 			display: inline-block;
 			text-align: left;
+
+			div {
+				text-align: center;
+
+				img {
+					max-width: 360px;
+				}
+			}
 		}
 	}
 }
