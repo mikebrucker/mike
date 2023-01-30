@@ -29,7 +29,7 @@ export const RecipeDetail = () => {
       <div className="p-recipes-detail-steps">
         {steps?.length ?? 0 > 0 ? (
           <ol>
-            {steps?.map((s, i) => <li><Step step={s} index={i + 1} /></li>)}
+            {steps?.map((s, i) => <li key={`step-${i}`}><Step step={s} index={i + 1} /></li>)}
           </ol>
         ) : undefined}
       </div>

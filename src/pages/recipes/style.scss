@@ -35,8 +35,12 @@
 	&-detail {
 		&-intro {
 			@include gel-button;
-			padding: 24px 0;
+			padding: 24px 16px;
 			margin-bottom: 24px;
+
+			h6 {
+				padding: 0;
+			}
 		}
 
 		&-steps {
