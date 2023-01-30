@@ -42,9 +42,9 @@ export const Recipes = () => {
             <div className="p-recipes-list">
               <ul>
                 {Object.entries(recipes)?.map(([k, v]) => (
-                  <li key={k}>
-                    <Link to={k}>{v.title ?? k}</Link>
-                  </li>
+                  <Link key={k} to={k}>
+                    <li>{v.title ?? k}</li>
+                  </Link>
                 ))}
               </ul>
             </div>

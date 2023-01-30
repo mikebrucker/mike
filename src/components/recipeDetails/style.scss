@@ -1,0 +1,17 @@
+@import "../../styles/mixins";
+
+.c-recipes-detail-step {
+	@include gel-button;
+	padding: 24px;
+	width: 100%;
+	justify-content: flex-start;
+
+	>ol {
+
+		>li {
+			margin: 0;
+			padding: 0;
+			list-style-type: upper-roman;
+		}
+	}
+}

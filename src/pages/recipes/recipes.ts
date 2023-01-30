@@ -2,8 +2,8 @@ import { Recipe } from "../../interfaces/Recipe";
 
 export const recipes: Dictionary<Recipe> = {
 	ribs: {
-		title: "Ribs",
-		subtitle: "Oven baked slow cooked ribs.",
+		title: "Oven Baked Slow Cooked Ribs",
+		subtitle: "St Louis style or Baby Back ribs slow-cooked with a dry rub and finished with a sauce.",
 		steps: [
 			{
 				step: [

@@ -27,7 +27,9 @@
 		"error5": "%%c##{{ERROR_5318008: only_fans not found}}%%"
 	},
 	"recipes": {
-		"header1": "Recipes"
+		"header1": "Recipes",
+		"step": "Step",
+		"ingredient": "Ingredient"
 	},
 	"games": {
 		"header1": "Games",
