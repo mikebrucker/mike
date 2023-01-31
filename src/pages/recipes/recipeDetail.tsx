@@ -24,7 +24,7 @@ export const RecipeDetail = () => {
     <div className="p-recipes-detail">
       <div className="p-recipes-detail-intro">
         <h4>{title ?? <Phrase>recipes.header1</Phrase>}</h4>
-        <h6>{subtitle}</h6>
+        {subtitle ? <h6>{subtitle}</h6> : undefined}
       </div>
       <div className="p-recipes-detail-steps">
         {steps?.length ?? 0 > 0 ? (

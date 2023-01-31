@@ -24,10 +24,24 @@
 		ul {
 			padding: 0;
 			margin: 0;
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			flex-grow: 1;
+			align-content: space-between;
+			justify-content: center;
 
-			li {
-				padding: 16px 32px;
-				@include gel-button($active-border: inset);
+			a {
+				display: flex;
+				flex-grow: 1;
+
+				li {
+					display: flex;
+					flex-grow: 1;
+					text-align: center;
+					padding: 16px 32px;
+					@include gel-button($active-border: inset);
+				}
 			}
 		}
 	}
@@ -38,8 +52,12 @@
 			padding: 24px 16px;
 			margin-bottom: 24px;
 
-			h6 {
+			h4 {
 				padding: 0;
+			}
+
+			h6 {
+				padding: 8px 0 0;
 			}
 		}
 
@@ -54,14 +72,17 @@
 				display: flex;
 				flex-wrap: wrap;
 				align-items: stretch;
+				gap: 16px;
 
 				>li {
 					width: 100%;
-					@include desktop {
-						width: 50%;
-					}
 					display: flex;
 					list-style-type: none;
+
+					@include desktop {
+						width: 50%;
+						width: calc(50% - 8px);
+					}
 				}
 			}
 

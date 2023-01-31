@@ -25,7 +25,7 @@ export const Step = ({ className, step: s, index }: Props) => {
 
   return (
     <div className={classes}>
-			<h3><Phrase>recipes.step</Phrase> {index}</h3>
+			<h5><Phrase>recipes.step</Phrase> {index}</h5>
       {img ? <img src={img.src} alt={img.alt} /> : undefined}
 			<ol>{steps.map((s, i) => <li key={`step-${index}-${i}`}><p>{s}</p></li>)}</ol>
     </div>
