@@ -1,14 +1,12 @@
 import React from "react";
 import { classNames } from "../../helpers/Helper";
+import { IStep } from "../../interfaces/Recipe";
 import { Phrase } from "../l10n";
 import "./style.scss";
 
 interface Props {
 	className?: string;
-	step?: {
-		img?: { src: string; alt: string };
-		step: string | Array<string>;
-	};
+	step?: IStep;
 	index: number;
 }
 
@@ -25,7 +23,7 @@ export const Step = ({ className, step: s, index }: Props) => {
 
   return (
     <div className={classes}>
-			<h5><Phrase>recipes.step</Phrase> {index}</h5>
+			<h6><Phrase>recipes.step</Phrase> {index}</h6>
       {img ? <img src={img.src} alt={img.alt} /> : undefined}
 			<ol>{steps.map((s, i) => <li key={`step-${index}-${i}`}><p>{s}</p></li>)}</ol>
     </div>

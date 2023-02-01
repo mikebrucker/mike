@@ -49,8 +49,10 @@
 	&-detail {
 		&-intro {
 			@include gel-button;
+			background: linear-gradient(to right, $sub-bg-color1, $sub-bg-color2);
+			color: $bg-color2;
 			padding: 24px 16px;
-			margin-bottom: 24px;
+			margin-bottom: 16px;
 
 			h4 {
 				padding: 0;
@@ -61,9 +63,31 @@
 			}
 		}
 
+		&-ingredients {
+			width: 100%;
+
+			>ol {
+				width: 100%;
+				padding: 0;
+				margin: 0 0 8px;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: stretch;
+				gap: 8px;
+
+				&:last-of-type {
+					margin-bottom: 16px;
+				}
+
+				>li {
+
+				}
+			}
+		}
+
 		&-steps {
-			display: inline-block;
 			text-align: left;
+			width: 100%;
 
 			>ol {
 				width: 100%;
@@ -75,13 +99,12 @@
 				gap: 16px;
 
 				>li {
-					width: 100%;
 					display: flex;
 					list-style-type: none;
+					width: calc(50% - 8px);
 
-					@include desktop {
-						width: 50%;
-						width: calc(50% - 8px);
+					@include mobile {
+						width: 100%;
 					}
 				}
 			}

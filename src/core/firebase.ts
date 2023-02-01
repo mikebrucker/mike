@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { collection, doc, getFirestore, getDoc, getDocs } from "firebase/firestore";
 import { makeAutoObservable } from "mobx";
-import { Recipe } from "../interfaces/Recipe";
+import { IRecipe } from "../interfaces/Recipe";
 
 /**
  * Firebase Firestore
@@ -23,7 +23,7 @@ class FirebaseStore {
 		try {
 			const snapshot = await this.getCollection(route);
 			const items = await getDocs(snapshot);
-			return items.docs.map(d => ({ id: d.id, title: d.data().title })) as Array<Recipe>;
+			return items.docs.map(d => ({ id: d.id, title: d.data().title })) as Array<IRecipe>;
 		} catch (error) {
 			console.error(error);
 			return;

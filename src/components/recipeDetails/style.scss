@@ -1,32 +1,47 @@
 @import "../../styles/mixins";
 @import "../../styles/colors";
 
-.c-recipes-detail-step {
-	@include gel-button;
-	padding: 24px 0;
-	width: 100%;
-	justify-content: flex-start;
+.c-recipes-detail {
+	&-ingredient {
+		@include gel-button;
+		padding: 8px 16px;
+		justify-content: flex-start;
 
-	h5 {
-		text-align: center;
-		width: 100%;
-		border-bottom: 5px outset $bg-color1;
-		padding-bottom: 16px;
+		h6 {
+			text-align: center;
+			width: 100%;
+		}
 	}
 
-	>ol {
-		margin: 0;
-		padding-top: 16px;
-		border-top: 5px outset $bg-color1;
+	&-step {
+		@include gel-button;
+		padding: 12px 0;
+		width: 100%;
+		justify-content: flex-start;
 
-		>li {
+		h6 {
+			text-align: center;
+			width: 100%;
+			border-bottom: 5px outset $bg-color1;
+			padding-bottom: 12px;
+		}
+
+		>ol {
 			margin: 0;
-			padding: 0;
-			list-style-type: upper-roman;
+			padding-top: 16px;
+			padding-right: 16px;
+			border-top: 5px outset $bg-color1;
+			width: 100%;
 
-			&:last-of-type {
-				p {
-					padding: 0;
+			>li {
+				margin: 0;
+				padding: 0;
+				list-style-type: upper-roman;
+
+				&:last-of-type {
+					p {
+						padding: 0;
+					}
 				}
 			}
 		}
