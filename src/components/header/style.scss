@@ -29,10 +29,12 @@
     &.active {
       font-weight: 900;
       border-color: $active-border;
+      transition: border-color 0.382s;
     }
 
     &:active {
       border-color: $active-border;
+      transition: border-color 0.382s;
     }
 
     @include tablet {

@@ -101,8 +101,6 @@
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
-  transition: border-color 0.618s;
-  transition: border-style 0.618s;
 
   @if $active-border != outset{
     &:active {
