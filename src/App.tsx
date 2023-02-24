@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.scss";
 import { Navigate, useRoutes, RouteObject } from "react-router-dom";
+
 import { Home } from "./pages/home";
 import { About } from "./pages/about";
 import { Contact } from "./pages/contact";
@@ -8,6 +9,8 @@ import { Recipes } from "./pages/recipes";
 import { RecipeDetail } from "./pages/recipes/recipeDetail";
 import { Games } from "./pages/games";
 import { RPS } from "./pages/games/rps";
+import { Resume } from "./pages/resume";
+
 import { Layout } from "./components/layout";
 import { l10n } from "./core/l10n";
 import { DEFAULT_LANGUAGE } from "./interfaces/Language";
@@ -51,6 +54,7 @@ const App = () => {
 						{ path: "rps", element: <RPS /> },
 					]
 				},
+				{ path: "resume", element: <Resume />, index: true }
 			]
 		},
 		redirectRoute(`/${l10n.language ?? DEFAULT_LANGUAGE}`)
