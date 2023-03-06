@@ -6,5 +6,9 @@ export const Resume = () => {
     window.location.href = location.origin + "/Brucker_Mike-Resume.pdf";
   }, []);
 
-  return <h6>Resume is downloading or opening...</h6>;
+  return (
+    <div className="page">
+      <h6>Resume is downloading or opening...</h6>
+    </div>
+  );
 };
