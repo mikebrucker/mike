@@ -44,5 +44,8 @@
 			"ties": "Unentschieden",
 			"matches": "Spiele gespielt"
 		}
+	},
+	"download": {
+		"is": " wird heruntergeladen..."
 	}
 }

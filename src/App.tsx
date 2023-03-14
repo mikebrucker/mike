@@ -9,7 +9,7 @@ import { Recipes } from "./pages/recipes";
 import { RecipeDetail } from "./pages/recipes/recipeDetail";
 import { Games } from "./pages/games";
 import { RPS } from "./pages/games/rps";
-import { Resume } from "./pages/resume";
+import { StaticFileDownload } from "./components/staticFileDownload";
 
 import { Layout } from "./components/layout";
 import { l10n } from "./core/l10n";
@@ -54,7 +54,8 @@ const App = () => {
 						{ path: "rps", element: <RPS /> },
 					]
 				},
-				{ path: "resume", element: <Resume />, index: true }
+				{ path: "resume", element: <StaticFileDownload file="Brucker_Mike-Resume.pdf" />, index: true },
+				{ path: "ferchau_assignment", element: <StaticFileDownload file="ferchau_assignment.7z" />, index: true },
 			]
 		},
 		redirectRoute(`/${l10n.language ?? DEFAULT_LANGUAGE}`)

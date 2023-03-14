@@ -47,5 +47,8 @@
 			"ties": "Ties",
 			"matches": "Games Played"
 		}
+	},
+	"download": {
+		"is": " is downloading..."
 	}
 }
