@@ -22,22 +22,24 @@ module.exports = {
     "@typescript-eslint/ban-types": ["error",
       {
         types: {
-          "Object": {
+          Object: {
             message: "Avoid using the `Object` type, aight? Didja mean `object`?"
           },
-          "Function": {
+          Function: {
             message: "Avoid using the `Function` type, aight? Prefer a specific function type, like `() => void`."
           },
-          "Boolean": {
+          /* eslint-disable id-blacklist */
+          Boolean: {
             message: "Avoid using the `Boolean` type, aight? Didja mean `boolean`?"
           },
-          "Number": {
+          Number: {
             message: "Avoid using the `Number` type, aight? Didja mean `number`?"
           },
-          "String": {
+          String: {
             message: "Avoid using the `String` type, aight? Didja mean `string`?"
           },
-          "Symbol": {
+          /* eslint-enable id-blacklist */
+          Symbol: {
             message: "Avoid using the `Symbol` type, aight? Didja mean `symbol`?"
           },
           "{}": false
@@ -88,7 +90,7 @@ module.exports = {
     "space-in-parens": ["off", "never"],
     "spaced-comment": ["error", "always", { markers: ["/"] }],
     "no-console": ["warn"],
-    "quote-props": ["error", "consistent-as-needed"],
+    "quote-props": ["error", "as-needed"],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {

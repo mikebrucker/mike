@@ -15,6 +15,7 @@ type Num = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 
 type Space = " " | "_";
 
+/* eslint-disable quote-props */
 /**
  * `Record` to format the digital number for a standard alarm clock
  */
@@ -91,6 +92,7 @@ const DIGITAL_LETTER: Record<Uppercase<LowerLetter> | Num | Space, Array<1 | 0>>
   "_": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
   " ": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 };
+/* eslint-enable quote-props */
 
 export const DigitalLetters = ({ word, num }: Props) => {
   const [letters, setLetters] = useState<Array<Letter | Num>>([]);

@@ -34,7 +34,7 @@ export const recipes: Dictionary<IRecipe> = {
 		],
 		ingredients: []
 	},
-	chickenBurrito: {
+	"chicken-burrito": {
 		title: "Chicken Burrito",
 		steps: [
 			{
@@ -42,7 +42,7 @@ export const recipes: Dictionary<IRecipe> = {
 			}
 		]
 	},
-	pizzaDough: {
+	"pizza-dough": {
 		title: "Pizza Dough",
 		desc: "Simple homemade pizza dough. Good for all types of Pizza, Stromboli, and Calzone.",
 		ingredients: [
@@ -103,7 +103,7 @@ export const recipes: Dictionary<IRecipe> = {
 			}
 		]
 	},
-	buffaloChickenCheesesteakStromboli: {
+	"buffalo-chicken-cheesesteak-stromboli": {
 		title: "Buffalo Chicken Cheesesteak Stromboli",
 		steps: [
 			{
