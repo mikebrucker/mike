@@ -9,18 +9,25 @@
 		flex-wrap: wrap;
 		gap: 16px;
 
-		.game-card {
-			@include gel-button($active-border: inset);
-			max-width: 288px;
+		a {
+			display: flex;
 
-			h6 {
-				padding: 12px 8px 8px;
-			}
+			.game-card {
+				@include gel-button($active-border: inset);
+				justify-content: flex-start;
+				max-width: 288px;
 
-			> div {
-				font-size: 14px;
-				border-top: 2px solid $bg-color1;
-				padding: 8px 8px 12px;
+				h6 {
+					padding: 12px 8px 8px;
+					width: 100%;
+				}
+
+				> div {
+					font-size: 14px;
+					border-top: 2px solid $bg-color1;
+					padding: 8px 8px 12px;
+					width: 100%;
+				}
 			}
 		}
 	}

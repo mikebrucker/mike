@@ -1,6 +1,5 @@
 export const DEFAULT_LANGUAGE = "en";
 
-/* eslint-disable @typescript-eslint/naming-convention */
 export enum Languages { en="en", de="de" }
 export type Language = keyof typeof Languages;
 /** Available Languages */

@@ -46,6 +46,10 @@
 			"computer": "Computer",
 			"ties": "Ties",
 			"matches": "Games Played"
+		},
+		"popups": {
+			"title": "Popups",
+			"info": "Dr. Mantis Toboggan has just given you a virus. Can you close all the popups before he feasts?"
 		}
 	},
 	"download": {

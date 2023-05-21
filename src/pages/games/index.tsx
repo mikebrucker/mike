@@ -3,10 +3,13 @@ import { Link, useOutlet } from "react-router-dom";
 import { Phrase } from "../../components/l10n";
 import "./style.scss";
 
-export const Games = () => {
-  const outlet = useOutlet();
+interface Props {
+  gameList: Array<string>;
+}
 
-  const games = ["rps"];
+/** Stupid games list */
+export const Games = ({ gameList }: Props) => {
+  const outlet = useOutlet();
 
   return (
     <>
@@ -21,7 +24,7 @@ export const Games = () => {
         {!outlet ? <h4><Phrase>games.header1</Phrase></h4> : undefined}
         {!outlet ? (
           <div className="p-games-list">
-            {games.map(game => (
+            {gameList.map(game => (
               <Link key={game} to={game}>
                 <div className="game-card">
                   <h6><Phrase>games.{game}.title</Phrase></h6>

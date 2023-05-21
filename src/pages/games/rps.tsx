@@ -9,7 +9,6 @@ import rock from "../../assets/rock.svg";
 import paper from "../../assets/paper.svg";
 import scissors from "../../assets/scissors.svg";
 
-/* eslint-disable @typescript-eslint/naming-convention */
 enum ArrowKeysEn {
   ArrowLeft = 0,
   ArrowDown = 1,
@@ -38,7 +37,6 @@ enum Weapon {
   scissors,
   select,
 }
-/* eslint-enable @typescript-eslint/naming-convention */
 
 interface ButtonsProps {
   choseWeapon: boolean;

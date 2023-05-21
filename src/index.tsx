@@ -1,5 +1,5 @@
 import React from "react";
-import * as ReactDOMClient from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.scss";
 import App from "./App";
@@ -7,7 +7,7 @@ import App from "./App";
 
 const container = document.getElementById("root");
 
-const root = container ? ReactDOMClient.createRoot(container) : undefined;
+const root = container ? createRoot(container) : undefined;
 
 root?.render(
   <React.StrictMode>

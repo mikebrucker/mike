@@ -25,7 +25,6 @@ class L10N {
 	private mergeLanguages = (target: LanguageDictionary | string, source: LanguageDictionary) => {
     return Object.entries(source).reduce((o, [k, v]) => {
 			if (typeof o === "object" && !Array.isArray(o)) {
-				// eslint-disable-next-line no-param-reassign
 				o[k] = Boolean(v) && typeof v === "object" ? this.mergeLanguages(o[k] ?? {}, v) : v;
 			}
 			return o;
