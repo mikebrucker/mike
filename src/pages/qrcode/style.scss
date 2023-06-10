@@ -1,5 +1,5 @@
 @import "../../styles/colors";
-@import "../../styles/values";
+@import "../../styles/mixins";
 
 .p-qr-code {
 	> div {
@@ -43,6 +43,14 @@
 		}
 	}
 
+	.button {
+		@include gel-button($active-border: inset);
+		display: inline-block;
+		width: auto;
+		padding: 4px 12px;
+		margin: 0 auto 8px;
+	}
+
 	@include mobile {
 		> div {
 			flex-direction: column;
@@ -60,5 +68,4 @@
 			}
 		}
 	}
-
 }

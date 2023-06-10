@@ -19,14 +19,14 @@ const dictErrorCorrectionLevel: Record<QRCodeErrorCorrectionLevel, QRCodeErrorCo
 export const QrCodeGenerator = () => {
 	const ref = useRef<HTMLCanvasElement>(null);
 
-  const [url, setUrl] = useState("hElLowORld");
+  const [url, setUrl] = useState(neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou);
   const [inputErrorCorrectionLevel, setInputErrorCorrectionLevel] = useState<QRCodeErrorCorrectionLevel>(dictErrorCorrectionLevel.H);
   const [errorCorrectionLevel, setErrorCorrectionLevel] = useState<QRCodeErrorCorrectionLevel>(dictErrorCorrectionLevel.H);
-  const [inputVersion, setInputVersion] = useState<number | undefined>(10);
-  const [version, setVersion] = useState<number | undefined>(10);
+  const [inputVersion, setInputVersion] = useState<number | undefined>(1);
+  const [version, setVersion] = useState<number | undefined>(1);
 
   useEffect(() => {
-			renderQrCode();
+		qrCodeRenderToCanvas();
   }, [url, errorCorrectionLevel, version]);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const QrCodeGenerator = () => {
 	};
 
 	/**	Create the QR Code on the canvas. Fallback to `QRCode` deciding the lowest version. */
-	const renderQrCode = () => {
+	const qrCodeRenderToCanvas = () => {
 		const text = url || neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou;
 		if (ref.current) {
 			QRCode.toCanvas(ref.current, text, { errorCorrectionLevel, version, margin: 0 })
@@ -67,6 +67,18 @@ export const QrCodeGenerator = () => {
 					if (!isNaN(v) && v > 0 && v <= 40) setVersion(v);
 					QRCode.toCanvas(ref.current, text, { errorCorrectionLevel, margin: 0 });
 				});
+		}
+	};
+
+	/**	Create the QR Code on the canvas. Fallback to `QRCode` deciding the lowest version. */
+	const qrCodeSaveDataUrlToFile = async () => {
+		const text = url || neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou;
+		if (ref.current) {
+			const dataUrl = await QRCode.toDataURL(ref.current, text, { errorCorrectionLevel, version, margin: 0 });
+			const a = document.createElement("a");
+			a.href = dataUrl;
+			a.download = `qr-code-${Date.now()}.png`;
+			a.click();
 		}
 	};
 
@@ -93,9 +105,11 @@ export const QrCodeGenerator = () => {
 				</div>
 			</div>
 
+
 			<h6>{url}</h6>
 			<h6>Error Correction Level: {errorCorrectionLevel}</h6>
 			<h6>Version: {version ?? "Default to lowest"}</h6>
+			<div className="button" onClick={qrCodeSaveDataUrlToFile}>Save</div>
 
 			<main className="qr-code">
 				<canvas ref={ref} />
