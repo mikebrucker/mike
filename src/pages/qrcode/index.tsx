@@ -34,7 +34,7 @@ export const QrCodeGenerator = () => {
   }, [inputErrorCorrectionLevel]);
 
   useEffect(() => {
-		if (version) setVersion(inputVersion);
+		if (inputVersion) setVersion(inputVersion);
   }, [inputVersion]);
 
 	/** Change url directly */
