@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.31",
+    "@types/qrcode": "^1.5.0",
     "@types/react": "^17.0.59",
     "@types/react-dom": "^18.2.4",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
@@ -16,6 +17,7 @@
     "mobx": "^6.9.0",
     "mobx-react": "^7.6.0",
     "phaser": "^3.60.0",
+    "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",

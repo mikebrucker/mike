@@ -11,6 +11,7 @@ import { Home } from "../pages/home";
 import { Recipes } from "../pages/recipes";
 import { RecipeDetail } from "../pages/recipes/recipeDetail";
 import { Popups } from "../pages/games/popups";
+import { QrCodeGenerator } from "../pages/qrcode";
 
 /**	Create Redirect route to go up a level or specific path */
 const redirectRoute = (pathname = ""): RouteObject => {
@@ -66,8 +67,8 @@ export const routes = addRedirectUpRouteToChildren([
 					{ path: ":recipeId", element: <RecipeDetail /> }
 				]
 			},
-			{ path: "games", element: <Games gameList={gameList}/>, children: childRouteCollection(games)
-			},
+			{ path: "games", element: <Games gameList={gameList}/>, children: childRouteCollection(games) },
+			{ path: "qrcode", element: <QrCodeGenerator /> },
 			...downloads({ resume: "Brucker_Mike-Resume.pdf"}),
 		]
 	},
