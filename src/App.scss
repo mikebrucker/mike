@@ -25,11 +25,11 @@
     width: 100%;
     max-width: $bp-tablet;
     margin: 0 auto;
-    padding: 16px;
+    padding: $page-padding;
     text-align: center;
 
     @include mobile {
-      padding: 16px 8px;
+      padding: $page-padding $page-padding-mobile;
     }
   }
 

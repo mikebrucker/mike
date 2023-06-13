@@ -4,15 +4,20 @@ import QRCode, { QRCodeErrorCorrectionLevel } from "qrcode";
 
 const neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou
 	= "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-const dictErrorCorrectionLevel: Record<QRCodeErrorCorrectionLevel, QRCodeErrorCorrectionLevel> = {
+type ErrorCorrectionLevel = QRCodeErrorCorrectionLevel | "l" | "m" | "q" | "h";
+const dictErrorCorrectionLevel: Record<ErrorCorrectionLevel, QRCodeErrorCorrectionLevel> = {
 	L: "L",
 	M: "M",
 	Q: "Q",
 	H: "H",
-	low: "low",
-	medium: "medium",
-	quartile: "quartile",
-	high: "high",
+	l: "L",
+	m: "M",
+	q: "Q",
+	h: "H",
+	low: "L",
+	medium: "M",
+	quartile: "Q",
+	high: "H",
 };
 
 /** Qr Code Generator */
@@ -30,7 +35,7 @@ export const QrCodeGenerator = () => {
   }, [url, errorCorrectionLevel, version]);
 
   useEffect(() => {
-		if (dictErrorCorrectionLevel[inputErrorCorrectionLevel]) setErrorCorrectionLevel(inputErrorCorrectionLevel);
+		if (dictErrorCorrectionLevel[inputErrorCorrectionLevel]) setErrorCorrectionLevel(dictErrorCorrectionLevel[inputErrorCorrectionLevel]);
   }, [inputErrorCorrectionLevel]);
 
   useEffect(() => {
@@ -59,6 +64,7 @@ export const QrCodeGenerator = () => {
 	/**	Create the QR Code on the canvas. Fallback to `QRCode` deciding the lowest version. */
 	const qrCodeRenderToCanvas = () => {
 		const text = url || neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou;
+
 		if (ref.current) {
 			QRCode.toCanvas(ref.current, text, { errorCorrectionLevel, version, margin: 0 })
 				.catch((e) => {
@@ -70,9 +76,10 @@ export const QrCodeGenerator = () => {
 		}
 	};
 
-	/**	Create the QR Code on the canvas. Fallback to `QRCode` deciding the lowest version. */
+	/**	Download Qr Code. */
 	const qrCodeSaveDataUrlToFile = async () => {
 		const text = url || neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou;
+
 		if (ref.current) {
 			const dataUrl = await QRCode.toDataURL(ref.current, text, { errorCorrectionLevel, version, margin: 0 });
 			const a = document.createElement("a");

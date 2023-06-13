@@ -1,5 +1,6 @@
 @import "../../styles/colors";
 @import "../../styles/mixins";
+@import "../../styles/values";
 
 .p-qr-code {
 	> div {
@@ -49,6 +50,14 @@
 		width: auto;
 		padding: 4px 12px;
 		margin: 0 auto 8px;
+	}
+
+	.qr-code {
+		canvas {
+			max-width: 100%;
+			// make sure height is same as width by subtracting the page padding
+			max-height: calc(100vw - $page-padding);
+		}
 	}
 
 	@include mobile {
