@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./style.scss";
-import mantis_toboggan from "../../assets/mantis_togoggan.png";
+import mantis_toboggan from "../../../assets/mantis_togoggan.png";
 import { useOutlet } from "react-router-dom";
-import { l10n } from "../../core/l10n";
+import { l10n } from "../../../core/l10n";
 
 /** Popup game where ya gotta click close all popups */
 export const Popups = () => {

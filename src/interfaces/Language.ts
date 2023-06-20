@@ -1,8 +1,7 @@
-export const DEFAULT_LANGUAGE = "en";
 
 export enum Languages { en="en", de="de" }
 export type Language = keyof typeof Languages;
-/** Available Languages */
+export const DEFAULT_LANGUAGE = Languages.en;
 export const AVAILABLE_LANGUAGES = Object.keys(Languages) as Array<Language>;
 
 export enum ExistingLanguages {
@@ -191,7 +190,6 @@ export enum ExistingLanguages {
   zu="zu"
 }
 export type ExistingLanguage = keyof typeof ExistingLanguages;
-/** Existing Languages */
 export const EXISTING_LANGUAGES = Object.keys(ExistingLanguages) as Array<ExistingLanguage>;
 
 export interface LanguageDictionary {

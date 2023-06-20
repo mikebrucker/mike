@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./style.scss";
 import { Link, useNavigate, useOutlet, useParams } from "react-router-dom";
-import { Phrase } from "../../components/l10n";
+import { Phrase } from "../../../components/l10n";
 import { recipes } from "./recipes";
 
 interface RouteParams {

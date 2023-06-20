@@ -1,4 +1,4 @@
-import { IRecipe } from "../../interfaces/Recipe";
+import { IRecipe } from "../../../interfaces/Recipe";
 
 export const recipes: Dictionary<IRecipe> = {
 	ribs: {

@@ -5,13 +5,13 @@ import { l10n } from "../core/l10n";
 import { DEFAULT_LANGUAGE } from "../interfaces/Language";
 import { About } from "../pages/about";
 import { Contact } from "../pages/contact";
-import { Games } from "../pages/games";
-import { RPS } from "../pages/games/rps";
+import { Games } from "../pages/archive/games";
+import { RPS } from "../pages/archive/games/rps";
 import { Home } from "../pages/home";
-import { Recipes } from "../pages/recipes";
-import { RecipeDetail } from "../pages/recipes/recipeDetail";
-import { Popups } from "../pages/games/popups";
-import { QrCodeGenerator } from "../pages/qrcode";
+import { Recipes } from "../pages/archive/recipes";
+import { RecipeDetail } from "../pages/archive/recipes/recipeDetail";
+import { Popups } from "../pages/archive/games/popups";
+import { QrCodeGenerator } from "../pages/tools/qrcode";
 import { Pages, Subheader, SubheaderArchive, SubheaderTools } from "../components/header";
 
 /**	Create Redirect route to go up a level or specific path */

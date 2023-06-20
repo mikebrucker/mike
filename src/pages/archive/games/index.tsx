@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useOutlet } from "react-router-dom";
-import { Phrase } from "../../components/l10n";
+import { Phrase } from "../../../components/l10n";
 import "./style.scss";
 
 interface Props {

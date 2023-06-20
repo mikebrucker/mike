@@ -1,11 +1,11 @@
 import React from "react";
 import "./style.scss";
 import { useOutlet, useParams } from "react-router-dom";
-import { Phrase } from "../../components/l10n";
+import { Phrase } from "../../../components/l10n";
 import { recipes } from "./recipes";
-import { Step } from "../../components/recipeDetails/step";
-import { Ingredient } from "../../components/recipeDetails/ingredient";
-import { IIngredient } from "../../interfaces/Recipe";
+import { Step } from "../../../components/recipeDetails/step";
+import { Ingredient } from "../../../components/recipeDetails/ingredient";
+import { IIngredient } from "../../../interfaces/Recipe";
 
 interface RouteParams {
   language?: string;

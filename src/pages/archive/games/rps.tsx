@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./style.scss";
 import { useOutlet } from "react-router-dom";
 import { observer } from "mobx-react";
-import { DigitalLetters } from "../../components/digitalLetters";
-import { Phrase } from "../../components/l10n";
-import { l10n } from "../../core/l10n";
-import rock from "../../assets/rock.svg";
-import paper from "../../assets/paper.svg";
-import scissors from "../../assets/scissors.svg";
+import { DigitalLetters } from "../../../components/digitalLetters";
+import { Phrase } from "../../../components/l10n";
+import { l10n } from "../../../core/l10n";
+import rock from "../../../assets/rock.svg";
+import paper from "../../../assets/paper.svg";
+import scissors from "../../../assets/scissors.svg";
 
 enum ArrowKeysEn {
   ArrowLeft = 0,
