@@ -28,7 +28,7 @@ export const Layout = observer(() => {
 
   return (
     <>
-      <Header />
+      <Header headline="Mike Brucker" />
 			{ll ? <Outlet /> : undefined}
 			<div className="flex-grow" />
       <Footer />

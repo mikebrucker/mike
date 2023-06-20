@@ -10,6 +10,7 @@ class Globals {
 		makeAutoObservable(this);
 	}
 
+	/** Pause all css animations */
 	@action
 	public setPauseAnimation = async (pause: boolean, ms = 0) => {
 		setTimeout(() => {

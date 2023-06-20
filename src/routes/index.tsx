@@ -1,4 +1,4 @@
-import { RouteObject, Navigate } from "react-router-dom";
+import { RouteObject, Navigate, Outlet } from "react-router-dom";
 import { Layout } from "../components/layout";
 import { StaticFileDownload } from "../components/staticFileDownload";
 import { l10n } from "../core/l10n";
@@ -12,6 +12,7 @@ import { Recipes } from "../pages/recipes";
 import { RecipeDetail } from "../pages/recipes/recipeDetail";
 import { Popups } from "../pages/games/popups";
 import { QrCodeGenerator } from "../pages/qrcode";
+import { Pages, Subheader, SubheaderArchive, SubheaderTools } from "../components/header";
 
 /**	Create Redirect route to go up a level or specific path */
 const redirectRoute = (pathname = ""): RouteObject => {
@@ -60,15 +61,23 @@ export const routes = addRedirectUpRouteToChildren([
 	{ path: ":language", element: <Layout />, children:
 		[
 			{ index: true, element: <Home /> },
-			{ path: "about", element: <About /> },
-			{ path: "contact", element: <Contact /> },
-			{ path: "recipes", element: <Recipes />, children:
+			{ path: Pages.about, element: <About /> },
+			{ path: Pages.contact, element: <Contact /> },
+			{ path: Subheader.archive, element: <Outlet />, children:
 				[
-					{ path: ":recipeId", element: <RecipeDetail /> }
+					{ path: SubheaderArchive.recipes, element: <Recipes />, children:
+						[
+							{ path: ":recipeId", element: <RecipeDetail /> }
+						]
+					},
+					{ path: SubheaderArchive.games, element: <Games gameList={gameList}/>, children: childRouteCollection(games) },
 				]
 			},
-			{ path: "games", element: <Games gameList={gameList}/>, children: childRouteCollection(games) },
-			{ path: "qrcode", element: <QrCodeGenerator /> },
+			{ path: Subheader.tools, element: <Outlet/>, children:
+				[
+					{ path: SubheaderTools.qrcode, element: <QrCodeGenerator /> },
+				]
+			},
 			...downloads({ resume: "Brucker_Mike-Resume.pdf"}),
 		]
 	},

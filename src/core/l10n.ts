@@ -40,6 +40,7 @@ class L10N {
 		return DEFAULT_LANGUAGE;
 	};
 
+	/** Set website language */
 	public setLanguage = async (lang: Language) => {
 		const language = this.checkLanguageAvailability(lang);
 		const languageDictionary = language !== DEFAULT_LANGUAGE ? await import(`../languages/${language}.json`) : undefined;
@@ -67,7 +68,8 @@ class L10N {
 
 		if (typeof phrase !== "string") return;
 
-		const formatString = (text: string) => {
+		/** Remove special formatting */
+		const removeFormatting = (text: string) => {
 			if (!text.includes("%%")) return text;
 
 			return text.split("%%").filter(Boolean).map(fragment => {
@@ -80,7 +82,7 @@ class L10N {
 			}).join("");
 		};
 
-		return typeof phrase === "string" ? formatString(phrase) : undefined;
+		return typeof phrase === "string" ? removeFormatting(phrase) : undefined;
 	};
 }
 

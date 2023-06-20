@@ -6,8 +6,11 @@
 	"nav": {
 		"about": "Über",
 		"contact": "Kontakt",
+		"archive": "Archiv",
+		"tools": "Tools",
 		"recipes": "Rezepte",
 		"games": "Spielen",
+		"qrcode": "QR Code",
 		"languages": "Sprachen"
 	},
 	"home": {

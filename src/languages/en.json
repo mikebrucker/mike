@@ -6,9 +6,12 @@
 	"nav": {
 		"about": "About",
 		"contact": "Contact",
+		"archive": "Archive",
+		"tools": "Tools",
 		"recipes": "Recipes",
 		"games": "Games",
-		"languages": "Languages"
+		"qrcode": "QR Code",
+		"language": "Languages"
 	},
 	"home": {
 		"hello": "Hello World"

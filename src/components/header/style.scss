@@ -11,12 +11,14 @@
 
   .nav-link {
     @include gel-button($active-border: inset);
-    padding: 0 4px;
-    margin: 0 4px;
     height: calc($nav-height / 1.382);
     font-size: 18px;
     color: $nav-link;
     font-family: 'Syne Mono', 'Courier New', Courier, monospace;
+
+    .title {
+      padding: 0 4px;
+    }
 
     &::after {
       content: attr(data-title);
@@ -38,22 +40,23 @@
     }
 
     @include tablet {
-      $p: 12px;
       font-size: 28px;
       line-height: 23px;
-      margin: 0 0 $p 0;
-      padding: $p 4px;
-      height: $nav-height;
+      height: auto;
       width: 100%;
       max-width: calc($nav-mobile-width / 1.618);
+
+      .title {
+        padding: 16px 4px;
+      }
     }
   }
 
   .languages {
-    width: 100%;
+    display: flex;
+    gap: 8px;
 
     .flag {
-      margin: 0 12px;
       @include gel-button($active-border: inset);
       display: inline-block;
       box-sizing: border-box;
@@ -72,6 +75,40 @@
         vertical-align: middle;
         width: 56px;
         position: relative;
+      }
+    }
+  }
+
+  .dropdown {
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+  }
+
+  .nav-accordion {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    // margin-top done with JS in component
+    &-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      transition: margin-top 0.618s;
+      box-sizing: border-box;
+      padding: 12px 4px;
+      background-color: $sub-bg-color1;
+
+      .nav-link {
+        font-size: 20px;
+        width: auto;
+
+        .title {
+          padding: 8px 4px;
+        }
       }
     }
   }
@@ -160,6 +197,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+        gap: 12px;
         max-width: $nav-mobile-width;
         width: 100%;
         height: 100vh;
@@ -239,32 +277,34 @@
       align-items: center;
       margin-right: 0;
       height: 100%;
+      gap: 4px;
 
       @include tablet {
         display: none;
-      }
-
-      .dropdown {
-        margin: 0;
-        cursor: pointer;
       }
     }
   }
 
   &-subheader {
-    @include navbar;
-    z-index: $z-subheader;
-    background-color: $sub-bg-color2;
-    background: linear-gradient(to right, $sub-bg-color1, $sub-bg-color2);
-    margin-top: -$nav-height;
-    transition: margin-top 0.618s ease-in-out;
+    &-desktop {
+      position: fixed;
+      @include navbar;
+      z-index: $z-subheader;
+      background-color: $sub-bg-color2;
+      background: linear-gradient(to right, $sub-bg-color1, $sub-bg-color2);
+      margin-top: -$nav-height;
+      transition: margin-top 0.618s ease-in-out;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
 
-    &.is-open {
-      margin-top: 0;
-    }
+      &.is-open {
+        margin-top: 0;
+      }
 
-    @include tablet {
-      display: none;
+      @include tablet {
+        display: none;
+      }
     }
   }
 }

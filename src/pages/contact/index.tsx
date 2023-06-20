@@ -3,6 +3,7 @@ import "./style.scss";
 import { useOutlet } from "react-router-dom";
 import { Phrase } from "../../components/l10n";
 
+/** Contact Page */
 export const Contact = () => {
   const outlet = useOutlet();
 

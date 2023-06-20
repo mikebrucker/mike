@@ -64,6 +64,7 @@ const Buttons = observer(({ choseWeapon, playerWeapon, chooseWeapon}: ButtonsPro
   );
 });
 
+/** Rock Paper Scissors Game */
 export const RPS = () => {
   const icons: Dictionary<string> = { rock, paper, scissors };
 
@@ -105,6 +106,7 @@ export const RPS = () => {
     };
   }, [playerWins, computerWins, ties]);
 
+  /** Keypress for wasd or arrow keys */
   const onKeyPress = (e: KeyboardEvent) => {
     if (!loading) {
       const n = l10n.language === "de" ? (
@@ -125,6 +127,7 @@ export const RPS = () => {
     }
   };
 
+  /** Reset game */
   const reset = () => {
     if (!loading) {
       setLoading(true);
@@ -139,12 +142,14 @@ export const RPS = () => {
     }
   };
 
+  /** Randomize a weapon */
   const getRandomWeapon = (): number => {
     const x = parseInt(window.crypto.getRandomValues(new Uint32Array(1))[0].toString().charAt(4));
     if (x < 3) return x;
     return getRandomWeapon();
   };
 
+  /** Choose a weapon for player */
   const chooseWeapon = (player: Weapon) => {
     if (loading) return;
     setLoading(true);
@@ -170,7 +175,9 @@ export const RPS = () => {
     setLoading(false);
   };
 
+  /** Find the longest word for digital display */
   const longestWord = (a?: Array<string>) => (a ?? []).reduce((l, w) => w.length > l.length ? w : l, "").length;
+  /** Pad words to match longest word */
   const padWord = (w: string, l: number, e = 0) =>{
     const d = l - w.length;
     const m = d % 2;

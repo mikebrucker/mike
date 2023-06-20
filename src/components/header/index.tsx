@@ -1,63 +1,185 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { observer } from "mobx-react";
 import { l10n } from "../../core/l10n";
-import { Phrase } from "../l10n";
 import { globals } from "../../core/globals";
+import { Phrase } from "../l10n";
 import { Languages } from "./languages";
 import { Language } from "../../interfaces/Language";
+import { classNames } from "../../helpers/Helper";
+import { NavAccordion } from "./navAccordion";
 
-type Subheader = "language" | undefined;
+export enum Pages {
+  about = "about",
+  contact = "contact",
+}
+export enum Subheader {
+  archive = "archive",
+  tools = "tools",
+  language = "language",
+}
+export enum SubheaderArchive {
+  recipes = "recipes",
+  games = "games",
+}
+export enum SubheaderTools {
+  qrcode = "qrcode",
+}
+interface Props {
+  headline: string;
+}
 
-export const Header = observer(() => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+export const Header = observer(({ headline }: Props) => {
+  const [isOpenMobileMenu, setIsOpenMobileMenu] = useState<boolean>(false);
+  const [isOpenSubheader, setIsOpenSubheader] = useState<boolean>(false);
   const [openSubheader, setOpenSubheader] = useState<Subheader>();
+  const [currentPage, setCurrentPage] = useState("");
 
-  const toggleMenu = (toggle: boolean) => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setIsOpenMobileMenu(false));
+    return () => window.removeEventListener("resize", () => setIsOpenMobileMenu(false));
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(pathname.split("/").filter(Boolean).pop() ?? "");
+  }, [pathname]);
+
+  /** Toggle mobile menu open */
+  const toggleMobileMenu = (toggle: boolean) => {
     globals.setPauseAnimation(toggle, !toggle ? 1000 : 0);
-    setIsOpen(toggle);
+    setIsOpenMobileMenu(toggle);
   };
 
+  /** Toggle the open subheader */
   const toggleSubheader = (subheader?: Subheader) => {
-    setOpenSubheader(subheader !== openSubheader ? subheader : undefined);
+    setIsOpenSubheader(!isOpenSubheader);
+    if (subheader && subheader !== openSubheader) {
+      setTimeout(() => {
+        const isDesktopOpen = openSubheader !== subheader;
+        setOpenSubheader(Subheader[subheader]);
+        setIsOpenSubheader(isDesktopOpen);
+      }, !openSubheader || isOpenMobileMenu ? 0 : 618);
+    } else {
+      setTimeout(() => {
+        setOpenSubheader(undefined);
+      }, isOpenMobileMenu ? 0 : 618);
+    }
   };
 
+  /** Toggle current language */
   const toggleLanguage = (lang: Language) => {
     if (lang !== l10n.language) l10n.setLanguage(lang);
-    if (openSubheader) toggleSubheader();
+    if (openSubheader) toggleSubheader(undefined);
   };
 
-  const pages = ["recipes", "games", "about", "contact"];
+  /** Close menus on `NavLink` click */
+  const onClickNavLink = () => {
+    if (isOpenMobileMenu) toggleMobileMenu(false);
+    if (openSubheader) toggleSubheader(undefined);
+  };
 
-  const menuClass = isOpen ? " is-open" : " is-closed";
-  const languageSubheaderClass = openSubheader === "language" ? " is-open" : " is-closed";
+  /** Render `NavLink` */
+  const renderNavLink = (key: string, page: string, parentRoute?: string) => {
+    const to = [parentRoute, page].filter(Boolean).join("/");
+    return (
+      <NavLink
+        key={`${key}-${parentRoute ?? "route"}-${page}`}
+        to={to}
+        className="nav-link"
+        data-title={l10n.getPhrase(["nav", page])}
+        onClick={onClickNavLink}
+      >
+        <div className="title">
+          <Phrase>nav.{page}</Phrase>
+        </div>
+      </NavLink>
+    );
+  };
 
-  const headline = "Mike Brucker";
+  /** Render Pseudo `NavLink` */
+  const renderPseudoNavLink = (page: Subheader, mobile = false) => {
+    return (
+      <React.Fragment key={`${page}-${mobile ? "mobile" : "desktop"}`}>
+        <div
+          className={pseudoNavLinkClass(page)}
+          onClick={() => toggleSubheader(page)}
+        >
+          <div className="title">
+            <Phrase>nav.{page}</Phrase>
+          </div>
+          {mobile ? (
+            <NavAccordion subheader={page} openSubheader={openSubheader} marginTopDiff={12}>
+              {subheaders[page]}
+            </NavAccordion>
+          ) : undefined}
+        </div>
+      </React.Fragment>
+    );
+  };
+
+  const pages = Object.values(Pages);
+  const subheaders: Record<Subheader, JSX.Element> = {
+    [Subheader.archive]: <>{Object.values(SubheaderArchive).map(sh => renderNavLink(Subheader.archive, sh, Subheader.archive))}</>,
+    [Subheader.tools]: <>{Object.values(SubheaderTools).map(sh => renderNavLink(Subheader.tools, sh, Subheader.tools))}</>,
+    [Subheader.language]: <Languages toggleLanguage={toggleLanguage} />,
+  };
+  const subheaderPageMap: Record<Exclude<Subheader, Subheader.language>, Array<string>> = {
+    [Subheader.archive]: Object.keys(SubheaderArchive),
+    [Subheader.tools]: Object.keys(SubheaderTools)
+  };
+
+  /** Add active class for Pseudo NavLink */
+  const subheaderHasActivePage = (subheader: Subheader) => {
+    return (subheaderPageMap[subheader as Exclude<Subheader, Subheader.language>] ?? [])
+      .some(page => page === currentPage);
+  };
+
+  const menuClass = isOpenMobileMenu ? "is-open" : "is-closed";
+  const navMobileBackgroundClass = classNames({
+    "c-header-nav-mobile-background": true,
+    [menuClass]: true,
+  });
+  const navMobileLinksClass = classNames({
+    "c-header-nav-mobile-links": true,
+    [menuClass]: true,
+  });
+  const menuIconClass = classNames({
+    "menu-icon": true,
+    [menuClass]: true,
+  });
+  /** Classname for a pseudo nav link */
+  const pseudoNavLinkClass = (subheader: Subheader) => classNames({
+    dropdown: true,
+    "nav-link": true,
+    active: (isOpenSubheader && openSubheader === subheader) || subheaderHasActivePage(subheader),
+  });
+  const desktopSubheaderClass = classNames({
+    "c-header-subheader-desktop": true,
+    "is-open": isOpenSubheader,
+    "is-closed": !isOpenSubheader,
+  });
 
   return (
     <nav className="c-header">
       <div className="c-header-nav">
-        <NavLink className="c-header-nav-title" to="">{headline}</NavLink>
+        <NavLink end className="c-header-nav-title" to="">{headline}</NavLink>
         <div className="flex-grow" />
         <div className="c-header-nav-mobile">
-          <div className={`c-header-nav-mobile-background${menuClass}`} onClick={() => setIsOpen(false)} />
-          <div className={`c-header-nav-mobile-links${menuClass}`}>
-            <NavLink end className="nav-link" onClick={() => toggleMenu(false)} to="">{headline}</NavLink>
-            {pages.map(page => (
-              <NavLink
-                key={`mobile-${page}`} to={page}
-                className="nav-link"
-                data-title={l10n.getPhrase(["nav", page])}
-                onClick={() => toggleMenu(false)}
-              >
-                <Phrase>nav.{page}</Phrase>
-              </NavLink>
-            ))}
-            <Languages toggleLanguage={toggleLanguage} />
+          <div className={navMobileBackgroundClass} onClick={() => setIsOpenMobileMenu(false)} />
+          <div className={navMobileLinksClass}>
+            <NavLink end className="nav-link" onClick={() => toggleMobileMenu(false)} to="">
+              <div className="title">
+                {headline}
+              </div>
+            </NavLink>
+            {pages.map(page => renderNavLink("mobile", page))}
+            {Object.keys(subheaders).map(sh => renderPseudoNavLink(sh, true))}
           </div>
-          <div className="menu" onClick={() => toggleMenu(!isOpen)}>
-            <div className={`menu-icon${menuClass}`}>
+          <div className="menu" onClick={() => toggleMobileMenu(!isOpenMobileMenu)}>
+            <div className={menuIconClass}>
               <div className="menu-icon-line top" />
               <div className="menu-icon-line mid" />
               <div className="menu-icon-line bot" />
@@ -65,23 +187,12 @@ export const Header = observer(() => {
           </div>
         </div>
         <div className="c-header-nav-desktop">
-          {pages.map(page => (
-            <NavLink
-              key={`desktop-${page}`} to={page}
-              className="nav-link"
-              onClick={() => toggleMenu(false)}
-              data-title={l10n.getPhrase(["nav", page])}
-            >
-              <Phrase>nav.{page}</Phrase>
-            </NavLink>
-          ))}
-          <div className={`dropdown nav-link${openSubheader === "language" ? " active" : ""}`} onClick={() => toggleSubheader("language")}>
-            <Phrase>nav.languages</Phrase>
-          </div>
+          {pages.map(page => renderNavLink("desktop", page))}
+          {Object.keys(subheaders).map(sh => renderPseudoNavLink(sh))}
         </div>
       </div>
-      <div className={`c-header-subheader${languageSubheaderClass}`}>
-        <Languages toggleLanguage={toggleLanguage} />
+      <div className={desktopSubheaderClass}>
+        {openSubheader ? subheaders[openSubheader] : undefined}
       </div>
     </nav>
   );
