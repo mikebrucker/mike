@@ -40,6 +40,10 @@
 				background-color: $bg-color2;
 				border-radius: 9px;
 				display: inline-block;
+
+				&:focus {
+					outline-width: 0;
+				}
 			}
 		}
 	}
@@ -71,6 +75,7 @@
 				align-items: center;
 
 				input {
+					font-family:'Courier New', Courier, monospace;
 					text-align: center;
 					margin: 0;
 				}

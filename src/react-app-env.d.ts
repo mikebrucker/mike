@@ -2,7 +2,7 @@
 
 import { Entries } from "type-fest";
 declare global {
-	type Dictionary<Thing> = Record<string, Thing>;
+	type Dictionary<Thing, TypeOfThing = string> = Record<TypeOfThing, Thing>;
 
   interface ObjectConstructor {
     entries<T extends object>(o: T): Entries<T>;

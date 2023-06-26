@@ -1,23 +1,21 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./style.scss";
-import QRCode, { QRCodeErrorCorrectionLevel } from "qrcode";
+import QRCode from "qrcode";
+import { PopupSelecter } from "../../../components/popupSelecter";
 
 const neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou
 	= "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-type ErrorCorrectionLevel = QRCodeErrorCorrectionLevel | "l" | "m" | "q" | "h";
-const dictErrorCorrectionLevel: Record<ErrorCorrectionLevel, QRCodeErrorCorrectionLevel> = {
-	L: "L",
-	M: "M",
-	Q: "Q",
-	H: "H",
-	l: "L",
-	m: "M",
-	q: "Q",
-	h: "H",
-	low: "L",
-	medium: "M",
-	quartile: "Q",
-	high: "H",
+enum QRCodeErrorCorrectionLevel {
+	L="L",
+	M="M",
+	Q="Q",
+	H="H",
+}
+const dictErrorCorrectionLevel: Partial<Dictionary<string, QRCodeErrorCorrectionLevel>> = {
+	L: "Low: L",
+	M: "Medium: M",
+	Q: "Quartile: Q",
+	H: "High: H",
 };
 
 /** Qr Code Generator */
@@ -25,8 +23,12 @@ export const QrCodeGenerator = () => {
 	const ref = useRef<HTMLCanvasElement>(null);
 
   const [url, setUrl] = useState(neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou);
-  const [inputErrorCorrectionLevel, setInputErrorCorrectionLevel] = useState<QRCodeErrorCorrectionLevel>(dictErrorCorrectionLevel.H);
-  const [errorCorrectionLevel, setErrorCorrectionLevel] = useState<QRCodeErrorCorrectionLevel>(dictErrorCorrectionLevel.H);
+
+  const [inputErrorCorrectionLevel, setInputErrorCorrectionLevel] =
+		useState<QRCodeErrorCorrectionLevel>(QRCodeErrorCorrectionLevel.H);
+  const [errorCorrectionLevel, setErrorCorrectionLevel] = useState<QRCodeErrorCorrectionLevel>(QRCodeErrorCorrectionLevel.H);
+  const [popupIsOpenErrorCorrectionLevel, setPopupIsOpenErrorCorrectionLevel] = useState(false);
+
   const [inputVersion, setInputVersion] = useState<number | undefined>(1);
   const [version, setVersion] = useState<number | undefined>(1);
 
@@ -35,7 +37,8 @@ export const QrCodeGenerator = () => {
   }, [url, errorCorrectionLevel, version]);
 
   useEffect(() => {
-		if (dictErrorCorrectionLevel[inputErrorCorrectionLevel]) setErrorCorrectionLevel(dictErrorCorrectionLevel[inputErrorCorrectionLevel]);
+		if (dictErrorCorrectionLevel[inputErrorCorrectionLevel])
+			setErrorCorrectionLevel(QRCodeErrorCorrectionLevel[inputErrorCorrectionLevel]);
   }, [inputErrorCorrectionLevel]);
 
   useEffect(() => {
@@ -48,8 +51,11 @@ export const QrCodeGenerator = () => {
 	};
 
 	/** Allow useEffect to handle `errorCorrectionLevel` */
-	const handleInputErrorCorrectionLevel = (e: ChangeEvent<HTMLInputElement>) => {
-		setInputErrorCorrectionLevel(e.target.value as QRCodeErrorCorrectionLevel);
+	const handleInputErrorCorrectionLevel = (input: string) => {
+		if (dictErrorCorrectionLevel[input as QRCodeErrorCorrectionLevel]) {
+			setInputErrorCorrectionLevel(input as QRCodeErrorCorrectionLevel);
+		}
+		setPopupIsOpenErrorCorrectionLevel(false);
 	};
 
 	/** Allow useEffect to handle `version` */
@@ -100,9 +106,15 @@ export const QrCodeGenerator = () => {
 				</div>
 			</div>
 			<div>
-				<div className="label"><code>errorCorrectionLevel</code><small>low, medium, quartile, high, L, M, Q, H</small></div>
+				<div className="label"><code>errorCorrectionLevel</code><small>{Object.values(dictErrorCorrectionLevel).join(", ")}</small></div>
 				<div className="input">
-					<input name="errorCorrectionLevel" onChange={handleInputErrorCorrectionLevel} type="text" value={inputErrorCorrectionLevel} />
+					<input
+						onClick={() => setPopupIsOpenErrorCorrectionLevel(true)}
+						readOnly
+						name="errorCorrectionLevel"
+						type="text"
+						value={dictErrorCorrectionLevel[inputErrorCorrectionLevel]}
+					/>
 				</div>
 			</div>
 			<div>
@@ -112,7 +124,6 @@ export const QrCodeGenerator = () => {
 				</div>
 			</div>
 
-
 			<h6>{url}</h6>
 			<h6>Error Correction Level: {errorCorrectionLevel}</h6>
 			<h6>Version: {version ?? "Default to lowest"}</h6>
@@ -121,6 +132,14 @@ export const QrCodeGenerator = () => {
 			<main className="qr-code">
 				<canvas ref={ref} />
 			</main>
+
+			<PopupSelecter
+				selections={dictErrorCorrectionLevel}
+				selected={inputErrorCorrectionLevel}
+				isOpen={popupIsOpenErrorCorrectionLevel}
+				select={handleInputErrorCorrectionLevel}
+				close={() => setPopupIsOpenErrorCorrectionLevel(false)}
+			/>
 		</div>
   );
 };
