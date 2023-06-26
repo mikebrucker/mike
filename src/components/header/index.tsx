@@ -34,18 +34,19 @@ export const Header = observer(({ headline }: Props) => {
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState<boolean>(false);
   const [isOpenSubheader, setIsOpenSubheader] = useState<boolean>(false);
   const [openSubheader, setOpenSubheader] = useState<Subheader>();
-  const [currentPage, setCurrentPage] = useState("");
 
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.addEventListener("resize", () => setIsOpenMobileMenu(false));
-    return () => window.removeEventListener("resize", () => setIsOpenMobileMenu(false));
+    window.addEventListener("resize", closeAll);
+    return () => window.removeEventListener("resize", closeAll);
   }, []);
 
-  useEffect(() => {
-    setCurrentPage(pathname.split("/").filter(Boolean).pop() ?? "");
-  }, [pathname]);
+  /** Close all subheaders and menus */
+  const closeAll = () => {
+    if (isOpenSubheader) toggleSubheader(undefined);
+    if (isOpenMobileMenu) toggleMobileMenu(false);
+  };
 
   /** Toggle mobile menu open */
   const toggleMobileMenu = (toggle: boolean) => {
@@ -58,9 +59,8 @@ export const Header = observer(({ headline }: Props) => {
     setIsOpenSubheader(!isOpenSubheader);
     if (subheader && subheader !== openSubheader) {
       setTimeout(() => {
-        const isDesktopOpen = openSubheader !== subheader;
         setOpenSubheader(Subheader[subheader]);
-        setIsOpenSubheader(isDesktopOpen);
+        setIsOpenSubheader(openSubheader !== subheader);
       }, !openSubheader || isOpenMobileMenu ? 0 : 618);
     } else {
       setTimeout(() => {
@@ -134,7 +134,11 @@ export const Header = observer(({ headline }: Props) => {
   /** Add active class for Pseudo NavLink */
   const subheaderHasActivePage = (subheader: Subheader) => {
     return (subheaderPageMap[subheader as Exclude<Subheader, Subheader.language>] ?? [])
-      .some(page => page === currentPage);
+      .reduce((arr, cur) => {
+        arr.push([subheader, cur].join("/"));
+        return arr;
+      }, [] as Array<string>)
+      .some(route => pathname.includes(route));
   };
 
   const menuClass = isOpenMobileMenu ? "is-open" : "is-closed";

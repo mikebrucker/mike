@@ -105,6 +105,11 @@
       .nav-link {
         font-size: 20px;
         width: auto;
+        font-weight: initial;
+
+        &.active {
+          font-weight: 900;
+        }
 
         .title {
           padding: 8px 4px;
