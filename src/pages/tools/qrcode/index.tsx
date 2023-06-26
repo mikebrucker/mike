@@ -31,6 +31,7 @@ export const QrCodeGenerator = () => {
 
   const [inputVersion, setInputVersion] = useState<number | undefined>(1);
   const [version, setVersion] = useState<number | undefined>(1);
+	const [useLowestVersion, setUseLowestVersion] = useState(true);
 
   useEffect(() => {
 		qrCodeRenderToCanvas();
@@ -67,18 +68,30 @@ export const QrCodeGenerator = () => {
 			setInputVersion(v);
 	};
 
+	/** Make QrCode Lowest Version allowed */
+	const handleUseLowestVersion = () => {
+		setUseLowestVersion(!useLowestVersion);
+		setVersion(1);
+	};
+
 	/**	Create the QR Code on the canvas. Fallback to `QRCode` deciding the lowest version. */
 	const qrCodeRenderToCanvas = () => {
 		const text = url || neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou;
 
 		if (ref.current) {
-			QRCode.toCanvas(ref.current, text, { errorCorrectionLevel, version, margin: 0 })
-				.catch((e) => {
-					/** Grab version from error message if possible */
-					const v = parseInt(e.toString().replace(/\D+/g, ""));
-					if (!isNaN(v) && v > 0 && v <= 40) setVersion(v);
-					QRCode.toCanvas(ref.current, text, { errorCorrectionLevel, margin: 0 });
-				});
+			QRCode.toCanvas(
+				ref.current,
+				text,
+				{ version: useLowestVersion ? 1 : version, errorCorrectionLevel, margin: 0 }
+			).catch((e) => {
+				/** Grab version from error message if possible */
+				const v = parseInt(e.toString().replace(/\D+/g, ""));
+				if (!isNaN(v) && v > 0 && v <= 40) {
+					setVersion(v);
+					if (useLowestVersion) setInputVersion(v);
+				}
+				QRCode.toCanvas(ref.current, text, { errorCorrectionLevel, margin: 0 });
+			});
 		}
 	};
 
@@ -118,7 +131,15 @@ export const QrCodeGenerator = () => {
 				</div>
 			</div>
 			<div>
-				<div className="label"><code>version</code><small>1 - 40</small></div>
+				<div className="label">
+					<code>version</code>
+					<code className="click">
+						<small className="checkbox" onClick={handleUseLowestVersion}>
+							{String.fromCodePoint(useLowestVersion ? 0x1F44D : 0x1F44E)} useLowestVersion
+						</small>
+					</code>
+					<small>1 - 40</small>
+				</div>
 				<div className="input">
 					<input name="version" onChange={handleInputVersion} type="number" max={40} min={1} value={inputVersion} />
 				</div>
