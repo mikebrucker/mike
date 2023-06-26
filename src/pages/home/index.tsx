@@ -18,6 +18,7 @@ export const Home = observer(() => {
     };
   }, []);
 
+  /** Update Star Count */
   const updateStarCount = () => {
     const count = Math.max(
       768,

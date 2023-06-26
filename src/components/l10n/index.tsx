@@ -9,6 +9,7 @@ interface Props {
 export const Phrase = observer(({ children }: Props) => {
   const [translation, setTranslation] = useState<Array<JSX.Element | string> | string>("");
 
+  /** Format to text to not have bold and italic markers */
   const format = (text: string) => {
     if (!text.includes("%%")) return text;
 

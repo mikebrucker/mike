@@ -94,6 +94,7 @@ const DIGITAL_LETTER: Record<Uppercase<LowerLetter> | Num | Space, Array<1 | 0>>
 };
 /* eslint-enable quote-props */
 
+/** Alarm clock style digital letters */
 export const DigitalLetters = ({ word, num }: Props) => {
   const [letters, setLetters] = useState<Array<Letter | Num>>([]);
   const [nums, setNums] = useState<Array<Num>>();
@@ -107,6 +108,7 @@ export const DigitalLetters = ({ word, num }: Props) => {
     setLetters(word?.split("") as Array<Letter & Num>);
   }, [word]);
 
+  /** Render a number */
   const digitizeNum = (n: Num, blank?: boolean) => {
     const numMap = DIGITAL_NUMBER[!blank ? n : " "].map(n => n ? " active" : "");
 
@@ -133,6 +135,7 @@ export const DigitalLetters = ({ word, num }: Props) => {
     );
   };
 
+  /** Render a letter */
   const digitizeLetter = (letter: Letter | Num, i: number) => {
     const l = letter.toUpperCase() as Uppercase<LowerLetter> | Num;
     if (!(l in DIGITAL_LETTER)) return;

@@ -6,6 +6,7 @@ import { l10n } from "../../core/l10n";
 export const Footer = observer(() => {
   const [date, setDate] = useState(new Date());
 
+  /** Click the footer for a new copyright date */
   const onClick = () => {
     const d = date.getTime();
     const ms = Math.round(parseInt(window.crypto.getRandomValues(
