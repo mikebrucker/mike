@@ -3,6 +3,9 @@
 		"en": "Englisch",
 		"de": "Deutsch"
 	},
+	"common": {
+		"save": "Speichern"
+	},
 	"nav": {
 		"about": "Über",
 		"contact": "Kontakt",
@@ -28,24 +31,54 @@
 		"error4": "%%c##{{ERROR_0696969: social_security_number nicht gefunden}}%%",
 		"error5": "%%c##{{ERROR_5318008: only_fans nicht gefunden}}%%"
 	},
-	"recipes": {
-		"header1": "Rezepte"
+	"archive": {
+		"recipes": {
+			"header1": "Rezepte"
+		},
+		"games": {
+			"header1": "Spielen",
+			"back": "Zurück zu Spielen",
+			"rps": {
+				"title": "Schere Stein Papier",
+				"info": "Spielen Sie gegen den Computer. Wählen Sie %%b##Schere%%, %%b##Stein%%, oder %%b##Papier%% mit den Tasten oder verwenden Sie die %%b##Pfeil%%- oder %%b##WASD%%-Tasten. Das Anzeigetafel verfolgt Spielergewinne, Computergewinne, Unentschieden und gespielte Spiele. Die Reset-Schaltfläche löscht das Anzeigetafel.",
+				"rock": "Stein",
+				"paper": "Papier",
+				"scissors": "Schere",
+				"select": "Kämpfen!",
+				"reset": "Rücksetzen",
+				"player": "Spieler",
+				"computer": "Computer",
+				"ties": "Unentschieden",
+				"matches": "Spiele gespielt"
+			}
+		}
 	},
-	"games": {
-		"header1": "Spielen",
-		"back": "Zurück zu Spielen",
-		"rps": {
-			"title": "Schere Stein Papier",
-			"info": "Spielen Sie gegen den Computer. Wählen Sie %%b##Schere%%, %%b##Stein%%, oder %%b##Papier%% mit den Tasten oder verwenden Sie die %%b##Pfeil%%- oder %%b##WASD%%-Tasten. Das Anzeigetafel verfolgt Spielergewinne, Computergewinne, Unentschieden und gespielte Spiele. Die Reset-Schaltfläche löscht das Anzeigetafel.",
-			"rock": "Stein",
-			"paper": "Papier",
-			"scissors": "Schere",
-			"select": "Kämpfen!",
-			"reset": "Rücksetzen",
-			"player": "Spieler",
-			"computer": "Computer",
-			"ties": "Unentschieden",
-			"matches": "Spiele gespielt"
+	"tools": {
+		"qrcode": {
+			"title": "Qr-Code Generator",
+			"input": {
+				"url": {
+					"label": "c##url%%",
+					"desc": "Text zum Einbetten in Qr-Code"
+				},
+				"errorCorrectionLevel": {
+					"label": "c##fehlerkorrekturLevel%%",
+					"L": "Niedrig: L",
+					"M": "Mittel: M",
+					"Q": "Quartil: Q",
+					"H": "Hoch: H"
+				},
+				"version": {
+					"label": "c##version%%",
+					"desc": "1 - 40",
+					"func": "niedrigsteVersionVerwenden"
+				}
+			},
+			"info": {
+				"errorCorrectionLevel": "Fehlerkorrektur Level",
+				"version": "Version",
+				"versionDefault": "Standardmäßig am niedrigsten"
+			}
 		}
 	},
 	"download": {

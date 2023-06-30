@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import "./style.scss";
-import { useOutlet } from "react-router-dom";
 import { observer } from "mobx-react";
+import { useEffect, useState } from "react";
+import { useOutlet } from "react-router-dom";
+import paper from "../../../assets/paper.svg";
+import rock from "../../../assets/rock.svg";
+import scissors from "../../../assets/scissors.svg";
 import { DigitalLetters } from "../../../components/digitalLetters";
 import { Phrase } from "../../../components/l10n";
 import { l10n } from "../../../core/l10n";
-import rock from "../../../assets/rock.svg";
-import paper from "../../../assets/paper.svg";
-import scissors from "../../../assets/scissors.svg";
+import "./style.scss";
 
 enum ArrowKeysEn {
   ArrowLeft = 0,
@@ -48,7 +48,7 @@ interface ButtonsProps {
  * Keyboard styled buttons.
  * `observer` component separated
  */
-const Buttons = observer(({ choseWeapon, playerWeapon, chooseWeapon}: ButtonsProps) => {
+const Buttons = observer(({ choseWeapon, playerWeapon, chooseWeapon }: ButtonsProps) => {
   return (
     <>
       {[0, 1, 2].sort(a => a === Weapon.scissors && l10n.language === "de" ? -1 : 0).map(n => (
@@ -57,7 +57,7 @@ const Buttons = observer(({ choseWeapon, playerWeapon, chooseWeapon}: ButtonsPro
           className={choseWeapon && playerWeapon === n ? "clicked" : ""}
           onClick={() => chooseWeapon(n)}
         >
-          <Phrase>games.rps.{Weapon[n]}</Phrase>
+          <Phrase>archive.games.rps.{Weapon[n]}</Phrase>
         </button>
       ))}
     </>
@@ -178,13 +178,13 @@ export const RPS = () => {
   /** Find the longest word for digital display */
   const longestWord = (a?: Array<string>) => (a ?? []).reduce((l, w) => w.length > l.length ? w : l, "").length;
   /** Pad words to match longest word */
-  const padWord = (w: string, l: number, e = 0) =>{
+  const padWord = (w: string, l: number, e = 0) => {
     const d = l - w.length;
     const m = d % 2;
     const t = Math.floor(d / 2) + e;
     return Array(t).fill(" ").join("") + w + Array(t + m).fill(" ");
   };
-  const titleArr = l10n.getString("games.rps.title")?.split(" ");
+  const titleArr = l10n.getString("archive.games.rps.title")?.split(" ");
   const titleWidth = longestWord(titleArr);
   const title = titleArr?.map(w => padWord(w, titleWidth, titleWidth % 2)).map((w, i) => <DigitalLetters key={`${i}_${w}`} word={w} />);
 
@@ -196,30 +196,30 @@ export const RPS = () => {
         <div className="scoreboard">
           <div className="scoreboard-title">{title}</div>
           <div className="scoreboard-info">
-            <div><Phrase>games.rps.player</Phrase><DigitalLetters num={playerWins} /></div>
-            <div><DigitalLetters num={computerWins} /> <Phrase>games.rps.computer</Phrase></div>
+            <div><Phrase>archive.games.rps.player</Phrase><DigitalLetters num={playerWins} /></div>
+            <div><DigitalLetters num={computerWins} /> <Phrase>archive.games.rps.computer</Phrase></div>
           </div>
           <div className="scoreboard-info">
-            <div><Phrase>games.rps.ties</Phrase> <DigitalLetters num={ties} /></div>
-            <div><DigitalLetters num={playerWins + computerWins + ties} /> <Phrase>games.rps.matches</Phrase></div>
+            <div><Phrase>archive.games.rps.ties</Phrase> <DigitalLetters num={ties} /></div>
+            <div><DigitalLetters num={playerWins + computerWins + ties} /> <Phrase>archive.games.rps.matches</Phrase></div>
           </div>
           <div className="battlefield">
             <div className="player">
-              <div><Phrase>games.rps.player</Phrase></div>
-              <div className="weapon"><Phrase>games.rps.{Weapon[playerWeapon]}</Phrase></div>
-              {playerWeapon < 3 ? <img src={icons[Weapon[playerWeapon]]} />: <div className="weapon-placeholder" />}
+              <div><Phrase>archive.games.rps.player</Phrase></div>
+              <div className="weapon"><Phrase>archive.games.rps.{Weapon[playerWeapon]}</Phrase></div>
+              {playerWeapon < 3 ? <img src={icons[Weapon[playerWeapon]]} /> : <div className="weapon-placeholder" />}
             </div>
             <div className="computer">
-              <div><Phrase>games.rps.computer</Phrase></div>
-              <div className="weapon"><Phrase>games.rps.{Weapon[computerWeapon]}</Phrase></div>
-              {computerWeapon < 3 ? <img src={icons[Weapon[computerWeapon]]} />: <div className="weapon-placeholder" />}
+              <div><Phrase>archive.games.rps.computer</Phrase></div>
+              <div className="weapon"><Phrase>archive.games.rps.{Weapon[computerWeapon]}</Phrase></div>
+              {computerWeapon < 3 ? <img src={icons[Weapon[computerWeapon]]} /> : <div className="weapon-placeholder" />}
             </div>
           </div>
         </div>
         <div className="buttons">
           <div>
             <button className={didReset && playerWeapon === undefined ? "clicked" : ""} onClick={reset}>
-              <Phrase>games.rps.reset</Phrase>
+              <Phrase>archive.games.rps.reset</Phrase>
             </button>
           </div>
           <Buttons chooseWeapon={chooseWeapon} choseWeapon={choseWeapon} playerWeapon={playerWeapon} />

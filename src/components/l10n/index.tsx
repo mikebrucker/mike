@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
+import { useEffect, useState } from "react";
 import { l10n } from "../../core/l10n";
 
 interface Props {
   children?: string | Array<string>;
 }
 
+/** Element to take a key to display l10n phrase */
 export const Phrase = observer(({ children }: Props) => {
   const [translation, setTranslation] = useState<Array<JSX.Element | string> | string>("");
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { classNames } from "../../helpers/Helper";
 import { IStep } from "../../interfaces/Recipe";
 import { Phrase } from "../l10n";
@@ -21,11 +20,11 @@ export const Step = ({ className, step: s, index }: Props) => {
 		"c-recipes-detail-step": true
 	});
 
-  return (
-    <div className={classes}>
-			<h6><Phrase>recipes.step</Phrase> {index}</h6>
-      {img ? <img src={img.src} alt={img.alt} /> : undefined}
+	return (
+		<div className={classes}>
+			<h6><Phrase>archive.recipes.step</Phrase> {index}</h6>
+			{img ? <img src={img.src} alt={img.alt} /> : undefined}
 			<ol>{steps.map((s, i) => <li key={`step-${index}-${i}`}><p>{s}</p></li>)}</ol>
-    </div>
-  );
+		</div>
+	);
 };

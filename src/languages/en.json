@@ -3,6 +3,9 @@
 		"en": "English",
 		"de": "German"
 	},
+	"common": {
+		"save": "Save"
+	},
 	"nav": {
 		"about": "About",
 		"contact": "Contact",
@@ -29,30 +32,60 @@
 		"error4": "%%c##{{ERROR_0696969: social_security_number not found}}%%",
 		"error5": "%%c##{{ERROR_5318008: only_fans not found}}%%"
 	},
-	"recipes": {
-		"header1": "Recipes",
-		"step": "Step",
-		"ingredient": "Ingredient"
-	},
-	"games": {
-		"header1": "Games",
-		"back": "Back to Games",
-		"rps": {
-			"title": "Rock Paper Scissors",
-			"info": "Play against the computer. Select %%b##Rock%%, %%b##Paper%%, or %%b##Scissors%% with the buttons or use the %%b##Arrow%% or %%b##WASD%% keys. Scoreboard keeps track of Player wins, Computer wins, ties, and games played. Reset button clears the scoreboard.",
-			"rock": "Rock",
-			"paper": "Paper",
-			"scissors": "Scissors",
-			"select": "Fight!",
-			"reset": "Reset",
-			"player": "Player",
-			"computer": "Computer",
-			"ties": "Ties",
-			"matches": "Games Played"
+	"archive": {
+		"recipes": {
+			"header1": "Recipes",
+			"step": "Step",
+			"ingredient": "Ingredient"
 		},
-		"popups": {
-			"title": "Popups",
-			"info": "Dr. Mantis Toboggan has just given you a virus. Can you close all the popups before he feasts?"
+		"games": {
+			"header1": "Games",
+			"back": "Back to Games",
+			"rps": {
+				"title": "Rock Paper Scissors",
+				"info": "Play against the computer. Select %%b##Rock%%, %%b##Paper%%, or %%b##Scissors%% with the buttons or use the %%b##Arrow%% or %%b##WASD%% keys. Scoreboard keeps track of Player wins, Computer wins, ties, and games played. Reset button clears the scoreboard.",
+				"rock": "Rock",
+				"paper": "Paper",
+				"scissors": "Scissors",
+				"select": "Fight!",
+				"reset": "Reset",
+				"player": "Player",
+				"computer": "Computer",
+				"ties": "Ties",
+				"matches": "Games Played"
+			},
+			"popups": {
+				"title": "Popups",
+				"info": "Dr. Mantis Toboggan has just given you a virus. Can you close all the popups before he feasts?"
+			}
+		}
+	},
+	"tools": {
+		"qrcode": {
+			"title": "Qr Code Generator",
+			"input": {
+				"url": {
+					"label": "c##url%%",
+					"desc": "Text to embed in Qr Code"
+				},
+				"errorCorrectionLevel": {
+					"label": "c##errorCorrectionLevel%%",
+					"L": "Low: L",
+					"M": "Medium: M",
+					"Q": "Quartile: Q",
+					"H": "High: H"
+				},
+				"version": {
+					"label": "c##version%%",
+					"desc": "1 - 40",
+					"func": "useLowestVersion"
+				}
+			},
+			"info": {
+				"errorCorrectionLevel": "Error Correction Level",
+				"version": "Version",
+				"versionDefault": "Default to lowest"
+			}
 		}
 	},
 	"download": {

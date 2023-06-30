@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import "./style.scss";
+import { useEffect } from "react";
 import { Link, useNavigate, useOutlet, useParams } from "react-router-dom";
 import { Phrase } from "../../../components/l10n";
 import { recipes } from "./recipes";
+import "./style.scss";
 
 interface RouteParams {
   language?: string;
@@ -38,7 +38,7 @@ export const Recipes = () => {
       <div className="page p-recipes">
         {!outlet ? (
           <>
-            <h4><Phrase>recipes.header1</Phrase></h4>
+            <h4><Phrase>archive.recipes.header1</Phrase></h4>
             <div className="p-recipes-list">
               <ul>
                 {Object.entries(recipes)?.map(([k, v]) => (

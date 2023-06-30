@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-// import "./style.scss;"
+import { useEffect, useState } from "react";
+// import "./style.scss";
 
 interface Props {
   prop?: string;

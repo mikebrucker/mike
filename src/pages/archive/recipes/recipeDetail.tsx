@@ -1,11 +1,10 @@
-import React from "react";
-import "./style.scss";
 import { useOutlet, useParams } from "react-router-dom";
 import { Phrase } from "../../../components/l10n";
-import { recipes } from "./recipes";
-import { Step } from "../../../components/recipeDetails/step";
 import { Ingredient } from "../../../components/recipeDetails/ingredient";
+import { Step } from "../../../components/recipeDetails/step";
 import { IIngredient } from "../../../interfaces/Recipe";
+import { recipes } from "./recipes";
+import "./style.scss";
 
 interface RouteParams {
   language?: string;
@@ -27,7 +26,7 @@ export const RecipeDetail = () => {
   return outlet ? outlet : (
     <div className="p-recipes-detail">
       <div className="p-recipes-detail-intro">
-        <h4>{title ?? <Phrase>recipes.header1</Phrase>}</h4>
+        <h4>{title ?? <Phrase>archive.recipes.header1</Phrase>}</h4>
         {desc ? <h6>{desc}</h6> : undefined}
       </div>
       <div className="p-recipes-detail-ingredients">

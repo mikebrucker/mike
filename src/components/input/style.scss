@@ -1,0 +1,56 @@
+@import "../../styles/colors";
+@import "../../styles/values";
+$gap: 16px;
+
+.c-input {
+	display: flex;
+	gap: $gap;
+	justify-content: center;
+	align-items: center;
+
+	@include mobile {
+		flex-direction: column;
+	}
+
+	> * {
+		width: calc(50% - ($gap/2));
+
+		@include mobile {
+			width: 100%;
+		}
+	}
+
+	&-label {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		justify-content: center;
+		align-items: flex-end;
+		flex-grow: 1;
+
+		@include mobile {
+			align-items: center;
+		}
+	}
+
+	input {
+		padding: 12px;
+		box-sizing: border-box;
+		display: flex;
+		flex-grow: 1;
+		font-weight: 900;
+		font-size: 16px;
+		font-family:'Courier New', Courier, monospace;
+		color: $bg-color1;
+		background-color: $bg-color2;
+		border-radius: 9px;
+
+		@include mobile {
+			text-align: center;
+		}
+
+		&:focus {
+			outline-width: 0;
+		}
+	}
+}
