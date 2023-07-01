@@ -16,10 +16,6 @@
 		flex-direction: column;
 		gap: $flex-gap;
 
-		@include mobile {
-			gap: $flex-gap-mobile;
-		}
-
 		span {
 			display: inline-block;
 		}
