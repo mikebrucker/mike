@@ -240,8 +240,7 @@ export const QrCodeGenerator = () => {
 
 			<section className="info">
 				<h6>{url}</h6>
-				<div className="button" onClick={qrCodeSaveDataUrlToFile}><Phrase>common.save</Phrase></div>
-
+				<button className="button" onClick={qrCodeSaveDataUrlToFile}><Phrase>common.save</Phrase></button>
 			</section>
 
 			<section className="qr-code">
