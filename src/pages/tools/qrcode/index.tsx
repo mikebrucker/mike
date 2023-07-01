@@ -9,11 +9,16 @@ import "./style.scss";
 
 const neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou
 	= "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-enum QRCodeErrorCorrectionLevel {
+enum QrCodeErrorCorrectionLevel {
 	L = "L",
 	M = "M",
 	Q = "Q",
 	H = "H",
+}
+enum QrCodeFileType {
+	png = "png",
+	jpg = "jpg",
+	webp = "webp",
 }
 
 interface PopupErrorCorrectionLevelProps {
@@ -30,10 +35,10 @@ const PopupErrorCorrectionLevel = observer(
 		handleInputErrorCorrectionLevel,
 		close
 	}: PopupErrorCorrectionLevelProps) => {
-		const dictErrorCorrectionLevel = Object.values(QRCodeErrorCorrectionLevel).reduce((acc, cur) => {
+		const dictErrorCorrectionLevel = Object.values(QrCodeErrorCorrectionLevel).reduce((acc, cur) => {
 			acc[cur] = l10n.getString(`tools.qrcode.input.errorCorrectionLevel.${cur}`);
 			return acc;
-		}, {} as Partial<Dictionary<string, QRCodeErrorCorrectionLevel>>);
+		}, {} as Partial<Dictionary<string, QrCodeErrorCorrectionLevel>>);
 		return (
 			<PopupSelecter
 				selections={dictErrorCorrectionLevel}
@@ -47,14 +52,14 @@ const PopupErrorCorrectionLevel = observer(
 
 interface InputErrorCorrectionLevelProps {
 	onClick: () => void;
-	errorCorrectionLevel: QRCodeErrorCorrectionLevel;
+	errorCorrectionLevel: QrCodeErrorCorrectionLevel;
 }
 /** `input` needs to observe language to change it's value */
 const InputErrorCorrectionLevel = observer(({ onClick, errorCorrectionLevel }: InputErrorCorrectionLevelProps) => {
 	const errorCorrectionLevelDesc = (
 		<small>
 			{
-				Object.values(QRCodeErrorCorrectionLevel).map((l, i, arr) => {
+				Object.values(QrCodeErrorCorrectionLevel).map((l, i, arr) => {
 					return (
 						<span key={`qrcode-desc-${l}`}>
 							<Phrase>tools.qrcode.input.errorCorrectionLevel.{l}</Phrase>
@@ -81,24 +86,28 @@ const InputErrorCorrectionLevel = observer(({ onClick, errorCorrectionLevel }: I
 export const QrCodeGenerator = () => {
 	const ref = useRef<HTMLCanvasElement>(null);
 
-	const [url, setUrl] = useState(neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou);
+	const [url, setUrl] =
+		useState(neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou);
 
 	const [inputErrorCorrectionLevel, setInputErrorCorrectionLevel] =
-		useState<QRCodeErrorCorrectionLevel>(QRCodeErrorCorrectionLevel.H);
-	const [errorCorrectionLevel, setErrorCorrectionLevel] = useState<QRCodeErrorCorrectionLevel>(QRCodeErrorCorrectionLevel.H);
+		useState<QrCodeErrorCorrectionLevel>(QrCodeErrorCorrectionLevel.H);
+	const [errorCorrectionLevel, setErrorCorrectionLevel] = useState<QrCodeErrorCorrectionLevel>(QrCodeErrorCorrectionLevel.H);
 	const [popupIsOpenErrorCorrectionLevel, setPopupIsOpenErrorCorrectionLevel] = useState(false);
 
 	const [inputVersion, setInputVersion] = useState<number | undefined>(1);
 	const [version, setVersion] = useState<number | undefined>(1);
 	const [useLowestVersion, setUseLowestVersion] = useState(true);
 
+	const [fileType, setFileType] = useState(QrCodeFileType.png);
+	const [popupIsOpenFileType, setPopupIsOpenFileType] = useState(false);
+
 	useEffect(() => {
 		qrCodeRenderToCanvas();
 	}, [url, errorCorrectionLevel, version]);
 
 	useEffect(() => {
-		if (QRCodeErrorCorrectionLevel[inputErrorCorrectionLevel])
-			setErrorCorrectionLevel(QRCodeErrorCorrectionLevel[inputErrorCorrectionLevel]);
+		if (QrCodeErrorCorrectionLevel[inputErrorCorrectionLevel])
+			setErrorCorrectionLevel(QrCodeErrorCorrectionLevel[inputErrorCorrectionLevel]);
 	}, [inputErrorCorrectionLevel]);
 
 	useEffect(() => {
@@ -112,8 +121,8 @@ export const QrCodeGenerator = () => {
 
 	/** Allow useEffect to handle `errorCorrectionLevel` */
 	const handleInputErrorCorrectionLevel = (input: string) => {
-		if (QRCodeErrorCorrectionLevel[input as QRCodeErrorCorrectionLevel]) {
-			setInputErrorCorrectionLevel(input as QRCodeErrorCorrectionLevel);
+		if (QrCodeErrorCorrectionLevel[input as QrCodeErrorCorrectionLevel]) {
+			setInputErrorCorrectionLevel(input as QrCodeErrorCorrectionLevel);
 		}
 		setPopupIsOpenErrorCorrectionLevel(false);
 	};
@@ -132,6 +141,14 @@ export const QrCodeGenerator = () => {
 		const bool = !useLowestVersion;
 		setUseLowestVersion(!useLowestVersion);
 		if (bool) setInputVersion(1);
+	};
+
+	/** Allow useEffect to handle `errorCorrectionLevel` */
+	const handleInputFileType = (type: string) => {
+		if (QrCodeFileType[type as QrCodeFileType]) {
+			setFileType(type as QrCodeFileType);
+		}
+		setPopupIsOpenFileType(false);
 	};
 
 	/**	Render the QrCode with the lowest version by choice or error */
@@ -165,7 +182,7 @@ export const QrCodeGenerator = () => {
 			const a = document.createElement("a");
 			a.href = dataUrl;
 			const d = new Date();
-			a.download = `qr-code-${d.toISOString().replaceAll(":", "-").replace("T", "_").slice(0, 19)}.png`;
+			a.download = `qr-code-${d.toISOString().replaceAll(":", "-").replace("T", "_").slice(0, 19)}.${fileType}`;
 			a.click();
 		}
 	};
@@ -184,41 +201,60 @@ export const QrCodeGenerator = () => {
 	);
 
 	return (
-		<div className="page p-qr-code">
+		<main className="page p-qr-code">
 			<h1><Phrase>tools.qrcode.title</Phrase></h1>
 
-			<Input
-				name="url"
-				value={url}
-				type="text"
-				label="tools.qrcode.input.url.label"
-				desc="tools.qrcode.input.url.desc"
-				onChange={handleSetUrl}
-			/>
-			<InputErrorCorrectionLevel
-				onClick={() => setPopupIsOpenErrorCorrectionLevel(true)}
-				errorCorrectionLevel={inputErrorCorrectionLevel}
-			/>
-			<Input
-				name="version"
-				value={inputVersion}
-				type="number"
-				label="tools.qrcode.input.version.label"
-				desc="tools.qrcode.input.version.desc"
-				max={40}
-				min={1}
-				onChange={handleInputVersion}
-				funcButton={versionFuncButton}
-			/>
+			<section className="inputs">
+				<Input
+					name="url"
+					value={url}
+					type="text"
+					label="tools.qrcode.input.url.label"
+					desc="tools.qrcode.input.url.desc"
+					onChange={handleSetUrl}
+				/>
+				<InputErrorCorrectionLevel
+					onClick={() => setPopupIsOpenErrorCorrectionLevel(true)}
+					errorCorrectionLevel={inputErrorCorrectionLevel}
+				/>
+				<Input
+					name="version"
+					value={inputVersion}
+					type="number"
+					label="tools.qrcode.input.version.label"
+					desc="tools.qrcode.input.version.desc"
+					max={40}
+					min={1}
+					onChange={handleInputVersion}
+					funcButton={versionFuncButton}
+				/>
+				<Input
+					name="fileType"
+					value={fileType}
+					type="text"
+					label="tools.qrcode.input.fileType.label"
+					desc={Object.values(QrCodeFileType).join(", ")}
+					onClick={() => setPopupIsOpenFileType(true)}
+				/>
+			</section>
 
-			<h6>{url}</h6>
-			<h6><Phrase>tools.qrcode.info.errorCorrectionLevel</Phrase>: {errorCorrectionLevel}</h6>
-			<h6><Phrase>tools.qrcode.info.version</Phrase>: {version ?? <Phrase>tools.qrcode.info.versionDefault</Phrase>}</h6>
-			<div className="button" onClick={qrCodeSaveDataUrlToFile}><Phrase>common.save</Phrase></div>
+			<section className="info">
+				<h6>{url}</h6>
+				<div className="button" onClick={qrCodeSaveDataUrlToFile}><Phrase>common.save</Phrase></div>
 
-			<main className="qr-code">
+			</section>
+
+			<section className="qr-code">
 				<canvas ref={ref} />
-			</main>
+			</section>
+
+			<PopupSelecter
+				selections={QrCodeFileType}
+				selected={fileType}
+				select={handleInputFileType}
+				isOpen={popupIsOpenFileType}
+				close={() => setPopupIsOpenFileType(false)}
+			/>
 
 			<PopupErrorCorrectionLevel
 				inputErrorCorrectionLevel={inputErrorCorrectionLevel}
@@ -226,6 +262,6 @@ export const QrCodeGenerator = () => {
 				handleInputErrorCorrectionLevel={handleInputErrorCorrectionLevel}
 				close={() => setPopupIsOpenErrorCorrectionLevel(false)}
 			/>
-		</div>
+		</main>
 	);
 };

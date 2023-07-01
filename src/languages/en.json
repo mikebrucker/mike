@@ -79,6 +79,9 @@
 					"label": "c##version%%",
 					"desc": "1 - 40",
 					"func": "useLowestVersion"
+				},
+				"fileType": {
+					"label": "c##fileType%%"
 				}
 			},
 			"info": {

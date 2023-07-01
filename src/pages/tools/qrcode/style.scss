@@ -3,13 +3,22 @@
 @import "../../../styles/values";
 
 .p-qr-code {
-	> div {
-		width: 100%;
-		gap: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: $flex-gap;
+
+	h1 {
+		padding: 0;
+	}
+
+	.inputs {
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding-bottom: 16px;
+		flex-direction: column;
+		gap: $flex-gap;
+
+		@include mobile {
+			gap: $flex-gap-mobile;
+		}
 
 		span {
 			display: inline-block;
@@ -36,15 +45,18 @@
 					height: 100%;
 				}
 			}
+
 		}
 	}
 
-	.button {
-		@include gel-button($active-border: inset);
-		display: inline-block;
-		width: auto;
-		padding: 4px 12px;
-		margin: 0 auto 8px;
+	.info {
+		.button {
+			@include gel-button($active-border: inset);
+			display: inline-block;
+			width: auto;
+			padding: 4px 12px;
+			margin: 0 auto 8px;
+		}
 	}
 
 	.qr-code {

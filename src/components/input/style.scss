@@ -1,19 +1,20 @@
 @import "../../styles/colors";
 @import "../../styles/values";
-$gap: 16px;
+$padding: 12px;
 
 .c-input {
 	display: flex;
-	gap: $gap;
+	gap: $flex-gap;
 	justify-content: center;
 	align-items: center;
 
 	@include mobile {
 		flex-direction: column;
+		gap: $flex-gap-mobile;
 	}
 
-	> * {
-		width: calc(50% - ($gap/2));
+	>* {
+		width: calc(50% - ($flex-gap/2));
 
 		@include mobile {
 			width: 100%;
@@ -34,19 +35,20 @@ $gap: 16px;
 	}
 
 	input {
-		padding: 12px;
+		padding: $padding;
 		box-sizing: border-box;
 		display: flex;
 		flex-grow: 1;
 		font-weight: 900;
 		font-size: 16px;
-		font-family:'Courier New', Courier, monospace;
+		font-family: 'Courier New', Courier, monospace;
 		color: $bg-color1;
 		background-color: $bg-color2;
 		border-radius: 9px;
 
 		@include mobile {
 			text-align: center;
+			padding: calc($padding / 2);
 		}
 
 		&:focus {

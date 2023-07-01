@@ -1,6 +1,5 @@
-import React from "react";
-import "./App.scss";
 import { useRoutes } from "react-router-dom";
+import "./App.scss";
 import { routes } from "./routes";
 
 /** Nested routes here. Language logic is handled within the `Layout` */

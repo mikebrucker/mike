@@ -72,6 +72,9 @@
 					"label": "c##version%%",
 					"desc": "1 - 40",
 					"func": "niedrigsteVersionVerwenden"
+				},
+				"fileType": {
+					"label": "c##dateiTyp%%"
 				}
 			},
 			"info": {

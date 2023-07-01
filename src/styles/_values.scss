@@ -17,9 +17,23 @@ $bp-desktop: 1024.49px;
 $bp-tablet: 1024.48px;
 $bp-mobile: 512.49px;
 
-@mixin desktop { @media screen and (min-width: $bp-desktop) { @content; }}
-@mixin tablet { @media screen and (max-width: $bp-tablet) { @content; }}
-@mixin mobile { @media screen and (max-width: $bp-mobile) { @content; }}
+@mixin desktop {
+	@media screen and (min-width: $bp-desktop) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media screen and (max-width: $bp-tablet) {
+		@content;
+	}
+}
+
+@mixin mobile {
+	@media screen and (max-width: $bp-mobile) {
+		@content;
+	}
+}
 
 // nav
 $nav-height: 64px;
@@ -28,3 +42,6 @@ $nav-mobile-width: 420px;
 
 $page-padding: 16px;
 $page-padding-mobile: 8px;
+
+$flex-gap: 16px;
+$flex-gap-mobile: 8px;
