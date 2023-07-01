@@ -134,32 +134,29 @@ export const QrCodeGenerator = () => {
 		if (bool) setInputVersion(1);
 	};
 
+	/**	Render the QrCode with the lowest version by choice or error */
+	const qrCodeRenderLowestVersionToCanvas = (text: string) => {
+		const { version, segments } = QRCode.create(text, { errorCorrectionLevel });
+		setInputVersion(version);
+		QRCode.toCanvas(ref.current, segments, { errorCorrectionLevel, margin: 0 });
+	};
+
 	/**	Create the QR Code on the canvas. Fallback to `QRCode` deciding the lowest version. */
 	const qrCodeRenderToCanvas = () => {
 		const text = url || neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou;
 
 		if (ref.current) {
 			if (useLowestVersion) {
-				const { version } = QRCode.create(text, { errorCorrectionLevel });
-				setInputVersion(version);
+				qrCodeRenderLowestVersionToCanvas(text);
+			} else {
+				QRCode.toCanvas(ref.current, text, { version, errorCorrectionLevel, margin: 0 }).catch(() => {
+					qrCodeRenderLowestVersionToCanvas(text);
+				});
 			}
-			QRCode.toCanvas(
-				ref.current,
-				text,
-				{ version: useLowestVersion ? 1 : version, errorCorrectionLevel, margin: 0 }
-			).catch((e) => {
-				/** Grab version from error message if possible */
-				const v = parseInt(e.toString().replace(/\D+/g, ""));
-				if (!isNaN(v) && v > 0 && v <= 40) {
-					setVersion(v);
-					if (useLowestVersion) setInputVersion(v);
-				}
-				QRCode.toCanvas(ref.current, text, { errorCorrectionLevel, margin: 0 });
-			});
 		}
 	};
 
-	/**	Download Qr Code. */
+	/**	Download Qr Code to png */
 	const qrCodeSaveDataUrlToFile = async () => {
 		const text = url || neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou;
 
@@ -167,7 +164,8 @@ export const QrCodeGenerator = () => {
 			const dataUrl = await QRCode.toDataURL(ref.current, text, { errorCorrectionLevel, version, margin: 0 });
 			const a = document.createElement("a");
 			a.href = dataUrl;
-			a.download = `qr-code-${Date.now()}.png`;
+			const d = new Date();
+			a.download = `qr-code-${d.toISOString().replaceAll(":", "-").replace("T", "_").slice(0, 19)}.png`;
 			a.click();
 		}
 	};
