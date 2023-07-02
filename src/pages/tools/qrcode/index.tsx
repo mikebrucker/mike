@@ -114,6 +114,10 @@ export const QrCodeGenerator = () => {
 		if (inputVersion) setVersion(inputVersion);
 	}, [inputVersion]);
 
+	useEffect(() => {
+		if (useLowestVersion) qrCodeRenderLowestVersionToCanvas();
+	}, [useLowestVersion]);
+
 	/** Change url directly */
 	const handleSetUrl = (e: ChangeEvent<HTMLInputElement>) => {
 		setUrl(e.target.value);
@@ -136,13 +140,6 @@ export const QrCodeGenerator = () => {
 			setInputVersion(v);
 	};
 
-	/** Make QrCode Lowest Version allowed */
-	const handleUseLowestVersion = () => {
-		const bool = !useLowestVersion;
-		setUseLowestVersion(!useLowestVersion);
-		if (bool) setInputVersion(1);
-	};
-
 	/** Allow useEffect to handle `errorCorrectionLevel` */
 	const handleInputFileType = (type: string) => {
 		if (QrCodeFileType[type as QrCodeFileType]) {
@@ -152,9 +149,15 @@ export const QrCodeGenerator = () => {
 	};
 
 	/**	Render the QrCode with the lowest version by choice or error */
-	const qrCodeRenderLowestVersionToCanvas = (text: string) => {
+	const qrCodeRenderLowestVersionToCanvas = () => {
+		const text = url || neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou;
+
 		const { version, segments } = QRCode.create(text, { errorCorrectionLevel });
-		setInputVersion(version);
+		if (useLowestVersion)
+			setInputVersion(version);
+		else
+			setVersion(version);
+
 		QRCode.toCanvas(ref.current, segments, { errorCorrectionLevel, margin: 0 });
 	};
 
@@ -164,10 +167,10 @@ export const QrCodeGenerator = () => {
 
 		if (ref.current) {
 			if (useLowestVersion) {
-				qrCodeRenderLowestVersionToCanvas(text);
+				qrCodeRenderLowestVersionToCanvas();
 			} else {
 				QRCode.toCanvas(ref.current, text, { version, errorCorrectionLevel, margin: 0 }).catch(() => {
-					qrCodeRenderLowestVersionToCanvas(text);
+					qrCodeRenderLowestVersionToCanvas();
 				});
 			}
 		}
@@ -188,7 +191,7 @@ export const QrCodeGenerator = () => {
 	};
 
 	const versionFuncButton = (
-		<code className="use-lowest-version" onClick={handleUseLowestVersion}>
+		<code className="use-lowest-version" onClick={() => setUseLowestVersion(!useLowestVersion)}>
 			<small>
 				<span className="checkbox">
 					<div>
@@ -240,6 +243,7 @@ export const QrCodeGenerator = () => {
 
 			<section className="info">
 				<h6>{url}</h6>
+				<h6><Phrase>tools.qrcode.info.version</Phrase>: {version}</h6>
 				<button className="button" onClick={qrCodeSaveDataUrlToFile}><Phrase>common.save</Phrase></button>
 			</section>
 
