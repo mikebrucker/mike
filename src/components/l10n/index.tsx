@@ -14,21 +14,36 @@ export const Phrase = observer(({ children }: Props) => {
   const format = (text: string) => {
     if (!text.includes("%%")) return text;
 
-    return text.split("%%").filter(Boolean).map((fragment, i) => {
-      if (!fragment.includes("##")) return fragment;
+    return text
+      .split("%%")
+      .filter(Boolean)
+      .map((fragment, i) => {
+        if (!fragment.includes("##")) return fragment;
 
-      if (fragment.startsWith("i##")) {
-        return <span key={i} className="italic">{fragment.slice(3)}</span>;
-      } else if (fragment.startsWith("b##")) {
-        return <span key={i} className="bold">{fragment.slice(3)}</span>;
-      } else if (fragment.startsWith("ib##") || fragment.startsWith("bi##")) {
-        return <span key={i} className="italic bold">{fragment.slice(4)}</span>;
-      } else if (fragment.startsWith("c##")) {
-        return <code key={i}>{fragment.slice(3)}</code>;
-      }
+        if (fragment.startsWith("i##")) {
+          return (
+            <span key={i} className="italic">
+              {fragment.slice(3)}
+            </span>
+          );
+        } else if (fragment.startsWith("b##")) {
+          return (
+            <span key={i} className="bold">
+              {fragment.slice(3)}
+            </span>
+          );
+        } else if (fragment.startsWith("ib##") || fragment.startsWith("bi##")) {
+          return (
+            <span key={i} className="italic bold">
+              {fragment.slice(4)}
+            </span>
+          );
+        } else if (fragment.startsWith("c##")) {
+          return <code key={i}>{fragment.slice(3)}</code>;
+        }
 
-      return fragment;
-    });
+        return fragment;
+      });
   };
 
   useEffect(() => {
@@ -42,11 +57,12 @@ export const Phrase = observer(({ children }: Props) => {
 
     const phrase = l10n.getPhrase(keys);
 
-    const translation = typeof phrase === "string" ? (
-      format(phrase)
-    ) : Array.isArray(phrase) ? (
-      phrase.map(p => format(p)).map(q => <p>{q}</p>)
-    ) : undefined;
+    const translation =
+      typeof phrase === "string"
+        ? format(phrase)
+        : Array.isArray(phrase)
+        ? phrase.map(p => format(p)).map(q => <p>{q}</p>)
+        : undefined;
 
     setTranslation(translation ?? keys.join("."));
   }, [l10n.language, children]);

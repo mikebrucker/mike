@@ -19,7 +19,7 @@ const DIGITAL_NUMBER = {
   7: [1, 0, 1, 0, 0, 1, 0],
   8: [1, 1, 1, 1, 1, 1, 1],
   9: [1, 1, 1, 1, 0, 1, 1],
-  blank: [0, 0, 0, 0, 0, 0, 0]
+  blank: [0, 0, 0, 0, 0, 0, 0],
 };
 
 /**
@@ -31,7 +31,6 @@ export const DigitalNumber = ({ num }: Props) => {
   useEffect(() => {
     setNums(num.toString().padStart(2, "0").split("") as Array<Num>);
   }, [num]);
-
 
   return (
     <div className="c-digital">

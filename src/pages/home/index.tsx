@@ -7,16 +7,15 @@ import "./style.scss";
 export const Home = observer(() => {
   const ref = useRef<HTMLElement>(null);
 
-  const [starCount, setStarCount] = useState(Math.max(
-    768,
-    Math.min(window.innerWidth, document.documentElement.clientWidth)
-  ));
+  const [starCount, setStarCount] = useState(
+    Math.max(768, Math.min(window.innerWidth, document.documentElement.clientWidth))
+  );
 
   useEffect(() => {
     if (ref.current) {
       const { scrollWidth, clientWidth } = ref.current;
       if (scrollWidth !== clientWidth) {
-        ref.current.scrollTo({ left: (scrollWidth / 2) - (clientWidth / 2) });
+        ref.current.scrollTo({ left: scrollWidth / 2 - clientWidth / 2 });
       }
     }
 
@@ -29,10 +28,7 @@ export const Home = observer(() => {
 
   /** Update Star Count */
   const updateStarCount = () => {
-    const count = Math.max(
-      768,
-      Math.min(window.innerWidth, document.documentElement.clientWidth)
-    );
+    const count = Math.max(768, Math.min(window.innerWidth, document.documentElement.clientWidth));
 
     if (starCount !== count) setStarCount(count);
   };
@@ -48,7 +44,9 @@ export const Home = observer(() => {
   return (
     <div className="p-home">
       <div className="page">
-        <h1><Phrase>home.hello</Phrase></h1>
+        <h1>
+          <Phrase>home.hello</Phrase>
+        </h1>
       </div>
       <section className="space" ref={ref}>
         <div className="stars">{stars}</div>

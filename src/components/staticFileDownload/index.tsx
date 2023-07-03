@@ -13,7 +13,9 @@ export const StaticFileDownload = ({ file }: Props) => {
 
   return (
     <div className="page">
-      <h6>{file ?? "File"} <Phrase>download.is</Phrase></h6>
+      <h6>
+        {file ?? "File"} <Phrase>download.is</Phrase>
+      </h6>
     </div>
   );
 };

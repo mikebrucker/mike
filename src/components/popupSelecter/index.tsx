@@ -11,12 +11,19 @@ interface Props {
 }
 
 /** Copy this component to get started */
-export const PopupSelecter = ({ isOpen, cssClasses, selections, selected, select, close }: Props) => {
+export const PopupSelecter = ({
+  isOpen,
+  cssClasses,
+  selections,
+  selected,
+  select,
+  close,
+}: Props) => {
   if (!isOpen || !selections) return null;
 
   const className = classNames({
     "c-popup-selecter": true,
-    [cssClasses ?? ""]: Boolean(cssClasses)
+    [cssClasses ?? ""]: Boolean(cssClasses),
   });
 
   return (
@@ -25,7 +32,11 @@ export const PopupSelecter = ({ isOpen, cssClasses, selections, selected, select
       <div className="c-popup-selecter-content">
         {Object.keys(selections).map(s => {
           const optionClass = classNames({ selected: selected === s });
-          return <option key={s} className={optionClass} onClick={() => select(s)}>{selections[s]}</option>;
+          return (
+            <option key={s} className={optionClass} onClick={() => select(s)}>
+              {selections[s]}
+            </option>
+          );
         })}
       </div>
     </aside>

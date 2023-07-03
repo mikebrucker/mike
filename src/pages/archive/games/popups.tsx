@@ -9,7 +9,9 @@ export const Popups = () => {
 
   const outlet = useOutlet();
 
-  return outlet ? outlet : (
+  return outlet ? (
+    outlet
+  ) : (
     <div className="p-games-popups">
       <h2>Popups</h2>
       <img src={mantis_toboggan} alt="Mantis Toboggan" />

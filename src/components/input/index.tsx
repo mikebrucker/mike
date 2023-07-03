@@ -17,23 +17,47 @@ interface Props {
 }
 
 /** `input` for text and number. Label can include an element for further customization */
-export const Input = ({ className, name, value, type, max, min, label, desc, funcButton, onChange, onClick }: Props) => {
+export const Input = ({
+  className,
+  name,
+  value,
+  type,
+  max,
+  min,
+  label,
+  desc,
+  funcButton,
+  onChange,
+  onClick,
+}: Props) => {
   const classes = classNames({
     "c-input": true,
-    className: Boolean(className)
+    className: Boolean(className),
   });
 
   const hasLabel = Boolean(label || desc || funcButton);
 
   return (
     <div className={classes}>
-      {hasLabel ? <div className="c-input-label">
-        {label ? <label htmlFor={name}><Phrase>{label}</Phrase></label> : undefined}
-        {desc ? (
-          typeof desc === "string" ? <small><Phrase>{desc}</Phrase></small> : desc
-        ) : undefined}
-        {funcButton}
-      </div> : undefined}
+      {hasLabel ? (
+        <div className="c-input-label">
+          {label ? (
+            <label htmlFor={name}>
+              <Phrase>{label}</Phrase>
+            </label>
+          ) : undefined}
+          {desc ? (
+            typeof desc === "string" ? (
+              <small>
+                <Phrase>{desc}</Phrase>
+              </small>
+            ) : (
+              desc
+            )
+          ) : undefined}
+          {funcButton}
+        </div>
+      ) : undefined}
       <input
         name={name}
         type={type}

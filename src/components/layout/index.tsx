@@ -20,8 +20,10 @@ export const Layout = observer(() => {
   useEffect(() => {
     if (pl && ll && pl !== ll) {
       navigate({
-        pathname: EXISTING_LANGUAGES.includes(pl as Language) ? pathname.replace(pl, ll) : "/" + ll + pathname,
-        search: location.search
+        pathname: EXISTING_LANGUAGES.includes(pl as Language)
+          ? pathname.replace(pl, ll)
+          : "/" + ll + pathname,
+        search: location.search,
       });
     }
   }, [ll, pl]);

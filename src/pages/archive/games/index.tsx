@@ -15,19 +15,29 @@ export const Games = ({ gameList }: Props) => {
       {outlet ? (
         <div className="p-games-nav">
           <div>
-            <Link to=""><Phrase>archive.games.back</Phrase></Link>
+            <Link to="">
+              <Phrase>archive.games.back</Phrase>
+            </Link>
           </div>
         </div>
       ) : undefined}
       <div className="page p-games">
-        {!outlet ? <h4><Phrase>archive.games.header1</Phrase></h4> : undefined}
+        {!outlet ? (
+          <h4>
+            <Phrase>archive.games.header1</Phrase>
+          </h4>
+        ) : undefined}
         {!outlet ? (
           <div className="p-games-list">
             {gameList.map(game => (
               <Link key={game} to={game}>
                 <div className="game-card">
-                  <h6><Phrase>archive.games.{game}.title</Phrase></h6>
-                  <div><Phrase>archive.games.{game}.info</Phrase></div>
+                  <h6>
+                    <Phrase>archive.games.{game}.title</Phrase>
+                  </h6>
+                  <div>
+                    <Phrase>archive.games.{game}.info</Phrase>
+                  </div>
                 </div>
               </Link>
             ))}

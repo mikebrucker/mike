@@ -37,16 +37,12 @@ export const NavAccordion = ({ subheader, openSubheader, marginTopDiff, children
   };
 
   const style = {
-    marginTop: height ? (!isOpen ? `-${height}px` : "0") : "-1000vh"
+    marginTop: height ? (!isOpen ? `-${height}px` : "0") : "-1000vh",
   };
 
   return (
     <div className="nav-accordion">
-      <div
-        className="nav-accordion-content"
-        ref={contentRef}
-        style={style}
-      >
+      <div className="nav-accordion-content" ref={contentRef} style={style}>
         {children}
       </div>
     </div>

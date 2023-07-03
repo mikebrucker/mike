@@ -58,14 +58,20 @@ export const Header = observer(({ headline }: Props) => {
   const toggleSubheader = (subheader?: Subheader) => {
     setIsOpenSubheader(!isOpenSubheader);
     if (subheader && subheader !== openSubheader) {
-      setTimeout(() => {
-        setOpenSubheader(Subheader[subheader]);
-        setIsOpenSubheader(openSubheader !== subheader);
-      }, !openSubheader || isOpenMobileMenu ? 0 : 618);
+      setTimeout(
+        () => {
+          setOpenSubheader(Subheader[subheader]);
+          setIsOpenSubheader(openSubheader !== subheader);
+        },
+        !openSubheader || isOpenMobileMenu ? 0 : 618
+      );
     } else {
-      setTimeout(() => {
-        setOpenSubheader(undefined);
-      }, isOpenMobileMenu ? 0 : 618);
+      setTimeout(
+        () => {
+          setOpenSubheader(undefined);
+        },
+        isOpenMobileMenu ? 0 : 618
+      );
     }
   };
 
@@ -103,10 +109,7 @@ export const Header = observer(({ headline }: Props) => {
   const renderPseudoNavLink = (page: Subheader, mobile = false) => {
     return (
       <React.Fragment key={`${page}-${mobile ? "mobile" : "desktop"}`}>
-        <div
-          className={pseudoNavLinkClass(page)}
-          onClick={() => toggleSubheader(page)}
-        >
+        <div className={pseudoNavLinkClass(page)} onClick={() => toggleSubheader(page)}>
           <div className="title">
             <Phrase>nav.{page}</Phrase>
           </div>
@@ -122,13 +125,25 @@ export const Header = observer(({ headline }: Props) => {
 
   const pages = Object.values(Pages);
   const subheaders: Record<Subheader, JSX.Element> = {
-    [Subheader.archive]: <>{Object.values(SubheaderArchive).map(sh => renderNavLink(Subheader.archive, sh, Subheader.archive))}</>,
-    [Subheader.tools]: <>{Object.values(SubheaderTools).map(sh => renderNavLink(Subheader.tools, sh, Subheader.tools))}</>,
+    [Subheader.archive]: (
+      <>
+        {Object.values(SubheaderArchive).map(sh =>
+          renderNavLink(Subheader.archive, sh, Subheader.archive)
+        )}
+      </>
+    ),
+    [Subheader.tools]: (
+      <>
+        {Object.values(SubheaderTools).map(sh =>
+          renderNavLink(Subheader.tools, sh, Subheader.tools)
+        )}
+      </>
+    ),
     [Subheader.language]: <Languages toggleLanguage={toggleLanguage} />,
   };
   const subheaderPageMap: Record<Exclude<Subheader, Subheader.language>, Array<string>> = {
     [Subheader.archive]: Object.keys(SubheaderArchive),
-    [Subheader.tools]: Object.keys(SubheaderTools)
+    [Subheader.tools]: Object.keys(SubheaderTools),
   };
 
   /** Add active class for Pseudo NavLink */
@@ -155,11 +170,12 @@ export const Header = observer(({ headline }: Props) => {
     [menuClass]: true,
   });
   /** Classname for a pseudo nav link */
-  const pseudoNavLinkClass = (subheader: Subheader) => classNames({
-    dropdown: true,
-    "nav-link": true,
-    active: (isOpenSubheader && openSubheader === subheader) || subheaderHasActivePage(subheader),
-  });
+  const pseudoNavLinkClass = (subheader: Subheader) =>
+    classNames({
+      dropdown: true,
+      "nav-link": true,
+      active: (isOpenSubheader && openSubheader === subheader) || subheaderHasActivePage(subheader),
+    });
   const desktopSubheaderClass = classNames({
     "c-header-subheader-desktop": true,
     "is-open": isOpenSubheader,
@@ -169,15 +185,15 @@ export const Header = observer(({ headline }: Props) => {
   return (
     <nav className="c-header">
       <div className="c-header-nav">
-        <NavLink end className="c-header-nav-title" to="">{headline}</NavLink>
+        <NavLink end className="c-header-nav-title" to="">
+          {headline}
+        </NavLink>
         <div className="flex-grow" />
         <div className="c-header-nav-mobile">
           <div className={navMobileBackgroundClass} onClick={() => setIsOpenMobileMenu(false)} />
           <div className={navMobileLinksClass}>
             <NavLink end className="nav-link" onClick={() => toggleMobileMenu(false)} to="">
-              <div className="title">
-                {headline}
-              </div>
+              <div className="title">{headline}</div>
             </NavLink>
             {pages.map(page => renderNavLink("mobile", page))}
             {Object.keys(subheaders).map(sh => renderPseudoNavLink(sh, true))}

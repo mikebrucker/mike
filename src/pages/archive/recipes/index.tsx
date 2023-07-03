@@ -38,7 +38,9 @@ export const Recipes = () => {
       <div className="page p-recipes">
         {!outlet ? (
           <>
-            <h4><Phrase>archive.recipes.header1</Phrase></h4>
+            <h4>
+              <Phrase>archive.recipes.header1</Phrase>
+            </h4>
             <div className="p-recipes-list">
               <ul>
                 {Object.entries(recipes)?.map(([k, v]) => (

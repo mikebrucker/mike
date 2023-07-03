@@ -16,27 +16,27 @@ import { QrCodeGenerator } from "../pages/tools/qrcode";
 
 /**	Create Redirect route to go up a level or specific path */
 const redirectRoute = (pathname = ""): RouteObject => {
-	return {
-		path: "*",
-		element: <Navigate to={{ pathname, search: location.search }} replace />
-	};
+  return {
+    path: "*",
+    element: <Navigate to={{ pathname, search: location.search }} replace />,
+  };
 };
 
 /** Parent route requires an outlet for unknown child to route redirect up */
 const addRedirectUpRouteToChildren = (routes: Array<RouteObject>) => {
-	return routes.map(r => {
-		if (!r.children && !r.index) r.children = [];
-		if (r.children) {
-			addRedirectUpRouteToChildren(r.children);
-			r.children.push(redirectRoute());
-		}
-		return r;
-	});
+  return routes.map(r => {
+    if (!r.children && !r.index) r.children = [];
+    if (r.children) {
+      addRedirectUpRouteToChildren(r.children);
+      r.children.push(redirectRoute());
+    }
+    return r;
+  });
 };
 
 const games = {
-	rps: <RPS />,
-	popups: <Popups />
+  rps: <RPS />,
+  popups: <Popups />,
 };
 const gameList = Object.keys(games);
 
@@ -45,7 +45,7 @@ const gameList = Object.keys(games);
  * @param routes Dictionary<JSX.Element | null>
  */
 const childRouteCollection = (routes: Dictionary<JSX.Element | null>): Array<RouteObject> => {
-	return Object.entries(routes ?? {}).map(([path, element]) => ({ path, element }));
+  return Object.entries(routes ?? {}).map(([path, element]) => ({ path, element }));
 };
 
 /**
@@ -53,37 +53,44 @@ const childRouteCollection = (routes: Dictionary<JSX.Element | null>): Array<Rou
  * @param files Dictionary -> { path: filename.ext }
  */
 const downloads = (files: Dictionary<string>): Array<RouteObject> => {
-	return Object.entries(files ?? {}).map(([path, file]) =>
-		({ path, element: <StaticFileDownload file={file} />, index: true }));
+  return Object.entries(files ?? {}).map(([path, file]) => ({
+    path,
+    element: <StaticFileDownload file={file} />,
+    index: true,
+  }));
 };
 
 export const routes = addRedirectUpRouteToChildren([
-	{
-		path: ":language", element: <Layout />, children:
-			[
-				{ index: true, element: <Home /> },
-				{ path: Pages.about, element: <About /> },
-				{ path: Pages.contact, element: <Contact /> },
-				{
-					path: Subheader.archive, element: <Outlet />, children:
-						[
-							{
-								path: SubheaderArchive.recipes, element: <Recipes />, children:
-									[
-										{ path: ":recipeId", element: <RecipeDetail /> }
-									]
-							},
-							{ path: SubheaderArchive.games, element: <Games gameList={gameList} />, children: childRouteCollection(games) },
-						]
-				},
-				{
-					path: Subheader.tools, element: <Outlet />, children:
-						[
-							{ path: SubheaderTools.qrcode, element: <QrCodeGenerator /> },
-						]
-				},
-				...downloads({ resume: "Brucker_Mike-Resume.pdf" }),
-			]
-	},
-	redirectRoute(`/${l10n.language ?? DEFAULT_LANGUAGE}`)
+  {
+    path: ":language",
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: Pages.about, element: <About /> },
+      { path: Pages.contact, element: <Contact /> },
+      {
+        path: Subheader.archive,
+        element: <Outlet />,
+        children: [
+          {
+            path: SubheaderArchive.recipes,
+            element: <Recipes />,
+            children: [{ path: ":recipeId", element: <RecipeDetail /> }],
+          },
+          {
+            path: SubheaderArchive.games,
+            element: <Games gameList={gameList} />,
+            children: childRouteCollection(games),
+          },
+        ],
+      },
+      {
+        path: Subheader.tools,
+        element: <Outlet />,
+        children: [{ path: SubheaderTools.qrcode, element: <QrCodeGenerator /> }],
+      },
+      ...downloads({ resume: "Brucker_Mike-Resume.pdf" }),
+    ],
+  },
+  redirectRoute(`/${l10n.language ?? DEFAULT_LANGUAGE}`),
 ]);

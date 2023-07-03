@@ -7,13 +7,23 @@ import "./style.scss";
 export const About = () => {
   const outlet = useOutlet();
 
-  return outlet ? outlet : (
+  return outlet ? (
+    outlet
+  ) : (
     <div className="page p-about">
       <div>
-        <h4><Phrase>about.header1</Phrase></h4>
+        <h4>
+          <Phrase>about.header1</Phrase>
+        </h4>
       </div>
-      {["text1", "text2"].map(str => <p key={str}><Phrase>about.{str}</Phrase></p>)}
-      <div><img src={troyMclure} alt="Troy McClure" /></div>
+      {["text1", "text2"].map(str => (
+        <p key={str}>
+          <Phrase>about.{str}</Phrase>
+        </p>
+      ))}
+      <div>
+        <img src={troyMclure} alt="Troy McClure" />
+      </div>
     </div>
   );
 };

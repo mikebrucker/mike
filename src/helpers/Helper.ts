@@ -1,4 +1,6 @@
 /** Use for a dynamic className */
 export const classNames = (names: Dictionary<boolean | undefined | null | "">): string => {
-	return Object.keys(names).filter(key => names[key]).join(" ");
+  return Object.keys(names)
+    .filter(key => names[key])
+    .join(" ");
 };

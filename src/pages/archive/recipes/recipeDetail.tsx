@@ -18,30 +18,38 @@ export const RecipeDetail = () => {
   const recipe = recipes[recipeId ?? ""];
   if (!recipe) return null;
   const { title, desc, img, steps, ingredients } = recipe;
-  const ings: Array<Array<IIngredient>> | undefined = !Array.isArray(ingredients?.[0]) ? (
-    [ingredients as Array<IIngredient>]
-  ) : ingredients as Array<Array<IIngredient>> | undefined;
+  const ings: Array<Array<IIngredient>> | undefined = !Array.isArray(ingredients?.[0])
+    ? [ingredients as Array<IIngredient>]
+    : (ingredients as Array<Array<IIngredient>> | undefined);
   const outlet = useOutlet();
 
-  return outlet ? outlet : (
+  return outlet ? (
+    outlet
+  ) : (
     <div className="p-recipes-detail">
       <div className="p-recipes-detail-intro">
         <h4>{title ?? <Phrase>archive.recipes.header1</Phrase>}</h4>
         {desc ? <h6>{desc}</h6> : undefined}
       </div>
       <div className="p-recipes-detail-ingredients">
-        {ings?.map(ing => (
+        {ings?.map(ing =>
           ing?.length > 0 ? (
             <ol>
-              {ing.filter(Boolean).map(i => <Ingredient ingredient={i} />)}
+              {ing.filter(Boolean).map(i => (
+                <Ingredient ingredient={i} />
+              ))}
             </ol>
           ) : undefined
-        ))}
+        )}
       </div>
       <div className="p-recipes-detail-steps">
         {steps?.length ?? 0 > 0 ? (
           <ol>
-            {steps?.map((s, i) => <li key={`step-${i}`}><Step step={s} index={i + 1} /></li>)}
+            {steps?.map((s, i) => (
+              <li key={`step-${i}`}>
+                <Step step={s} index={i + 1} />
+              </li>
+            ))}
           </ol>
         ) : undefined}
       </div>
