@@ -1,8 +1,7 @@
-import React from "react";
-import "./style.scss";
 import { useOutlet } from "react-router-dom";
-import { Phrase } from "../../components/l10n";
 import troyMclure from "../../assets/troy_mclure.png";
+import { Phrase } from "../../components/l10n";
+import "./style.scss";
 
 /** About Page */
 export const About = () => {

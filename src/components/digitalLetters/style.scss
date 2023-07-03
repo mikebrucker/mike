@@ -9,7 +9,7 @@ $let-h-line-length: 10px;
 	padding: 0 $line-width;
 	background-color: $scoreboard-bg;
 
-	> div {
+	>div {
 		font-size: 0;
 		display: inline-block;
 		padding: $line-width;
@@ -29,14 +29,16 @@ $let-h-line-length: 10px;
 		}
 	}
 
-	&-number{
+	&-number {
 		.line {
-			&-h { // horizontal
+			&-h {
+				// horizontal
 				width: $num-line-length;
 				height: $line-width;
 			}
 
-			&-v { // vertical
+			&-v {
+				// vertical
 				width: $line-width;
 				height: $num-line-length;
 
@@ -47,15 +49,17 @@ $let-h-line-length: 10px;
 		}
 	}
 
-	&-letter{
+	&-letter {
 		.line {
-			&-h { // horizontal
+			&-h {
+				// horizontal
 				width: $let-h-line-length;
 				height: $line-width;
 				margin: 0 calc($line-width / 4);
 			}
 
-			&-v { // vertical
+			&-v {
+				// vertical
 				width: $line-width;
 				height: $let-v-line-length;
 

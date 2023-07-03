@@ -1,7 +1,6 @@
-import React from "react";
-import "./style.scss";
 import { useOutlet } from "react-router-dom";
 import { Phrase } from "../../components/l10n";
+import "./style.scss";
 
 /** Contact Page */
 export const Contact = () => {

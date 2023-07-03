@@ -1,4 +1,3 @@
-import React from "react";
 import { observer } from "mobx-react";
 import { globals } from "../../core/globals";
 
@@ -6,7 +5,7 @@ import { globals } from "../../core/globals";
 export const Planets = observer(() => {
 	const pauseClass = globals.pauseAnimation ? " paused" : "";
 
-  return (
+	return (
 		<div className="orbit">
 			<div className="earth">
 				<div className={`earth-globe earth-globe-north${pauseClass}`} />
@@ -19,5 +18,5 @@ export const Planets = observer(() => {
 				<div className="moon-shadow" />
 			</div>
 		</div>
-  );
+	);
 });

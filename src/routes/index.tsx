@@ -1,18 +1,18 @@
-import { RouteObject, Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, RouteObject } from "react-router-dom";
+import { Pages, Subheader, SubheaderArchive, SubheaderTools } from "../components/header";
 import { Layout } from "../components/layout";
 import { StaticFileDownload } from "../components/staticFileDownload";
 import { l10n } from "../core/l10n";
 import { DEFAULT_LANGUAGE } from "../interfaces/Language";
 import { About } from "../pages/about";
-import { Contact } from "../pages/contact";
 import { Games } from "../pages/archive/games";
+import { Popups } from "../pages/archive/games/popups";
 import { RPS } from "../pages/archive/games/rps";
-import { Home } from "../pages/home";
 import { Recipes } from "../pages/archive/recipes";
 import { RecipeDetail } from "../pages/archive/recipes/recipeDetail";
-import { Popups } from "../pages/archive/games/popups";
+import { Contact } from "../pages/contact";
+import { Home } from "../pages/home";
 import { QrCodeGenerator } from "../pages/tools/qrcode";
-import { Pages, Subheader, SubheaderArchive, SubheaderTools } from "../components/header";
 
 /**	Create Redirect route to go up a level or specific path */
 const redirectRoute = (pathname = ""): RouteObject => {
@@ -58,28 +58,32 @@ const downloads = (files: Dictionary<string>): Array<RouteObject> => {
 };
 
 export const routes = addRedirectUpRouteToChildren([
-	{ path: ":language", element: <Layout />, children:
-		[
-			{ index: true, element: <Home /> },
-			{ path: Pages.about, element: <About /> },
-			{ path: Pages.contact, element: <Contact /> },
-			{ path: Subheader.archive, element: <Outlet />, children:
-				[
-					{ path: SubheaderArchive.recipes, element: <Recipes />, children:
+	{
+		path: ":language", element: <Layout />, children:
+			[
+				{ index: true, element: <Home /> },
+				{ path: Pages.about, element: <About /> },
+				{ path: Pages.contact, element: <Contact /> },
+				{
+					path: Subheader.archive, element: <Outlet />, children:
 						[
-							{ path: ":recipeId", element: <RecipeDetail /> }
+							{
+								path: SubheaderArchive.recipes, element: <Recipes />, children:
+									[
+										{ path: ":recipeId", element: <RecipeDetail /> }
+									]
+							},
+							{ path: SubheaderArchive.games, element: <Games gameList={gameList} />, children: childRouteCollection(games) },
 						]
-					},
-					{ path: SubheaderArchive.games, element: <Games gameList={gameList}/>, children: childRouteCollection(games) },
-				]
-			},
-			{ path: Subheader.tools, element: <Outlet/>, children:
-				[
-					{ path: SubheaderTools.qrcode, element: <QrCodeGenerator /> },
-				]
-			},
-			...downloads({ resume: "Brucker_Mike-Resume.pdf"}),
-		]
+				},
+				{
+					path: Subheader.tools, element: <Outlet />, children:
+						[
+							{ path: SubheaderTools.qrcode, element: <QrCodeGenerator /> },
+						]
+				},
+				...downloads({ resume: "Brucker_Mike-Resume.pdf" }),
+			]
 	},
 	redirectRoute(`/${l10n.language ?? DEFAULT_LANGUAGE}`)
 ]);

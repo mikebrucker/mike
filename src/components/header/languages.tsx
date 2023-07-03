@@ -1,8 +1,7 @@
-import React from "react";
 import { observer } from "mobx-react";
-import { l10n } from "../../core/l10n";
-import en from "../../assets/en.svg";
 import de from "../../assets/de.svg";
+import en from "../../assets/en.svg";
+import { l10n } from "../../core/l10n";
 import { AVAILABLE_LANGUAGES, Language } from "../../interfaces/Language";
 
 interface Props {

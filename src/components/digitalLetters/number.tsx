@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.scss";
 
 interface Props {
@@ -22,6 +22,9 @@ const DIGITAL_NUMBER = {
   blank: [0, 0, 0, 0, 0, 0, 0]
 };
 
+/**
+ *
+ */
 export const DigitalNumber = ({ num }: Props) => {
   const [nums, setNums] = useState<Array<Num>>(["0"]);
 
@@ -37,25 +40,25 @@ export const DigitalNumber = ({ num }: Props) => {
 
         return (
           <div className="c-digital-number">
-          <div key={Math.random()}>
-            <div>
-              <div className={`line line-h${numMap[0] ? " active" : ""}`} />
+            <div key={Math.random()}>
+              <div>
+                <div className={`line line-h${numMap[0] ? " active" : ""}`} />
+              </div>
+              <div>
+                <div className={`line line-v${numMap[1] ? " active" : ""}`} />
+                <div className={`line line-v${numMap[2] ? " active" : ""}`} />
+              </div>
+              <div>
+                <div className={`line line-h${numMap[3] ? " active" : ""}`} />
+              </div>
+              <div>
+                <div className={`line line-v${numMap[4] ? " active" : ""}`} />
+                <div className={`line line-v${numMap[5] ? " active" : ""}`} />
+              </div>
+              <div>
+                <div className={`line line-h${numMap[6] ? " active" : ""}`} />
+              </div>
             </div>
-            <div>
-              <div className={`line line-v${numMap[1] ? " active" : ""}`} />
-              <div className={`line line-v${numMap[2] ? " active" : ""}`} />
-            </div>
-            <div>
-              <div className={`line line-h${numMap[3] ? " active" : ""}`} />
-            </div>
-            <div>
-              <div className={`line line-v${numMap[4] ? " active" : ""}`} />
-              <div className={`line line-v${numMap[5] ? " active" : ""}`} />
-            </div>
-            <div>
-              <div className={`line line-h${numMap[6] ? " active" : ""}`} />
-            </div>
-          </div>
           </div>
         );
       })}

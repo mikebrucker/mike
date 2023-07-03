@@ -1,6 +1,5 @@
-import React from "react";
-import "./style.scss";
 import { classNames } from "../../helpers/Helper";
+import "./style.scss";
 
 interface Props {
   isOpen?: boolean;
@@ -22,7 +21,7 @@ export const PopupSelecter = ({ isOpen, cssClasses, selections, selected, select
 
   return (
     <aside className={className}>
-      <div className="c-popup-selecter-background" onClick={close}/>
+      <div className="c-popup-selecter-background" onClick={close} />
       <div className="c-popup-selecter-content">
         {Object.keys(selections).map(s => {
           const optionClass = classNames({ selected: selected === s });

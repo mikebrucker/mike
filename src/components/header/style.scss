@@ -137,14 +137,20 @@
 
       &::after {
         content: "_";
+
         @keyframes flash {
-          0%, 50% {
+
+          0%,
+          50% {
             color: $nav-link;
           }
-          50.1%, 100% {
+
+          50.1%,
+          100% {
             color: transparent;
           }
         }
+
         animation: flash 1.618s linear infinite;
       }
 
@@ -178,11 +184,21 @@
         &.is-open {
           opacity: 1;
         }
+
         &.is-closed {
           visibility: hidden;
           opacity: 0;
 
-          @keyframes close { 0% { visibility: visible; } 100% { visibility: hidden; } }
+          @keyframes close {
+            0% {
+              visibility: visible;
+            }
+
+            100% {
+              visibility: hidden;
+            }
+          }
+
           animation: close 0.618s ease-in-out;
 
           @include mobile {

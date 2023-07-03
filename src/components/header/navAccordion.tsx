@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Subheader } from ".";
 
 interface Props {
-	subheader: Subheader;
+  subheader: Subheader;
   openSubheader?: Subheader;
   marginTopDiff?: number;
   children: React.ReactNode;
@@ -10,7 +10,7 @@ interface Props {
 
 /** Slide down accordion for Navbar */
 export const NavAccordion = ({ subheader, openSubheader, marginTopDiff, children }: Props) => {
-	const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState(subheader === openSubheader);
   const [height, setHeight] = useState(0);
@@ -51,5 +51,4 @@ export const NavAccordion = ({ subheader, openSubheader, marginTopDiff, children
       </div>
     </div>
   );
-
 };

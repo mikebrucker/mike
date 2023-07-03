@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { classNames } from "../../helpers/Helper";
 import { IIngredient } from "../../interfaces/Recipe";
 import "./style.scss";
@@ -23,9 +23,9 @@ export const Ingredient = ({ className, ingredient }: Props) => {
 		"c-recipes-detail-ingredient": true
 	});
 
-  return (
-    <div className={classes}>
+	return (
+		<div className={classes}>
 			<h6>{amount} {measurement} {name}</h6>
-    </div>
-  );
+		</div>
+	);
 };

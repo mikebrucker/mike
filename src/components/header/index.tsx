@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import "./style.scss";
-import { NavLink, useLocation } from "react-router-dom";
 import { observer } from "mobx-react";
-import { l10n } from "../../core/l10n";
+import React, { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { globals } from "../../core/globals";
+import { l10n } from "../../core/l10n";
+import { classNames } from "../../helpers/Helper";
+import { Language } from "../../interfaces/Language";
 import { Phrase } from "../l10n";
 import { Languages } from "./languages";
-import { Language } from "../../interfaces/Language";
-import { classNames } from "../../helpers/Helper";
 import { NavAccordion } from "./navAccordion";
+import "./style.scss";
 
 export enum Pages {
   about = "about",

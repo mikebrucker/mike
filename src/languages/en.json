@@ -77,7 +77,7 @@
 				},
 				"version": {
 					"label": "c##version%%",
-					"desc": "1 - 40",
+					"desc": "1-40, 3: (29x29), 4: (33x33), 5: (37x37)...",
 					"func": "useLowestVersion"
 				},
 				"fileType": {
