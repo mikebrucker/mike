@@ -1,6 +1,8 @@
 import { observer } from "mobx-react";
 import QRCode from "qrcode";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ColorPicker } from "../../../components/colorPicker";
+import { ColorPickerToggle } from "../../../components/colorPicker/toggle";
 import { Input } from "../../../components/input";
 import { Phrase } from "../../../components/l10n";
 import { PopupSelecter } from "../../../components/popupSelecter";
@@ -108,9 +110,14 @@ export const QrCodeGenerator = () => {
   const [fileType, setFileType] = useState(QrCodeFileType.png);
   const [popupIsOpenFileType, setPopupIsOpenFileType] = useState(false);
 
+  const [qrCodeDarkColor, setQrCodeDarkColor] = useState("#000000");
+  const [qrCodeLightColor, setQrCodeLightColor] = useState("#ffffff");
+  const [qrCodeDarkColorOpen, setQrCodeDarkColorOpen] = useState(false);
+  const [qrCodeLightColorOpen, setQrCodeLightColorOpen] = useState(false);
+
   useEffect(() => {
     qrCodeRenderToCanvas();
-  }, [url, errorCorrectionLevel, version]);
+  }, [url, errorCorrectionLevel, version, qrCodeDarkColor, qrCodeLightColor]);
 
   useEffect(() => {
     if (QrCodeErrorCorrectionLevel[inputErrorCorrectionLevel])
@@ -163,7 +170,11 @@ export const QrCodeGenerator = () => {
     if (useLowestVersion) setInputVersion(version);
     else setVersion(version);
 
-    QRCode.toCanvas(ref.current, segments, { errorCorrectionLevel, margin: 0 });
+    QRCode.toCanvas(ref.current, segments, {
+      errorCorrectionLevel,
+      margin: 0,
+      color: { dark: qrCodeDarkColor, light: qrCodeLightColor },
+    });
   };
 
   /**	Create the QR Code on the canvas. Fallback to `QRCode` deciding the lowest version. */
@@ -176,11 +187,14 @@ export const QrCodeGenerator = () => {
       if (useLowestVersion) {
         qrCodeRenderLowestVersionToCanvas();
       } else {
-        QRCode.toCanvas(ref.current, text, { version, errorCorrectionLevel, margin: 0 }).catch(
-          () => {
-            qrCodeRenderLowestVersionToCanvas();
-          }
-        );
+        QRCode.toCanvas(ref.current, text, {
+          version,
+          errorCorrectionLevel,
+          margin: 0,
+          color: { dark: qrCodeDarkColor, light: qrCodeLightColor },
+        }).catch(() => {
+          qrCodeRenderLowestVersionToCanvas();
+        });
       }
     }
   };
@@ -196,6 +210,7 @@ export const QrCodeGenerator = () => {
         errorCorrectionLevel,
         version,
         margin: 0,
+        color: { dark: qrCodeDarkColor, light: qrCodeLightColor },
       });
       const a = document.createElement("a");
       a.href = dataUrl;
@@ -258,6 +273,16 @@ export const QrCodeGenerator = () => {
           desc={Object.values(QrCodeFileType).join(", ")}
           onClick={() => setPopupIsOpenFileType(true)}
         />
+        <div className="toggles">
+          <ColorPickerToggle
+            toggleOpen={() => setQrCodeDarkColorOpen(!qrCodeDarkColorOpen)}
+            currentColor={qrCodeDarkColor}
+          />
+          <ColorPickerToggle
+            toggleOpen={() => setQrCodeLightColorOpen(!qrCodeLightColorOpen)}
+            currentColor={qrCodeLightColor}
+          />
+        </div>
       </section>
 
       <section className="info">
@@ -281,12 +306,25 @@ export const QrCodeGenerator = () => {
         isOpen={popupIsOpenFileType}
         close={() => setPopupIsOpenFileType(false)}
       />
-
       <PopupErrorCorrectionLevel
         inputErrorCorrectionLevel={inputErrorCorrectionLevel}
         popupIsOpenErrorCorrectionLevel={popupIsOpenErrorCorrectionLevel}
         handleInputErrorCorrectionLevel={handleInputErrorCorrectionLevel}
         close={() => setPopupIsOpenErrorCorrectionLevel(false)}
+      />
+      <ColorPicker
+        title="tools.qrcode.input.colorPicker.dark.title"
+        isOpen={qrCodeDarkColorOpen}
+        currentColor={qrCodeDarkColor}
+        setColor={setQrCodeDarkColor}
+        close={() => setQrCodeDarkColorOpen(!qrCodeDarkColorOpen)}
+      />
+      <ColorPicker
+        title="tools.qrcode.input.colorPicker.light.title"
+        isOpen={qrCodeLightColorOpen}
+        currentColor={qrCodeLightColor}
+        setColor={setQrCodeLightColor}
+        close={() => setQrCodeLightColorOpen(!qrCodeLightColorOpen)}
       />
     </main>
   );

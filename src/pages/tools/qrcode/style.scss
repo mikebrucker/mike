@@ -8,7 +8,11 @@
 	gap: $flex-gap;
 
 	h1 {
-		padding: 0;
+		@include gel-button();
+		padding: 8px;
+		border-color: darkslateblue;
+		background-color: darken(darkslateblue, 15%);
+		margin: 0 auto;
 	}
 
 	.inputs {
@@ -41,13 +45,27 @@
 					height: 100%;
 				}
 			}
+		}
 
+		.toggles {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 16px;
 		}
 	}
 
 	.info {
+		@include gel-button();
+		padding: 8px;
+		margin: 0 auto;
+		border-color: darkslateblue;
+		background-color: darken(darkslateblue, 15%);
+
 		.button {
 			@include gel-button($active-border: inset);
+			border-color: darkslateblue;
+			background-color: darkslateblue;
 			display: inline-block;
 			width: auto;
 			padding: 4px 12px;

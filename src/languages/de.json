@@ -1,90 +1,98 @@
 {
-	"languages": {
-		"en": "Englisch",
-		"de": "Deutsch"
-	},
-	"common": {
-		"save": "Speichern"
-	},
-	"nav": {
-		"about": "Über",
-		"contact": "Kontakt",
-		"archive": "Archiv",
-		"tools": "Tools",
-		"recipes": "Rezepte",
-		"games": "Spielen",
-		"qrcode": "QR Code",
-		"languages": "Sprachen"
-	},
-	"home": {
-		"hello": "Servus Welt"
-	},
-	"about": {
-		"header1": "Hallo, Ich bin Troy McClure",
-		"text1": "Sie kennen mich vielleicht von Webseiten wie %%i##The Boatjacking of Supership 79%% und %%i##Hydro: the Man With the Hydraulic Arms%%."
-	},
-	"contact": {
-		"header1": "Kontaktieren Sie mich, um Waren zu entwickeln, die weich sind",
-		"error1": "%%c##{{ERROR_0000420: email nicht gefunden}}%%",
-		"error2": "%%c##{{ERROR_0000666: phone_number nicht gefunden}}%%",
-		"error3": "%%c##{{ERROR_0001337: address nicht gefunden}}%%",
-		"error4": "%%c##{{ERROR_0696969: social_security_number nicht gefunden}}%%",
-		"error5": "%%c##{{ERROR_5318008: only_fans nicht gefunden}}%%"
-	},
-	"archive": {
-		"recipes": {
-			"header1": "Rezepte"
-		},
-		"games": {
-			"header1": "Spielen",
-			"back": "Zurück zu Spielen",
-			"rps": {
-				"title": "Schere Stein Papier",
-				"info": "Spielen Sie gegen den Computer. Wählen Sie %%b##Schere%%, %%b##Stein%%, oder %%b##Papier%% mit den Tasten oder verwenden Sie die %%b##Pfeil%%- oder %%b##WASD%%-Tasten. Das Anzeigetafel verfolgt Spielergewinne, Computergewinne, Unentschieden und gespielte Spiele. Die Reset-Schaltfläche löscht das Anzeigetafel.",
-				"rock": "Stein",
-				"paper": "Papier",
-				"scissors": "Schere",
-				"select": "Kämpfen!",
-				"reset": "Rücksetzen",
-				"player": "Spieler",
-				"computer": "Computer",
-				"ties": "Unentschieden",
-				"matches": "Spiele gespielt"
-			}
-		}
-	},
-	"tools": {
-		"qrcode": {
-			"title": "Qr-Code Generator",
-			"input": {
-				"url": {
-					"label": "c##url%%",
-					"desc": "Text zum Einbetten in Qr-Code"
-				},
-				"errorCorrectionLevel": {
-					"label": "c##fehlerkorrekturLevel%%",
-					"L": "Niedrig: L",
-					"M": "Mittel: M",
-					"Q": "Quartil: Q",
-					"H": "Hoch: H"
-				},
-				"version": {
-					"label": "c##version%%",
-					"desc": "1-40, 3: (29x29), 4: (33x33), 5: (37x37)...",
-					"func": "niedrigsteVersionVerwenden"
-				},
-				"fileType": {
-					"label": "c##dateiTyp%%"
-				}
-			},
-			"info": {
-				"errorCorrectionLevel": "Fehlerkorrektur Level",
-				"version": "Version",
-				"versionDefault": "Standardmäßig am niedrigsten"
-			}
-		}
-	},
-	"download": {
-		"is": " wird heruntergeladen..."
-	}
+  "languages": {
+    "en": "Englisch",
+    "de": "Deutsch"
+  },
+  "common": {
+    "save": "Speichern"
+  },
+  "nav": {
+    "about": "Über",
+    "contact": "Kontakt",
+    "archive": "Archiv",
+    "tools": "Tools",
+    "recipes": "Rezepte",
+    "games": "Spielen",
+    "qrcode": "QR Code",
+    "languages": "Sprachen"
+  },
+  "home": {
+    "hello": "Servus Welt"
+  },
+  "about": {
+    "header1": "Hallo, Ich bin Troy McClure",
+    "text1": "Sie kennen mich vielleicht von Webseiten wie %%i##The Boatjacking of Supership 79%% und %%i##Hydro: the Man With the Hydraulic Arms%%."
+  },
+  "contact": {
+    "header1": "Kontaktieren Sie mich, um Waren zu entwickeln, die weich sind",
+    "error1": "%%c##{{ERROR_0000420: email nicht gefunden}}%%",
+    "error2": "%%c##{{ERROR_0000666: phone_number nicht gefunden}}%%",
+    "error3": "%%c##{{ERROR_0001337: address nicht gefunden}}%%",
+    "error4": "%%c##{{ERROR_0696969: social_security_number nicht gefunden}}%%",
+    "error5": "%%c##{{ERROR_5318008: only_fans nicht gefunden}}%%"
+  },
+  "archive": {
+    "recipes": {
+      "header1": "Rezepte"
+    },
+    "games": {
+      "header1": "Spielen",
+      "back": "Zurück zu Spielen",
+      "rps": {
+        "title": "Schere Stein Papier",
+        "info": "Spielen Sie gegen den Computer. Wählen Sie %%b##Schere%%, %%b##Stein%%, oder %%b##Papier%% mit den Tasten oder verwenden Sie die %%b##Pfeil%%- oder %%b##WASD%%-Tasten. Das Anzeigetafel verfolgt Spielergewinne, Computergewinne, Unentschieden und gespielte Spiele. Die Reset-Schaltfläche löscht das Anzeigetafel.",
+        "rock": "Stein",
+        "paper": "Papier",
+        "scissors": "Schere",
+        "select": "Kämpfen!",
+        "reset": "Rücksetzen",
+        "player": "Spieler",
+        "computer": "Computer",
+        "ties": "Unentschieden",
+        "matches": "Spiele gespielt"
+      }
+    }
+  },
+  "tools": {
+    "qrcode": {
+      "title": "Qr-Code Generator",
+      "input": {
+        "url": {
+          "label": "c##url%%",
+          "desc": "Text zum Einbetten in Qr-Code"
+        },
+        "errorCorrectionLevel": {
+          "label": "c##fehlerkorrekturLevel%%",
+          "L": "Niedrig: L",
+          "M": "Mittel: M",
+          "Q": "Quartil: Q",
+          "H": "Hoch: H"
+        },
+        "version": {
+          "label": "c##version%%",
+          "desc": "1-40, 3: (29x29), 4: (33x33), 5: (37x37)...",
+          "func": "niedrigsteVersionVerwenden"
+        },
+        "fileType": {
+          "label": "c##dateiTyp%%"
+        },
+        "colorPicker": {
+          "dark": {
+            "title": "Dunkle Farbe"
+          },
+          "light": {
+            "title": "Helle Farbe"
+          }
+        }
+      },
+      "info": {
+        "errorCorrectionLevel": "Fehlerkorrektur Level",
+        "version": "Version",
+        "versionDefault": "Standardmäßig am niedrigsten"
+      }
+    }
+  },
+  "download": {
+    "is": " wird heruntergeladen..."
+  }
 }
