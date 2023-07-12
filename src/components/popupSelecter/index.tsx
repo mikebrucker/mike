@@ -6,11 +6,11 @@ interface Props {
   cssClasses?: string;
   selections?: Dictionary<string>;
   selected?: string;
-  select: (s: string) => void;
+  select: (selection: string) => void;
   close?: () => void;
 }
 
-/** Copy this component to get started */
+/** Popup selector options with single selection */
 export const PopupSelecter = ({
   isOpen,
   cssClasses,

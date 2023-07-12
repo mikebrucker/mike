@@ -43,8 +43,16 @@ $padding: 12px;
 		font-size: 16px;
 		font-family: 'Courier New', Courier, monospace;
 		color: $bg-color1;
-		background-color: $bg-color2;
+		background-color: darken(darkslateblue, 16%);
 		border-radius: 9px;
+		border-style: outset;
+		border-width: 5px;
+		border-color: darkslateblue;
+
+		&:active,
+		&:focus {
+			border-style: inset;
+		}
 
 		@include mobile {
 			text-align: center;
