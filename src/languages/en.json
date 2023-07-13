@@ -89,6 +89,18 @@
           },
           "light": {
             "title": "Light Color"
+          },
+          "hex": {
+            "title": "c##hex%%",
+            "desc": "CSS Hexadecimal code #00ff00"
+          },
+          "rgb": {
+            "title": "c##rgb%%",
+            "desc": "CSS RGB code 255,255,255"
+          },
+          "hsl": {
+            "title": "c##hsl%%",
+            "desc": "CSS HSL code 360,100,100"
           }
         }
       },

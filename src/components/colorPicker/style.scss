@@ -128,7 +128,7 @@
 						&-label {
 							@include gel-button;
 							align-items: flex-end;
-							padding-right: 3px;
+							padding: 0 3px 1px;
 
 							@include mobile {
 								padding: 0;
