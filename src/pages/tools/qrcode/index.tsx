@@ -7,6 +7,7 @@ import { Input } from "../../../components/input";
 import { Phrase } from "../../../components/l10n";
 import { PopupSelecter } from "../../../components/popupSelecter";
 import { l10n } from "../../../core/l10n";
+import { preventScroll } from "../../../helpers/Helper";
 import "./style.scss";
 
 const neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou =
@@ -112,8 +113,22 @@ export const QrCodeGenerator = () => {
 
   const [qrCodeDarkColor, setQrCodeDarkColor] = useState("#000000");
   const [qrCodeLightColor, setQrCodeLightColor] = useState("#ffffff");
-  const [qrCodeDarkColorOpen, setQrCodeDarkColorOpen] = useState(false);
-  const [qrCodeLightColorOpen, setQrCodeLightColorOpen] = useState(false);
+  const [qrCodeDarkColorIsOpen, setQrCodeDarkColorIsOpen] = useState(false);
+  const [qrCodeLightColorIsOpen, setQrCodeLightColorIsOpen] = useState(false);
+
+  useEffect(() => {
+    const prevent =
+      popupIsOpenErrorCorrectionLevel ||
+      popupIsOpenFileType ||
+      qrCodeDarkColorIsOpen ||
+      qrCodeLightColorIsOpen;
+    preventScroll(prevent);
+  }, [
+    popupIsOpenErrorCorrectionLevel,
+    popupIsOpenFileType,
+    qrCodeDarkColorIsOpen,
+    qrCodeLightColorIsOpen,
+  ]);
 
   useEffect(() => {
     qrCodeRenderToCanvas();
@@ -275,11 +290,11 @@ export const QrCodeGenerator = () => {
         />
         <div className="toggles">
           <ColorPickerToggle
-            toggleOpen={() => setQrCodeDarkColorOpen(!qrCodeDarkColorOpen)}
+            toggleOpen={() => setQrCodeDarkColorIsOpen(!qrCodeDarkColorIsOpen)}
             currentColor={qrCodeDarkColor}
           />
           <ColorPickerToggle
-            toggleOpen={() => setQrCodeLightColorOpen(!qrCodeLightColorOpen)}
+            toggleOpen={() => setQrCodeLightColorIsOpen(!qrCodeLightColorIsOpen)}
             currentColor={qrCodeLightColor}
           />
         </div>
@@ -314,17 +329,17 @@ export const QrCodeGenerator = () => {
       />
       <ColorPicker
         title="tools.qrcode.input.colorPicker.dark.title"
-        isOpen={qrCodeDarkColorOpen}
+        isOpen={qrCodeDarkColorIsOpen}
         currentColor={qrCodeDarkColor}
         setColor={setQrCodeDarkColor}
-        close={() => setQrCodeDarkColorOpen(!qrCodeDarkColorOpen)}
+        close={() => setQrCodeDarkColorIsOpen(!qrCodeDarkColorIsOpen)}
       />
       <ColorPicker
         title="tools.qrcode.input.colorPicker.light.title"
-        isOpen={qrCodeLightColorOpen}
+        isOpen={qrCodeLightColorIsOpen}
         currentColor={qrCodeLightColor}
         setColor={setQrCodeLightColor}
-        close={() => setQrCodeLightColorOpen(!qrCodeLightColorOpen)}
+        close={() => setQrCodeLightColorIsOpen(!qrCodeLightColorIsOpen)}
       />
     </main>
   );

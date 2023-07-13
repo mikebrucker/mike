@@ -41,6 +41,16 @@ export const ColorPickerSaturationValueChart = ({
     }
   }, []);
 
+  /** reset coordiantes on color change from outside */
+  useEffect(() => {
+    const rgb = convertHexToRgb(currentColor);
+    if (rgb) {
+      const hsl = convertRgbToHsl(rgb);
+      const { s, v } = convertHslToHsv(hsl);
+      setXy({ x: chartWidth * (s / 100), y: chartWidth * ((100 - v) / 100) });
+    }
+  }, [currentColor]);
+
   useEffect(() => {
     setSaturationValue?.(sv);
   }, [sv]);
@@ -50,6 +60,7 @@ export const ColorPickerSaturationValueChart = ({
     setChartMouseDown(true);
     handleChartMouseMove(e, true);
   };
+
   /** Chart mouse move */
   const handleChartMouseMove = (e: React.MouseEvent<HTMLDivElement>, force?: boolean) => {
     if (chartMouseDown || force) {
@@ -66,6 +77,7 @@ export const ColorPickerSaturationValueChart = ({
     setChartMouseDown(true);
     handleChartTouchMove(e, true);
   };
+
   /** Chart mouse move */
   const handleChartTouchMove = (e: React.TouchEvent<HTMLDivElement>, force?: boolean) => {
     if (e.touches[0] && (chartMouseDown || force)) {
