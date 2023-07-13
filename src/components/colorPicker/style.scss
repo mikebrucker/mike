@@ -31,9 +31,9 @@
 		margin: 0;
 		overflow-y: auto;
 		@include scrollbar;
+		max-height: 100%;
 
 		&-container {
-			max-height: 66vh;
 			display: block;
 
 			h5 {
