@@ -49,22 +49,28 @@ export const ColorPicker = ({
   useEffect(() => {
     const rgb = convertHexToRgb(currentColor);
     if (rgb) setHsl(convertRgbToHsl(rgb));
+    initInputs();
   }, []);
 
   useEffect(() => {
     if (currentColor !== inputHex) {
-      setInputHex(currentColor);
-      const rgb = convertHexToRgb(currentColor);
-      if (rgb) {
-        setInputRgb(Object.values(rgb).join());
-        setInputHsl(
-          Object.values(convertRgbToHsl(rgb))
-            .map(n => Math.round(n))
-            .join()
-        );
-      }
+      initInputs();
     }
   }, [currentColor]);
+
+  /** Initialize input texts */
+  const initInputs = () => {
+    setInputHex(currentColor);
+    const rgb = convertHexToRgb(currentColor);
+    if (rgb) {
+      setInputRgb(Object.values(rgb).join());
+      setInputHsl(
+        Object.values(convertRgbToHsl(rgb))
+          .map(n => Math.round(n))
+          .join()
+      );
+    }
+  };
 
   /** Handle Set Hue */
   const handleSetHue = (h: number) => {

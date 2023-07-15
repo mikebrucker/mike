@@ -32,9 +32,9 @@ export const RecipeDetail = () => {
         {desc ? <h6>{desc}</h6> : undefined}
       </div>
       <div className="p-recipes-detail-ingredients">
-        {ings?.map(ing =>
+        {ings?.map((ing, index) =>
           ing?.length > 0 ? (
-            <ol>
+            <ol key={`ingredients-${index}`}>
               {ing.filter(Boolean).map(i => (
                 <Ingredient ingredient={i} />
               ))}
