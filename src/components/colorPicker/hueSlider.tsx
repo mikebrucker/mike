@@ -24,8 +24,8 @@ export const ColorPickerHueSlider = ({ cssClasses, hue, setHue, width }: Props) 
   }, [hue]);
 
   /** Hue to slider position */
-  const handleHueToSliderPosition = (hue: number) => {
-    // const rgb = convertHslToRgb({ h: hue, s: 100, l: 50 });
+  const handleHueToSliderPosition = (h: number) => {
+    // const rgb = convertHslToRgb({ h, s: 100, l: 50 });
     // const { r, g, b } = rgb;
     const positionOffset = -3;
     // const w = 256;
@@ -58,7 +58,7 @@ export const ColorPickerHueSlider = ({ cssClasses, hue, setHue, width }: Props) 
 
     // const position = ((w * factor + Math.min(offset, w)) / (w * 6)) * w;
     // setSliderPosition(position * (sliderWidth / w) + positionOffset);
-    const p = (hue / 360) * sliderWidth;
+    const p = (h / 360) * sliderWidth;
     setSliderPosition(p + positionOffset);
   };
 
@@ -66,8 +66,8 @@ export const ColorPickerHueSlider = ({ cssClasses, hue, setHue, width }: Props) 
   const handleSlider = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const clickedPosX = Math.min(Math.max(e.clientX - rect.left, 0), sliderWidth);
-    const h = Math.round((clickedPosX / sliderWidth) * 360);
-    const hue = minMax(h, 360, 0);
+    const clickedHue = Math.round((clickedPosX / sliderWidth) * 360);
+    const h = minMax(clickedHue, 360, 0);
     // const width = 256;
     // const x = clickedPosX * (width / sliderWidth);
     // if (isNaN(x)) return;
@@ -97,7 +97,7 @@ export const ColorPickerHueSlider = ({ cssClasses, hue, setHue, width }: Props) 
     //     break;
     // }
     // const { h } = convertRgbToHsl(rgb);
-    setHue(hue);
+    setHue(h);
   };
 
   const className = classNames({
