@@ -1,4 +1,4 @@
-import { HSL, HSV, RGB } from "../interfaces/Colors";
+import { HSL, HSV, RGB } from "../interfaces/colors";
 
 /** input: h in [0,360] and s,v in [0,100] - output: r,g,b in [0,255] */
 export const convertHsvToRgb = (hsv: HSV): RGB => {

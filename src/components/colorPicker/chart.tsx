@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { convertHexToRgb, convertHslToHsv, convertRgbToHsl, minMax } from "../../helpers/Colors";
-import { classNames } from "../../helpers/Helper";
-import { SV } from "../../interfaces/Colors";
+import { convertHexToRgb, convertHslToHsv, convertRgbToHsl, minMax } from "../../helpers/colors";
+import { classNames } from "../../helpers/helper";
+import { SV } from "../../interfaces/colors";
 import "./style.scss";
 
 interface Props {

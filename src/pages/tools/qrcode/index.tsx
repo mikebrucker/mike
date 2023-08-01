@@ -7,7 +7,7 @@ import { Input } from "../../../components/input";
 import { Phrase } from "../../../components/l10n";
 import { PopupSelecter } from "../../../components/popupSelecter";
 import { l10n } from "../../../core/l10n";
-import { preventScroll } from "../../../helpers/Helper";
+import { preventScroll } from "../../../helpers/helper";
 import "./style.scss";
 
 const neverGonnaGiveYouUpNeverGonnaLetYouDownNeverGonnaRunAroundAndDesertYouNeverGonnaMakeYouCryNeverGonnaSayGoodbyeNeverGonnaTellALieAndHurtYou =

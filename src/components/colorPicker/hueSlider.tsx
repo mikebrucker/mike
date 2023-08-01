@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { minMax } from "../../helpers/Colors";
-import { classNames } from "../../helpers/Helper";
+import { minMax } from "../../helpers/colors";
+import { classNames } from "../../helpers/helper";
 import "./style.scss";
 
 interface Props {

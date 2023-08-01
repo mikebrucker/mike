@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import de from "../../assets/de.svg";
 import en from "../../assets/en.svg";
 import { l10n } from "../../core/l10n";
-import { AVAILABLE_LANGUAGES, Language } from "../../interfaces/Language";
+import { AVAILABLE_LANGUAGES, Language } from "../../interfaces/language";
 
 interface Props {
   toggleLanguage: (l: Language) => void;

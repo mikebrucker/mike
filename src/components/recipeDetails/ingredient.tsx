@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { classNames } from "../../helpers/Helper";
-import { IIngredient } from "../../interfaces/Recipe";
+import { classNames } from "../../helpers/helper";
+import { IIngredient } from "../../interfaces/recipe";
 import "./style.scss";
 
 interface Props {

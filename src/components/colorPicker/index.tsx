@@ -7,9 +7,9 @@ import {
   convertRgbToHsl,
   isValidHexColor,
   minMax,
-} from "../../helpers/Colors";
-import { classNames } from "../../helpers/Helper";
-import { HSL, SV } from "../../interfaces/Colors";
+} from "../../helpers/colors";
+import { classNames } from "../../helpers/helper";
+import { HSL, SV } from "../../interfaces/colors";
 import { Input } from "../input";
 import { Phrase } from "../l10n";
 import { ColorPickerSaturationValueChart } from "./chart";

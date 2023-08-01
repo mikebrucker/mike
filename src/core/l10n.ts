@@ -4,7 +4,7 @@ import {
   DEFAULT_LANGUAGE,
   Language,
   LanguageDictionary,
-} from "../interfaces/Language";
+} from "../interfaces/language";
 import * as en from "../languages/en.json";
 
 /**

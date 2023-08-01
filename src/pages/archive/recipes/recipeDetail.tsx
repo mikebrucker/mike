@@ -2,7 +2,7 @@ import { useOutlet, useParams } from "react-router-dom";
 import { Phrase } from "../../../components/l10n";
 import { Ingredient } from "../../../components/recipeDetails/ingredient";
 import { Step } from "../../../components/recipeDetails/step";
-import { IIngredient } from "../../../interfaces/Recipe";
+import { IIngredient } from "../../../interfaces/recipe";
 import { recipes } from "./recipes";
 import "./style.scss";
 

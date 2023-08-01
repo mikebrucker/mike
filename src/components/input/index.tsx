@@ -1,4 +1,4 @@
-import { classNames } from "../../helpers/Helper";
+import { classNames } from "../../helpers/helper";
 import { Phrase } from "../l10n";
 import "./style.scss";
 

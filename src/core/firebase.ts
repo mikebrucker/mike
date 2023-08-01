@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
 import { makeAutoObservable } from "mobx";
-import { IRecipe } from "../interfaces/Recipe";
+import { IRecipe } from "../interfaces/recipe";
 
 /**
  * Firebase Firestore

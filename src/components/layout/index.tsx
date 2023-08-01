@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { l10n } from "../../core/l10n";
-import { EXISTING_LANGUAGES, Language } from "../../interfaces/Language";
+import { EXISTING_LANGUAGES, Language } from "../../interfaces/language";
 import { Footer } from "../footer";
 import { Header } from "../header";
 

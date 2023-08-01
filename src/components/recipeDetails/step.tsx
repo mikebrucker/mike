@@ -1,5 +1,5 @@
-import { classNames } from "../../helpers/Helper";
-import { IStep } from "../../interfaces/Recipe";
+import { classNames } from "../../helpers/helper";
+import { IStep } from "../../interfaces/recipe";
 import { Phrase } from "../l10n";
 import "./style.scss";
 

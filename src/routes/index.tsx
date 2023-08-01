@@ -3,7 +3,7 @@ import { Pages, Subheader, SubheaderArchive, SubheaderTools } from "../component
 import { Layout } from "../components/layout";
 import { StaticFileDownload } from "../components/staticFileDownload";
 import { l10n } from "../core/l10n";
-import { DEFAULT_LANGUAGE } from "../interfaces/Language";
+import { DEFAULT_LANGUAGE } from "../interfaces/language";
 import { About } from "../pages/about";
 import { Games } from "../pages/archive/games";
 import { Popups } from "../pages/archive/games/popups";
