@@ -28,18 +28,7 @@ export const ColorPickerSaturationValueChart = ({
   const chartStyle = { ...chartWidthStyle, backgroundColor };
 
   const [chartMouseDown, setChartMouseDown] = useState(false);
-  const [sv, setSv] = useState<SV>({ s: 0, v: 0 });
   const [xy, setXy] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const rgb = convertHexToRgb(currentColor);
-    if (rgb) {
-      const hsl = convertRgbToHsl(rgb);
-      const { s, v } = convertHslToHsv(hsl);
-      setSv({ s, v });
-      setXy({ x: chartWidth * (s / 100), y: chartWidth * ((100 - v) / 100) });
-    }
-  }, []);
 
   /** reset coordiantes on color change from outside */
   useEffect(() => {
@@ -50,10 +39,6 @@ export const ColorPickerSaturationValueChart = ({
       setXy({ x: chartWidth * (s / 100), y: chartWidth * ((100 - v) / 100) });
     }
   }, [currentColor]);
-
-  useEffect(() => {
-    setSaturationValue?.(sv);
-  }, [sv]);
 
   /** Chart click */
   const handleChartMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -68,7 +53,7 @@ export const ColorPickerSaturationValueChart = ({
       const x = Math.min(Math.max(e.clientX - rect.left - padding, 0), chartWidth);
       const y = Math.min(Math.max(e.clientY - rect.top - padding, 0), chartWidth);
       setXy({ x, y });
-      setSv({ s: 100 * (x / chartWidth), v: 100 * ((chartWidth - y) / chartWidth) });
+      setSaturationValue?.({ s: 100 * (x / chartWidth), v: 100 * ((chartWidth - y) / chartWidth) });
     }
   };
 
@@ -86,7 +71,7 @@ export const ColorPickerSaturationValueChart = ({
       const x = minMax(clientX - rect.left - padding, chartWidth);
       const y = minMax(clientY - rect.top - padding, chartWidth);
       setXy({ x, y });
-      setSv({ s: 100 * (x / chartWidth), v: 100 * ((chartWidth - y) / chartWidth) });
+      setSaturationValue?.({ s: 100 * (x / chartWidth), v: 100 * ((chartWidth - y) / chartWidth) });
     }
   };
 

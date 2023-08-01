@@ -36,7 +36,7 @@ export const ColorPicker = ({
   close,
 }: Props) => {
   const [hsl, setHsl] = useState<HSL>();
-  const [inputHex, setInputHex] = useState(currentColor);
+  const [inputHex, setInputHex] = useState("");
   const [inputRgb, setInputRgb] = useState("");
   const [inputHsl, setInputHsl] = useState("");
 
