@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   convertHexToRgb,
   convertHslToRgb,
-  convertHsvToHsl,
   convertHsvToRgb,
   convertRgbToHex,
   convertRgbToHsl,
@@ -59,14 +58,14 @@ export const ColorPicker = ({
 
   /** Handle Set Hue */
   const handleSetHue = (h: number) => {
-    setHsl(oldHsl => (oldHsl ? { ...oldHsl, h } : undefined));
+    if (!hsl) return;
+    const newHsl = { ...hsl, h };
+    setColor(convertRgbToHex(convertHslToRgb(newHsl)));
   };
 
   /** Handle Set Saturation Value */
   const handleSetSaturationValue = ({ s, v }: SV) => {
     const hsv = { h: hsl?.h ?? 0, s, v };
-    const convertedHsl = convertHsvToHsl(hsv);
-    setHsl(convertedHsl);
     setColor(convertRgbToHex(convertHsvToRgb(hsv)));
   };
 
@@ -100,7 +99,7 @@ export const ColorPicker = ({
     if (hslString.includes(".")) return;
     const [hue, sat, lig] = hslString.split(",").map(x => parseInt(x));
     if ([hue, sat, lig].every(c => typeof c === "number" && !isNaN(c))) {
-      const h = minMax(Math.round(hue));
+      const h = minMax(Math.round(hue), 360);
       const s = minMax(Math.round(sat));
       const l = minMax(Math.round(lig));
       const hsl = { h, s, l };
