@@ -45,7 +45,7 @@ export function convertHsvToHsl(hsv: HSV): HSL {
       ? 0
       : ((hsvS * hsvV) / 100 / (hslL <= 100 ? hslL : 200 - hslL)) * 100;
   const l = (hslL * 5) / 10;
-  return { h, s, l };
+  return { h, s: Math.round(s), l: Math.round(l) };
 }
 /** `RGB` to `HSL` */
 export const convertRgbToHsl = (rgb: RGB): HSL => {
@@ -81,10 +81,10 @@ export const convertRgbToHsl = (rgb: RGB): HSL => {
   s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
   // Multiply l and s by 100
-  s = +(s * 100).toFixed(1);
-  l = +(l * 100).toFixed(1);
+  s = +(s * 100);
+  l = +(l * 100);
 
-  return { h, s, l };
+  return { h, s: Math.round(s), l: Math.round(l) };
 };
 
 /** Convert HSL to RGB */

@@ -3,6 +3,7 @@ import {
   convertHexToRgb,
   convertHslToRgb,
   convertHsvToHsl,
+  convertHsvToRgb,
   convertRgbToHex,
   convertRgbToHsl,
   isValidHexColor,
@@ -41,58 +42,40 @@ export const ColorPicker = ({
   const [inputHsl, setInputHsl] = useState("");
 
   useEffect(() => {
-    if (hsl) {
-      setColor(convertRgbToHex(convertHslToRgb(hsl)));
-    }
-  }, [hsl]);
-
-  useEffect(() => {
-    const rgb = convertHexToRgb(currentColor);
-    if (rgb) setHsl(convertRgbToHsl(rgb));
-    initInputs();
-  }, []);
-
-  useEffect(() => {
     if (currentColor !== inputHex) {
-      initInputs();
+      setAll(currentColor);
     }
   }, [currentColor]);
 
-  /** Initialize input texts */
-  const initInputs = () => {
+  /** Set all inputs and hsl for sub components */
+  const setAll = (hex: string) => {
+    const newRgb = convertHexToRgb(hex) ?? { r: 0, g: 0, b: 0 };
+    const newHsl = convertRgbToHsl(newRgb);
+    setHsl(newHsl);
     setInputHex(currentColor);
-    const rgb = convertHexToRgb(currentColor);
-    if (rgb) {
-      setInputRgb(Object.values(rgb).join());
-      setInputHsl(
-        Object.values(convertRgbToHsl(rgb))
-          .map(n => Math.round(n))
-          .join()
-      );
-    }
+    setInputRgb(Object.values(newRgb).join(","));
+    setInputHsl(Object.values(newHsl).join(","));
   };
 
   /** Handle Set Hue */
   const handleSetHue = (h: number) => {
-    setHsl(huSaLi => (huSaLi ? { ...huSaLi, h } : undefined));
+    setHsl(oldHsl => (oldHsl ? { ...oldHsl, h } : undefined));
   };
 
   /** Handle Set Saturation Value */
   const handleSetSaturationValue = ({ s, v }: SV) => {
-    const convertedHsl = convertHsvToHsl({ h: hsl?.h ?? 0, s, v });
+    const hsv = { h: hsl?.h ?? 0, s, v };
+    const convertedHsl = convertHsvToHsl(hsv);
     setHsl(convertedHsl);
-    setInputHsl(
-      Object.values(convertedHsl)
-        .map(n => Math.round(n))
-        .join()
-    );
+    setColor(convertRgbToHex(convertHsvToRgb(hsv)));
   };
 
   /** Manually change hex color code */
-  const handleHexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputHexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    setInputHex(value.slice(0, 7));
-    if (isValidHexColor(value)) setColor(value);
+    const hex = value.slice(0, 7);
+    setInputHex(hex);
+    if (isValidHexColor(hex)) setColor(hex);
   };
 
   /** Manually change rgb color code */
@@ -123,7 +106,7 @@ export const ColorPicker = ({
       const hsl = { h, s, l };
       const hex = convertRgbToHex(convertHslToRgb(hsl));
       if (isValidHexColor(hex)) {
-        setHsl(hsl);
+        setColor(hex);
       }
     }
   };
@@ -154,7 +137,7 @@ export const ColorPicker = ({
               type="text"
               label="tools.qrcode.input.colorPicker.hex.title"
               desc="tools.qrcode.input.colorPicker.hex.desc"
-              onChange={handleHexChange}
+              onChange={handleInputHexChange}
             />
             <Input
               name="rgb"
