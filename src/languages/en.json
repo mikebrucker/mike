@@ -14,7 +14,8 @@
     "recipes": "Recipes",
     "games": "Games",
     "qrcode": "QR Code",
-    "language": "Languages"
+    "language": "Languages",
+    "colorPick": "Color Picker"
   },
   "home": {
     "hello": "Hello World"
@@ -109,6 +110,9 @@
         "version": "Version",
         "versionDefault": "Default to lowest"
       }
+    },
+    "colorPick": {
+      "title": "Color Picker"
     }
   },
   "download": {

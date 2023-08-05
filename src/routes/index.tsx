@@ -12,6 +12,7 @@ import { Recipes } from "../pages/archive/recipes";
 import { RecipeDetail } from "../pages/archive/recipes/recipeDetail";
 import { Contact } from "../pages/contact";
 import { Home } from "../pages/home";
+import { ColorPick } from "../pages/tools/colorPick";
 import { QrCodeGenerator } from "../pages/tools/qrcode";
 
 /**	Create Redirect route to go up a level or specific path */
@@ -87,7 +88,10 @@ export const routes = addRedirectUpRouteToChildren([
       {
         path: Subheader.tools,
         element: <Outlet />,
-        children: [{ path: SubheaderTools.qrcode, element: <QrCodeGenerator /> }],
+        children: [
+          { path: SubheaderTools.qrcode, element: <QrCodeGenerator /> },
+          { path: SubheaderTools.colorPick, element: <ColorPick /> },
+        ],
       },
       ...downloads({ resume: "Brucker_Mike-Resume.pdf" }),
     ],

@@ -14,7 +14,8 @@
     "recipes": "Rezepte",
     "games": "Spielen",
     "qrcode": "QR Code",
-    "languages": "Sprachen"
+    "languages": "Sprachen",
+    "colorPick": "Farbwähler"
   },
   "home": {
     "hello": "Servus Welt"
@@ -90,6 +91,9 @@
         "version": "Version",
         "versionDefault": "Standardmäßig am niedrigsten"
       }
+    },
+    "colorPick": {
+      "title": "Farbwähler"
     }
   },
   "download": {

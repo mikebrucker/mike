@@ -147,7 +147,7 @@ export const ColorPicker = ({
               onChange={e => handleInputRgb(e.currentTarget.value)}
             />
             <Input
-              name="rgb"
+              name="hsl"
               value={inputHsl}
               type="text"
               label="tools.qrcode.input.colorPicker.hsl.title"

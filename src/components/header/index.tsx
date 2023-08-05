@@ -25,6 +25,7 @@ export enum SubheaderArchive {
 }
 export enum SubheaderTools {
   qrcode = "qrcode",
+  colorPick = "colorPick",
 }
 interface Props {
   headline: string;
