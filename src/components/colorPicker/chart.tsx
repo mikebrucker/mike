@@ -50,10 +50,7 @@ export const ColorPickerSaturationValueChart = ({
   const handleChartMouseMove = (e: React.MouseEvent<HTMLDivElement>, force?: boolean) => {
     if (chartMouseDown || force) {
       const rect = e.currentTarget.getBoundingClientRect();
-      const x = Math.min(Math.max(e.clientX - rect.left - padding, 0), chartWidth);
-      const y = Math.min(Math.max(e.clientY - rect.top - padding, 0), chartWidth);
-      setXy({ x, y });
-      setSaturationValue?.({ s: 100 * (x / chartWidth), v: 100 * ((chartWidth - y) / chartWidth) });
+      setChartSaturationValue(e.clientX - rect.left - padding, e.clientY - rect.top - padding);
     }
   };
 
@@ -68,11 +65,16 @@ export const ColorPickerSaturationValueChart = ({
     if (e.touches[0] && (chartMouseDown || force)) {
       const rect = e.currentTarget.getBoundingClientRect();
       const { clientX, clientY } = e.touches[0];
-      const x = minMax(clientX - rect.left - padding, chartWidth);
-      const y = minMax(clientY - rect.top - padding, chartWidth);
-      setXy({ x, y });
-      setSaturationValue?.({ s: 100 * (x / chartWidth), v: 100 * ((chartWidth - y) / chartWidth) });
+      setChartSaturationValue(clientX - rect.left - padding, clientY - rect.top - padding);
     }
+  };
+
+  /** Set the x,y and S, V */
+  const setChartSaturationValue = (s: number, v: number) => {
+    const x = minMax(s, chartWidth);
+    const y = minMax(v, chartWidth);
+    setXy({ x, y });
+    setSaturationValue?.({ s: 100 * (x / chartWidth), v: 100 * ((chartWidth - y) / chartWidth) });
   };
 
   const className = classNames({
