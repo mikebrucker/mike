@@ -8,7 +8,12 @@ export const ColorPick = () => {
 
   return (
     <main className="p-color-pick">
-      <ColorPicker title="COLOR_PICKER" isOpen={true} currentColor={color} setColor={setColor} />
+      <ColorPicker
+        title="tools.colorPick.title"
+        isOpen={true}
+        currentColor={color}
+        setColor={setColor}
+      />
     </main>
   );
 };
