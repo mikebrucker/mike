@@ -176,6 +176,8 @@ export const Header = observer(({ headline }: Props) => {
       dropdown: true,
       "nav-link": true,
       active: (isOpenSubheader && openSubheader === subheader) || subheaderHasActivePage(subheader),
+      "half-active":
+        isOpenSubheader && openSubheader === subheader && !subheaderHasActivePage(subheader),
     });
   const desktopSubheaderClass = classNames({
     "c-header-subheader-desktop": true,

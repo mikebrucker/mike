@@ -39,6 +39,17 @@
       transition: border-color 0.382s;
     }
 
+    &.half-active {
+      font-weight: 900;
+      border-color: orange;
+      transition: border-color 0.382s;
+
+      &:active {
+        border-color: orange;
+        transition: border-color 0.382s;
+      }
+    }
+
     @include tablet {
       font-size: 28px;
       line-height: 23px;
