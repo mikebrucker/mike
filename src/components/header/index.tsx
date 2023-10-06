@@ -5,6 +5,7 @@ import { globals } from "../../core/globals";
 import { l10n } from "../../core/l10n";
 import { classNames } from "../../helpers/helper";
 import { Language } from "../../interfaces/language";
+import { recipes } from "../../pages/archive/recipes/recipes";
 import { Phrase } from "../l10n";
 import { Languages } from "./languages";
 import { NavAccordion } from "./navAccordion";
@@ -27,6 +28,21 @@ export enum SubheaderTools {
   qrcode = "qrcode",
   colorPick = "colorPick",
 }
+enum GameList {
+  rps = "rps",
+  popups = "popups",
+}
+export const pathNames: Dictionary<string> = {
+  ...SubheaderArchive,
+  ...SubheaderTools,
+  ...Subheader,
+  ...Pages,
+  ...GameList,
+  ...Object.keys(recipes).reduce((acc, cur) => {
+    acc[cur] = recipes[cur].title;
+    return acc;
+  }, {} as Dictionary<string>),
+};
 interface Props {
   headline: string;
 }

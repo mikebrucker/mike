@@ -6,6 +6,19 @@
   "common": {
     "save": "Save"
   },
+  "document": {
+    "about": "About",
+    "contact": "Contact",
+    "archive": "Archive",
+    "tools": "Tools",
+    "recipes": "Recipes",
+    "games": "Games",
+    "qrcode": "QR Code",
+    "language": "Languages",
+    "colorPick": "Color Picker",
+    "rps": "Rock Paper Scissors",
+    "popups": "Popups"
+  },
   "nav": {
     "about": "About",
     "contact": "Contact",

@@ -6,6 +6,19 @@
   "common": {
     "save": "Speichern"
   },
+  "document": {
+    "about": "Über",
+    "contact": "Kontakt",
+    "archive": "Archiv",
+    "tools": "Tools",
+    "recipes": "Rezepte",
+    "games": "Spielen",
+    "qrcode": "QR Code",
+    "languages": "Sprachen",
+    "colorPick": "Farbwähler",
+    "rps": "Schere Stein Papier",
+    "popups": "Popups"
+  },
   "nav": {
     "about": "Über",
     "contact": "Kontakt",

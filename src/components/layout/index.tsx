@@ -2,9 +2,10 @@ import { observer } from "mobx-react";
 import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { l10n } from "../../core/l10n";
+import { booleanJoin } from "../../helpers/helper";
 import { EXISTING_LANGUAGES, Language } from "../../interfaces/language";
 import { Footer } from "../footer";
-import { Header } from "../header";
+import { Header, pathNames } from "../header";
 
 /**
  * Main app layout with `Header` and `Footer` sandwiching displayed `Route`.
@@ -16,6 +17,22 @@ export const Layout = observer(() => {
   const { language: pl } = useParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    pathname
+      .split("/")
+      .reverse()
+      .find(path => {
+        if (pathNames[path]) {
+          document.title = booleanJoin(
+            " | ",
+            "Mike Brucker",
+            l10n.getString(["document", pathNames[path]]) ?? pathNames[path]
+          );
+        }
+        return Boolean(pathNames[path]);
+      });
+  }, [pathname]);
 
   useEffect(() => {
     if (pl && ll && pl !== ll) {
