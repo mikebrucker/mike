@@ -1,6 +1,5 @@
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
-import { useOutlet } from "react-router-dom";
 import paper from "../../../assets/paper.svg";
 import rock from "../../../assets/rock.svg";
 import scissors from "../../../assets/scissors.svg";
@@ -193,11 +192,7 @@ export const RPS = () => {
     ?.map(w => padWord(w, titleWidth, titleWidth % 2))
     .map((w, i) => <DigitalLetters key={`${i}_${w}`} word={w} />);
 
-  const outlet = useOutlet();
-
-  return outlet ? (
-    outlet
-  ) : (
+  return (
     <div className="p-games-rps">
       <div className="p-games-rps-content">
         <div className="scoreboard">

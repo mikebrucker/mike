@@ -234,8 +234,42 @@
 	}
 
 	&-popups {
+		$width: 720px;
+
+		&-caption {
+			$height: 80px;
+
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 16px;
+			height: calc($height - 8px);
+			width: calc($width - 16px);
+			margin: -$height auto 0;
+			font-family: "Pixel";
+			background-color: chocolate;
+			border: ridge 8px maroon;
+			z-index: 12;
+
+			div {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+			}
+
+			button {
+				@include gel-button($active-border: inset);
+				background-color: saddlebrown;
+				border-color: saddlebrown;
+			}
+		}
+
 		img {
+			position: relative;
 			max-width: 100%;
+			width: $width;
+			z-index: 1;
 		}
 	}
 }

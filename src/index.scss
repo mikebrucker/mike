@@ -1,6 +1,21 @@
 @import "./styles/mixins";
 @import "./styles/values";
 
+@font-face {
+  font-family: "Philosopher";
+  src: url("./fonts/Philosopher-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Pixel";
+  src: url("./fonts/PressStart2P-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Syne Mono";
+  src: url("./fonts/SyneMono-Regular.ttf");
+}
+
 body {
   margin: 0;
   font-family: "Trebuchet MS", Helvetica, sans-serif;
