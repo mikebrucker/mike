@@ -101,7 +101,7 @@
           },
           "hsl": {
             "title": "c##hsl%%",
-            "desc": "CSS HSL code 360,100,100"
+            "desc": "CSS HSL code 360,100,50"
           }
         }
       },
