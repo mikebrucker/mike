@@ -19,7 +19,7 @@ export const Layout = observer(() => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    pathname
+    const hasPathName = pathname
       .split("/")
       .reverse()
       .find(path => {
@@ -32,6 +32,7 @@ export const Layout = observer(() => {
         }
         return Boolean(pathNames[path]);
       });
+    if (!hasPathName) document.title = "Mike Brucker";
   }, [pathname]);
 
   useEffect(() => {
