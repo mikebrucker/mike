@@ -74,7 +74,10 @@ export const ColorPicker = ({
     const { value } = e.currentTarget;
     const hex = value.slice(0, 7);
     setInputHex(hex);
-    if (isValidHexColor(hex)) setColor(hex);
+    if (isValidHexColor(hex)) {
+      setColor(hex);
+      setAll(hex);
+    }
   };
 
   /** Manually change rgb color code */
