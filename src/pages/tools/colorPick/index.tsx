@@ -4,15 +4,15 @@ import "./style.scss";
 
 /** Color Pick */
 export const ColorPick = () => {
-  const [color, setColor] = useState("#000000");
+  const [color, setColor] = useState({ h: 0, s: 0, v: 0 });
 
   return (
     <main className="p-color-pick">
       <ColorPicker
         title="tools.colorPick.title"
         isOpen={true}
-        currentColor={color}
-        setColor={setColor}
+        masterColor={color}
+        setMasterColor={setColor}
       />
     </main>
   );

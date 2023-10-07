@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     "arrow-parens": ["off", "always"],
     "brace-style": ["off", "off"],
+    "comma-spacing": "error",
     "eol-last": "error",
     "id-blacklist": [
       "error",
@@ -38,6 +39,7 @@ module.exports = {
     "no-param-reassign": "off",
     "no-trailing-spaces": "error",
     "no-underscore-dangle": "off",
+    "object-curly-spacing": ["error", "always"],
     "padded-blocks": ["error", "never"],
     "prefer-const": "error",
     "space-in-parens": ["off", "never"],

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { convertHexToRgb, convertHslToHsv, convertRgbToHsl, minMax } from "../../helpers/colors";
+import { minMax } from "../../helpers/colors";
 import { classNames } from "../../helpers/helper";
-import { SV } from "../../interfaces/colors";
+import { HSV, SV } from "../../interfaces/colors";
 import "./style.scss";
 
 interface Props {
   cssClasses?: string;
-  /** Hue value 0-360 */
-  hue: number;
-  currentColor: string;
+  masterColor: HSV;
   setSaturationValue?: (sv: SV) => void;
   width?: number;
 }
@@ -16,14 +14,13 @@ interface Props {
 /** Select a custom color */
 export const ColorPickerSaturationValueChart = ({
   cssClasses,
-  hue,
-  currentColor,
+  masterColor,
   setSaturationValue,
   width,
 }: Props) => {
   const padding = 16;
   const chartWidth = width || 256;
-  const backgroundColor = `hsl(${hue},100%,50%)`;
+  const backgroundColor = `hsl(${masterColor.h},100%,50%)`;
   const chartWidthStyle = { width: chartWidth, height: chartWidth };
   const chartStyle = { ...chartWidthStyle, backgroundColor };
 
@@ -32,13 +29,9 @@ export const ColorPickerSaturationValueChart = ({
 
   /** reset coordiantes on color change from outside */
   useEffect(() => {
-    const rgb = convertHexToRgb(currentColor);
-    if (rgb) {
-      const hsl = convertRgbToHsl(rgb);
-      const { s, v } = convertHslToHsv(hsl);
-      setXy({ x: chartWidth * (s / 100), y: chartWidth * ((100 - v) / 100) });
-    }
-  }, [currentColor]);
+    const { s, v } = masterColor;
+    setXy({ x: chartWidth * (s / 100), y: chartWidth * ((100 - v) / 100) });
+  }, [JSON.stringify(masterColor)]);
 
   /** Chart click */
   const handleChartMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {

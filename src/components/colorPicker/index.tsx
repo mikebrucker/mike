@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import {
   convertHexToRgb,
-  convertHslToRgb,
+  convertHslToHsv,
+  convertHsvToHsl,
   convertHsvToRgb,
   convertRgbToHex,
-  convertRgbToHsl,
+  convertRgbToHsv,
   isValidHexColor,
   minMax,
 } from "../../helpers/colors";
 import { classNames } from "../../helpers/helper";
-import { HSL, SV } from "../../interfaces/colors";
+import { HSL, HSV, SV } from "../../interfaces/colors";
 import { Input } from "../input";
 import { Phrase } from "../l10n";
 import { ColorPickerSaturationValueChart } from "./chart";
@@ -19,10 +20,10 @@ import "./style.scss";
 interface Props {
   isOpen?: boolean;
   cssClasses?: string;
-  /** Hex value rgba "#12ab34ff" */
-  currentColor: string;
   title?: string;
-  setColor: (hex: string) => void;
+  /** Hex value rgba "#12ab34ff" */
+  masterColor: HSV;
+  setMasterColor: (hsv: HSV) => void;
   close?: () => void;
 }
 
@@ -30,43 +31,44 @@ interface Props {
 export const ColorPicker = ({
   isOpen,
   cssClasses,
-  currentColor,
   title,
-  setColor,
+  masterColor,
+  setMasterColor,
   close,
 }: Props) => {
   const [hsl, setHsl] = useState<HSL>();
   const [inputHex, setInputHex] = useState("");
   const [inputRgb, setInputRgb] = useState("");
   const [inputHsl, setInputHsl] = useState("");
+  const [inputHsv, setInputHsv] = useState("");
 
   useEffect(() => {
-    if (currentColor !== inputHex) {
-      setAll(currentColor);
-    }
-  }, [currentColor]);
+    setColors(masterColor);
+  }, [JSON.stringify(masterColor)]);
 
   /** Set all inputs and hsl for sub components */
-  const setAll = (hex: string) => {
-    const newRgb = convertHexToRgb(hex) ?? { r: 0, g: 0, b: 0 };
-    const newHsl = convertRgbToHsl(newRgb);
+  const setColors = (hsv: HSV) => {
+    const newRgb = convertHsvToRgb(hsv);
+    const newHsl = convertHsvToHsl(hsv);
     setHsl(newHsl);
-    setInputHex(currentColor);
+    setInputHex(convertRgbToHex(newRgb));
     setInputRgb(Object.values(newRgb).join(","));
     setInputHsl(Object.values(newHsl).join(","));
+    setInputHsv(
+      Object.values(hsv)
+        .map(n => Math.round(n))
+        .join(",")
+    );
   };
 
   /** Handle Set Hue */
   const handleSetHue = (h: number) => {
-    if (!hsl) return;
-    const newHsl = { ...hsl, h };
-    setColor(convertRgbToHex(convertHslToRgb(newHsl)));
+    if (hsl) setMasterColor(convertHslToHsv({ ...hsl, h }));
   };
 
   /** Handle Set Saturation Value */
   const handleSetSaturationValue = ({ s, v }: SV) => {
-    const hsv = { h: hsl?.h ?? 0, s, v };
-    setColor(convertRgbToHex(convertHsvToRgb(hsv)));
+    setMasterColor({ h: hsl?.h ?? 0, s, v });
   };
 
   /** Manually change hex color code */
@@ -75,8 +77,7 @@ export const ColorPicker = ({
     const hex = value.slice(0, 7);
     setInputHex(hex);
     if (isValidHexColor(hex)) {
-      setColor(hex);
-      setAll(hex);
+      setMasterColor(convertRgbToHsv(convertHexToRgb(hex)!));
     }
   };
 
@@ -89,10 +90,7 @@ export const ColorPicker = ({
       const g = minMax(Math.round(gre));
       const b = minMax(Math.round(blu));
       const rgb = { r, g, b };
-      const hex = convertRgbToHex(rgb);
-      if (isValidHexColor(hex)) {
-        setColor(hex);
-      }
+      setMasterColor(convertRgbToHsv(rgb));
     }
   };
 
@@ -103,13 +101,22 @@ export const ColorPicker = ({
     const [hue, sat, lig] = hslString.split(",").map(x => parseInt(x));
     if ([hue, sat, lig].every(c => typeof c === "number" && !isNaN(c))) {
       const h = minMax(Math.round(hue), 360);
-      const s = minMax(Math.round(sat));
-      const l = minMax(Math.round(lig));
-      const hsl = { h, s, l };
-      const hex = convertRgbToHex(convertHslToRgb(hsl));
-      if (isValidHexColor(hex)) {
-        setColor(hex);
-      }
+      const s = minMax(Math.round(sat), 100);
+      const l = minMax(Math.round(lig), 50);
+      setMasterColor(convertHslToHsv({ h, s, l }));
+    }
+  };
+
+  /** Manually change hsl color code */
+  const handleInputHsv = (hsvString: string) => {
+    setInputHsv(hsvString);
+    if (hsvString.includes(".")) return;
+    const [hue, sat, val] = hsvString.split(",").map(x => parseInt(x));
+    if ([hue, sat, val].every(c => typeof c === "number" && !isNaN(c))) {
+      const h = minMax(Math.round(hue), 360);
+      const s = minMax(Math.round(sat), 100);
+      const v = minMax(Math.round(val), 100);
+      setMasterColor({ h, s, v });
     }
   };
 
@@ -117,19 +124,19 @@ export const ColorPicker = ({
     "c-color-picker": true,
     [cssClasses ?? ""]: Boolean(cssClasses),
   });
+  const backgroundColor = convertRgbToHex(convertHsvToRgb(masterColor));
 
-  return isOpen && currentColor ? (
+  return isOpen ? (
     <aside className={className}>
       <div className="c-color-picker-background" onClick={close} />
-      <div className="c-color-picker-content" style={{ backgroundColor: currentColor }}>
+      <div className="c-color-picker-content" style={{ backgroundColor }}>
         <div className="c-color-picker-content-container">
           <h5>
             <Phrase>{title}</Phrase>
           </h5>
           <ColorPickerSaturationValueChart
-            hue={hsl?.h ?? 0}
             setSaturationValue={handleSetSaturationValue}
-            currentColor={currentColor}
+            masterColor={masterColor}
           />
           <ColorPickerHueSlider setHue={handleSetHue} hue={hsl?.h ?? 0} />
           <section className="c-color-picker-inputs">
@@ -156,6 +163,14 @@ export const ColorPicker = ({
               label="tools.qrcode.input.colorPicker.hsl.title"
               desc="tools.qrcode.input.colorPicker.hsl.desc"
               onChange={e => handleInputHsl(e.currentTarget.value)}
+            />
+            <Input
+              name="hsv"
+              value={inputHsv}
+              type="text"
+              label="tools.qrcode.input.colorPicker.hsv.title"
+              desc="tools.qrcode.input.colorPicker.hsv.desc"
+              onChange={e => handleInputHsv(e.currentTarget.value)}
             />
           </section>
         </div>

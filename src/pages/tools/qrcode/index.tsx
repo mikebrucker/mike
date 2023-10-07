@@ -7,6 +7,7 @@ import { Input } from "../../../components/input";
 import { Phrase } from "../../../components/l10n";
 import { PopupSelecter } from "../../../components/popupSelecter";
 import { l10n } from "../../../core/l10n";
+import { convertHsvToRgb, convertRgbToHex } from "../../../helpers/colors";
 import { preventScroll } from "../../../helpers/helper";
 import "./style.scss";
 
@@ -113,6 +114,8 @@ export const QrCodeGenerator = () => {
 
   const [qrCodeDarkColor, setQrCodeDarkColor] = useState("#000000");
   const [qrCodeLightColor, setQrCodeLightColor] = useState("#ffffff");
+  const [qrCodeDarkHsvColor, setQrCodeDarkHsvColor] = useState({ h: 0, s: 0, v: 0 });
+  const [qrCodeLightHsvColor, setQrCodeLightHsvColor] = useState({ h: 0, s: 100, v: 100 });
   const [qrCodeDarkColorIsOpen, setQrCodeDarkColorIsOpen] = useState(false);
   const [qrCodeLightColorIsOpen, setQrCodeLightColorIsOpen] = useState(false);
 
@@ -129,6 +132,14 @@ export const QrCodeGenerator = () => {
     qrCodeDarkColorIsOpen,
     qrCodeLightColorIsOpen,
   ]);
+
+  useEffect(() => {
+    setQrCodeDarkColor(convertRgbToHex(convertHsvToRgb(qrCodeDarkHsvColor)));
+  }, [JSON.stringify(qrCodeDarkHsvColor)]);
+
+  useEffect(() => {
+    setQrCodeLightColor(convertRgbToHex(convertHsvToRgb(qrCodeLightHsvColor)));
+  }, [JSON.stringify(qrCodeLightHsvColor)]);
 
   useEffect(() => {
     qrCodeRenderToCanvas();
@@ -330,15 +341,15 @@ export const QrCodeGenerator = () => {
       <ColorPicker
         title="tools.qrcode.input.colorPicker.dark.title"
         isOpen={qrCodeDarkColorIsOpen}
-        currentColor={qrCodeDarkColor}
-        setColor={setQrCodeDarkColor}
+        masterColor={qrCodeDarkHsvColor}
+        setMasterColor={setQrCodeDarkHsvColor}
         close={() => setQrCodeDarkColorIsOpen(!qrCodeDarkColorIsOpen)}
       />
       <ColorPicker
         title="tools.qrcode.input.colorPicker.light.title"
         isOpen={qrCodeLightColorIsOpen}
-        currentColor={qrCodeLightColor}
-        setColor={setQrCodeLightColor}
+        masterColor={qrCodeLightHsvColor}
+        setMasterColor={setQrCodeLightHsvColor}
         close={() => setQrCodeLightColorIsOpen(!qrCodeLightColorIsOpen)}
       />
     </main>
