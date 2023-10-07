@@ -7,6 +7,9 @@ import {
   convertRgbToHex,
   convertRgbToHsv,
   isValidHexColor,
+  isValidHslColor,
+  isValidHsvColor,
+  isValidRgbColor,
   minMax,
 } from "../../helpers/colors";
 import { classNames } from "../../helpers/helper";
@@ -76,9 +79,7 @@ export const ColorPicker = ({
     const { value } = e.currentTarget;
     const hex = value.slice(0, 7);
     setInputHex(hex);
-    if (isValidHexColor(hex)) {
-      setMasterColor(convertRgbToHsv(convertHexToRgb(hex)!));
-    }
+    if (isValidHexColor(hex)) setMasterColor(convertRgbToHsv(convertHexToRgb(hex)!));
   };
 
   /** Manually change rgb color code */
@@ -89,8 +90,7 @@ export const ColorPicker = ({
       const r = minMax(Math.round(red));
       const g = minMax(Math.round(gre));
       const b = minMax(Math.round(blu));
-      const rgb = { r, g, b };
-      setMasterColor(convertRgbToHsv(rgb));
+      if (isValidRgbColor({ r: red, g: gre, b: blu })) setMasterColor(convertRgbToHsv({ r, g, b }));
     }
   };
 
@@ -103,7 +103,7 @@ export const ColorPicker = ({
       const h = minMax(Math.round(hue), 360);
       const s = minMax(Math.round(sat), 100);
       const l = minMax(Math.round(lig), 50);
-      setMasterColor(convertHslToHsv({ h, s, l }));
+      if (isValidHslColor({ h: hue, s: sat, l: lig })) setMasterColor(convertHslToHsv({ h, s, l }));
     }
   };
 
@@ -116,7 +116,7 @@ export const ColorPicker = ({
       const h = minMax(Math.round(hue), 360);
       const s = minMax(Math.round(sat), 100);
       const v = minMax(Math.round(val), 100);
-      setMasterColor({ h, s, v });
+      if (isValidHsvColor({ h: hue, s: sat, v: val })) setMasterColor({ h, s, v });
     }
   };
 

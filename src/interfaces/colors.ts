@@ -1,3 +1,4 @@
+/** { r: 0-255, g: 0-255, b: 0-255 } */
 export interface RGB {
   /** Red 0-255 */
   r: number;
@@ -7,6 +8,7 @@ export interface RGB {
   b: number;
 }
 
+/** { h: 0-360, s: 0-100, l: 0-50 } */
 export interface HSL {
   /** Hue 0-360 */
   h: number;
@@ -15,8 +17,10 @@ export interface HSL {
   /** Light 0-100 */
   l: number;
 }
+/** { s: 0-100, l: 0-50 } */
 export type SL = Omit<HSL, "h">;
 
+/** { h: 0-360, s: 0-100, v: 0-100 } */
 export interface HSV {
   /** Hue 0-360 */
   h: number;
@@ -25,6 +29,7 @@ export interface HSV {
   /** Light 0-1 */
   v: number;
 }
+/** { s: 0-100, v: 0-100 } */
 export type SV = Omit<HSV, "h">;
 
 export enum cssColorNames {

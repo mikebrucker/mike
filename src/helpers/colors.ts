@@ -120,18 +120,6 @@ export const convertHslToRgb = (hsl: HSL): RGB => {
   return { r: Math.floor(r * 255), g: Math.floor(g * 255), b: Math.floor(b * 255) };
 };
 
-/** Validate CSS hex color for rgb `#12ab34` or rgba `#12ab34ff` */
-export const isValidHexColor = (color: string, rgba?: boolean): boolean => {
-  return new RegExp(`^#([0-9a-fA-F]{${!rgba ? 6 : 8}})$`).test(color);
-};
-
-/**
- * Force Number in between min and max
- * @param max default 255
- * @param min default 0
- */
-export const minMax = (n: number, max = 255, min = 0): number => Math.min(Math.max(n, min), max);
-
 /** Convert RGB values to Hex */
 export const convertRgbToHex = (rgb: RGB): string => {
   const { r, g, b } = rgb;
@@ -153,3 +141,30 @@ export const convertHexToRgb = (hex: string): RGB | undefined => {
     b: minMax(parseInt(hex.slice(5, 7), 16)),
   };
 };
+
+/** Validate CSS hex color for rgb `#12ab34` or rgba `#12ab34ff` */
+export const isValidHexColor = (color: string, rgba?: boolean): boolean => {
+  return new RegExp(`^#([0-9a-fA-F]{${!rgba ? 6 : 8}})$`).test(color);
+};
+
+/** Validate CSS RGB color: each 0-255 */
+export const isValidRgbColor = (rgb: RGB): boolean => {
+  return Object.values(rgb).every(v => v <= 255 && v >= 0);
+};
+
+/** Validate CSS HSL color: h: 0-360, s: 0-100, l: 0-50 */
+export const isValidHslColor = ({ h, s, l }: HSL): boolean => {
+  return h >= 0 && h <= 360 && s >= 0 && s <= 100 && l >= 0 && l <= 50;
+};
+
+/** Validate CSS HSL color: h: 0-360, s: 0-100, l: 0-50 */
+export const isValidHsvColor = ({ h, s, v }: HSV): boolean => {
+  return h >= 0 && h <= 360 && s >= 0 && s <= 100 && v >= 0 && v <= 100;
+};
+
+/**
+ * Force Number in between min and max
+ * @param max default 255
+ * @param min default 0
+ */
+export const minMax = (n: number, max = 255, min = 0): number => Math.min(Math.max(n, min), max);
