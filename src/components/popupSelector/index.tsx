@@ -45,13 +45,13 @@ export const PopupSelector = ({
               }
               key={s}
               className={optionClass}
-              onClick={() => (!useCssBackground ? select?.(s) : select?.(selections[s]))}
+              onClick={() => select?.(s)}
             >
               {!useCssBackground
                 ? selections[s]
                 : s
                     .split("")
-                    .map((c, i) => (i !== 0 && c !== c.toUpperCase() ? c : ` ${c}`))
+                    .map((c, i) => (i === 0 || c !== c.toUpperCase() ? c : ` ${c}`))
                     .join("")}
             </option>
           );

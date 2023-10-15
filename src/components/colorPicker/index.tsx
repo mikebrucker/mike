@@ -13,7 +13,7 @@ import {
   minMax,
 } from "../../helpers/colors";
 import { classNames } from "../../helpers/helper";
-import { CssColorNames, HSL, HSV, SV } from "../../interfaces/colors";
+import { CssColorName, CssColorNames, HSL, HSV, SV } from "../../interfaces/colors";
 import { Input } from "../input";
 import { Phrase } from "../l10n";
 import { PopupSelector } from "../popupSelector";
@@ -45,7 +45,7 @@ export const ColorPicker = ({
   const [inputRgb, setInputRgb] = useState("");
   const [inputHsl, setInputHsl] = useState("");
   const [inputHsv, setInputHsv] = useState("");
-  const [inputCssColorNameHex, setInputCssColorNameHex] = useState("");
+  const [inputCssColorName, setInputCssColorName] = useState<CssColorName>("");
 
   const [cssSelectorsOpen, setCssSelectorsOpen] = useState(false);
 
@@ -126,10 +126,13 @@ export const ColorPicker = ({
   };
 
   /** Use standard css named colors */
-  const selectCssColorNameHex = (colorNameHex: string) => {
-    setMasterColor(convertRgbToHsv(convertHexToRgb(colorNameHex)!));
-    setInputHex(colorNameHex);
-    setInputCssColorNameHex(colorNameHex);
+  const selectCssColorName = (colorName: CssColorName) => {
+    setInputCssColorName(colorName);
+    const hex = CssColorNames[colorName as keyof typeof CssColorNames];
+    if (hex) {
+      setMasterColor(convertRgbToHsv(convertHexToRgb(hex)!));
+      setInputHex(hex);
+    }
     setCssSelectorsOpen(false);
   };
 
@@ -187,7 +190,10 @@ export const ColorPicker = ({
             />
             <Input
               name="cssColor"
-              value={inputCssColorNameHex}
+              value={inputCssColorName
+                .split("")
+                .map((c, i) => (i === 0 || c !== c.toUpperCase() ? c : ` ${c}`))
+                .join("")}
               type="text"
               label="tools.qrcode.input.colorPicker.cssColor.title"
               desc="tools.qrcode.input.colorPicker.cssColor.desc"
@@ -200,8 +206,8 @@ export const ColorPicker = ({
         cssClasses="c-color-picker-css-selector"
         isOpen={cssSelectorsOpen}
         selections={CssColorNames}
-        selected={inputCssColorNameHex}
-        select={hex => selectCssColorNameHex(hex)}
+        selected={inputCssColorName}
+        select={key => selectCssColorName(key as CssColorName)}
         useCssBackground={true}
         close={() => setCssSelectorsOpen(false)}
       />
