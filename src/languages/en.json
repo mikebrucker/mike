@@ -119,6 +119,10 @@
           "hsv": {
             "title": "c##hsv%%",
             "desc": "CSS HSV code 360,100,100"
+          },
+          "cssColor": {
+            "title": "c##cssColorName%%",
+            "desc": "CSS Color Name"
           }
         }
       },

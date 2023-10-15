@@ -27,10 +27,10 @@
 		width: 100%;
 		max-width: $bp-mobile;
 		@include gel-button;
+		@include scrollbar;
 		padding: 16px 16px 18px;
 		margin: 0;
 		overflow-y: auto;
-		@include scrollbar;
 		max-height: 100%;
 
 		&-container {

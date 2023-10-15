@@ -5,7 +5,7 @@ import { ColorPicker } from "../../../components/colorPicker";
 import { ColorPickerToggle } from "../../../components/colorPicker/toggle";
 import { Input } from "../../../components/input";
 import { Phrase } from "../../../components/l10n";
-import { PopupSelecter } from "../../../components/popupSelecter";
+import { PopupSelector } from "../../../components/popupSelector";
 import { l10n } from "../../../core/l10n";
 import { convertHsvToRgb, convertRgbToHex } from "../../../helpers/colors";
 import { preventScroll } from "../../../helpers/helper";
@@ -47,7 +47,7 @@ const PopupErrorCorrectionLevel = observer(
       {} as Partial<Dictionary<string, QrCodeErrorCorrectionLevel>>
     );
     return (
-      <PopupSelecter
+      <PopupSelector
         selections={dictErrorCorrectionLevel}
         selected={inputErrorCorrectionLevel}
         isOpen={popupIsOpenErrorCorrectionLevel}
@@ -325,7 +325,7 @@ export const QrCodeGenerator = () => {
         <canvas ref={ref} />
       </section>
 
-      <PopupSelecter
+      <PopupSelector
         selections={QrCodeFileType}
         selected={fileType}
         select={handleInputFileType}

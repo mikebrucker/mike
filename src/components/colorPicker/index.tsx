@@ -13,9 +13,10 @@ import {
   minMax,
 } from "../../helpers/colors";
 import { classNames } from "../../helpers/helper";
-import { HSL, HSV, SV } from "../../interfaces/colors";
+import { CssColorNames, HSL, HSV, SV } from "../../interfaces/colors";
 import { Input } from "../input";
 import { Phrase } from "../l10n";
+import { PopupSelector } from "../popupSelector";
 import { ColorPickerSaturationValueChart } from "./chart";
 import { ColorPickerHueSlider } from "./hueSlider";
 import "./style.scss";
@@ -44,11 +45,15 @@ export const ColorPicker = ({
   const [inputRgb, setInputRgb] = useState("");
   const [inputHsl, setInputHsl] = useState("");
   const [inputHsv, setInputHsv] = useState("");
+  const [inputCssColorNameHex, setInputCssColorNameHex] = useState("");
+
+  const [cssSelectorsOpen, setCssSelectorsOpen] = useState(false);
 
   useEffect(() => {
     setColors(masterColor);
   }, [JSON.stringify(masterColor)]);
 
+  // TODO set colors in a different way as css color names convert slightly off
   /** Set all inputs and hsl for sub components */
   const setColors = (hsv: HSV) => {
     const newRgb = convertHsvToRgb(hsv);
@@ -120,6 +125,14 @@ export const ColorPicker = ({
     }
   };
 
+  /** Use standard css named colors */
+  const selectCssColorNameHex = (colorNameHex: string) => {
+    setMasterColor(convertRgbToHsv(convertHexToRgb(colorNameHex)!));
+    setInputHex(colorNameHex);
+    setInputCssColorNameHex(colorNameHex);
+    setCssSelectorsOpen(false);
+  };
+
   const className = classNames({
     "c-color-picker": true,
     [cssClasses ?? ""]: Boolean(cssClasses),
@@ -172,9 +185,26 @@ export const ColorPicker = ({
               desc="tools.qrcode.input.colorPicker.hsv.desc"
               onChange={e => handleInputHsv(e.currentTarget.value)}
             />
+            <Input
+              name="cssColor"
+              value={inputCssColorNameHex}
+              type="text"
+              label="tools.qrcode.input.colorPicker.cssColor.title"
+              desc="tools.qrcode.input.colorPicker.cssColor.desc"
+              onClick={() => setCssSelectorsOpen(!cssSelectorsOpen)}
+            />
           </section>
         </div>
       </div>
+      <PopupSelector
+        cssClasses="c-color-picker-css-selector"
+        isOpen={cssSelectorsOpen}
+        selections={CssColorNames}
+        selected={inputCssColorNameHex}
+        select={hex => selectCssColorNameHex(hex)}
+        useCssBackground={true}
+        close={() => setCssSelectorsOpen(false)}
+      />
     </aside>
   ) : null;
 };
